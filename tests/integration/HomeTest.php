@@ -11,4 +11,24 @@ class HomeTest extends TestCase
         $this->visit('/')
              ->see('Little URL');
     }
+
+    public function testMainFormDisplaysNewLinkAfterSubmitted()
+    {
+        $this->visit('/')
+            ->see('Little URL')
+            ->type('http://google.com', 'url')
+            ->press('Make Little')
+            ->seePageIs('/')
+            ->see('URL has been made little!');
+    }
+
+    public function testMainFormCreatesUrlInDatabase()
+    {
+        $this->visit('/')
+            ->see('Little URL')
+            ->type('http://google.com', 'url')
+            ->press('Make Little')
+            ->seePageIs('/')
+            ->see('URL has been made little!');
+    }
 }
