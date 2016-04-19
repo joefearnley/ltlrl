@@ -19,7 +19,7 @@ class UrlController extends Controller
             'key' => '123414124124124',
             'user_id' => Auth::check() ? Auth::id() : null
         ]);
-        
+
         return redirect('/')->withUrl($url);
     }
 }

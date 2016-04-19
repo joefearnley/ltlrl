@@ -3,6 +3,14 @@
 @section('content')
     <div class="content">
         <div class="container content-page">
+
+            <?php
+                echo '<pre>';
+                var_dump($errors->has());
+                echo '</pre>';
+
+            ?>
+
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>
@@ -27,7 +35,7 @@
                                 <div class="input-group input-group-lg">
                                     <input type="text" name="url" id="url" class="form-control input-lg" placeholder="Enter URL">
                                     <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-default">Make Little</button>
+                                        <button type="submit" class="btn btn-default">Make it Little</button>
                                     </span>
                                 </div>
                             </form>
@@ -36,13 +44,13 @@
                 </div>
             </div>
 
-            @if ($url)
+            @if (!empty($url))
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <p>URL has been made little! - http://lttlrl.com/{{ $url->key }}</p>
                 </div>
             </div>
-            @endif;
+            @endif
         </div>
     </div>
 @endsection
