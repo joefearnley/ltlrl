@@ -20,18 +20,28 @@ class HomeTest extends TestCase
             ->see('Little URL')
             ->press('Make it Little')
             ->seePageIs('/')
-            ->see('');
+            ->see('The url field is required');
     }
 
-//    public function test_main_form_displays_new_link_after_submitted()
-//    {
-//        $this->visit('/')
-//            ->see('Little URL')
-//            ->type('http://google.com', 'url')
-//            ->press('Make it Little')
-//            ->seePageIs('/')
-//            ->see('URL has been made little!');
-//    }
+    public function test_main_form_requires_valid_url()
+    {
+        $this->visit('/')
+            ->see('Little URL')
+            ->type('sdfasdfs', 'url')
+            ->press('Make it Little')
+            ->seePageIs('/')
+            ->see('The url format is invalid');
+    }
+
+    public function test_main_form_displays_new_link_after_submitted()
+    {
+        $this->visit('/')
+            ->see('Little URL')
+            ->type('http://google.com', 'url')
+            ->press('Make it Little')
+            ->seePageIs('/')
+            ->see('URL has been made little!');
+    }
 
 //    public function test_main_Form_creates_url_in_database()
 //    {

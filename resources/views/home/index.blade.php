@@ -3,14 +3,6 @@
 @section('content')
     <div class="content">
         <div class="container content-page">
-
-            <?php
-                echo '<pre>';
-                var_dump($errors->has());
-                echo '</pre>';
-
-            ?>
-
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>
@@ -30,8 +22,8 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="{{ url('url/create') }}" method="post">
-                                <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
+                            <form action="url/create" method="post">
+                                {!! csrf_field() !!}
                                 <div class="input-group input-group-lg">
                                     <input type="text" name="url" id="url" class="form-control input-lg" placeholder="Enter URL">
                                     <span class="input-group-btn">
@@ -44,10 +36,10 @@
                 </div>
             </div>
 
-            @if (!empty($url))
-            <div class="row">
+            @if (session('url'))
+            <div class="row result">
                 <div class="col-md-8 col-md-offset-2">
-                    <p>URL has been made little! - http://lttlrl.com/{{ $url->key }}</p>
+                    <h4>URL has been made little! - <strong>{{ session('url') }}</strong></h4>
                 </div>
             </div>
             @endif
