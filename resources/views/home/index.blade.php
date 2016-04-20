@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
     <div class="content">
@@ -36,10 +36,10 @@
                 </div>
             </div>
 
-            @if (session('url'))
+            @if (session('newUrl'))
             <div class="row result">
                 <div class="col-md-8 col-md-offset-2">
-                    <h4>URL has been made little! - <strong>{{ session('url') }}</strong></h4>
+                    <h4>URL has been made little! - <strong>{{ session('newUrl') }}</strong></h4>
                 </div>
             </div>
             @endif

@@ -43,13 +43,14 @@ class HomeTest extends TestCase
             ->see('URL has been made little!');
     }
 
-//    public function test_main_Form_creates_url_in_database()
-//    {
-//        $this->visit('/')
-//            ->see('Little URL')
-//            ->type('http://google.com', 'url')
-//            ->press('Make Little')
-//            ->seePageIs('/')
-//            ->see('URL has been made little!');
-//    }
+    public function test_main_Form_creates_url_in_database()
+    {
+        $this->visit('/')
+            ->see('Little URL')
+            ->type('http://yahoo.com', 'url')
+            ->press('Make it Little')
+            ->seePageIs('/')
+            ->see('URL has been made little!')
+            ->seeInDatabase('urls', ['url' => 'http://yahoo.com']); ;
+    }
 }
