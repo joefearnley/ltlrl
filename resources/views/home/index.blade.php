@@ -25,7 +25,7 @@
                             <form action="url/create" method="post">
                                 {!! csrf_field() !!}
                                 <div class="input-group input-group-lg">
-                                    <input type="text" name="url" id="url" class="form-control input-lg" placeholder="Enter URL">
+                                    <input type="text" name="url" id="url" class="form-control input-lg" placeholder="Enter Url and ...">
                                     <span class="input-group-btn">
                                         <button type="submit" class="btn btn-default">Make it Little</button>
                                     </span>
