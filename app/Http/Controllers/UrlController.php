@@ -20,6 +20,6 @@ class UrlController extends Controller
             'user_id' => Auth::check() ? Auth::id() : null
         ]);
 
-        return redirect('/')->with('url',  $url->link());
+        return redirect('/')->with('newUrl',  $url->link());
     }
 }

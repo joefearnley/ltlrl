@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Url;
 
 class HomeController extends Controller
 {
@@ -15,5 +15,12 @@ class HomeController extends Controller
     public function index()
     {
         return view('home.index');
+    }
+
+    public function redirect($key)
+    {
+        $url = Url::where('key', $key)->first();
+        
+        return redirect()->away($url->url);
     }
 }

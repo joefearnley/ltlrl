@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Url;
 
 class HomeTest extends TestCase
 {
@@ -43,7 +44,7 @@ class HomeTest extends TestCase
             ->see('URL has been made little!');
     }
 
-    public function test_main_Form_creates_url_in_database()
+    public function test_main_form_creates_url_in_database()
     {
         $this->visit('/')
             ->see('Little URL')
@@ -51,6 +52,36 @@ class HomeTest extends TestCase
             ->press('Make it Little')
             ->seePageIs('/')
             ->see('URL has been made little!')
-            ->seeInDatabase('urls', ['url' => 'http://yahoo.com']); ;
+            ->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
+    }
+
+    public function test_user_id_is_stored_in_database_when_user_is_logged_in()
+    {
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user)
+            ->visit('/')
+            ->see('Little URL')
+            ->type('http://yahoo.com', 'url')
+            ->press('Make it Little')
+            ->seePageIs('/')
+            ->see('URL has been made little!')
+            ->seeInDatabase('urls', [
+                'url' => 'http://yahoo.com',
+                'user_id' => $user->id
+            ]);
+    }
+
+    public function test_little_url_redirect_to_correct_url()
+    {
+        $key = '54kkjh';
+
+        factory(App\Url::class)->create([
+            'url' => 'http://google.com',
+            'key' => $key
+        ]);
+
+        $this->visit('/' . $key)
+            ->see('Google');
     }
 }
