@@ -84,4 +84,10 @@ class HomeTest extends TestCase
         $this->visit('/' . $key)
             ->see('Google');
     }
+
+    public function test_little_url_redirect_to_home_when_url_is_not_found()
+    {
+        $this->visit('/12458')
+            ->see('Make it Little');
+    }
 }

@@ -19,8 +19,8 @@ class HomeController extends Controller
 
     public function redirect($key)
     {
-        $url = Url::where('key', $key)->first();
-        
+        $url = Url::where('key', $key)->firstOrFail();
+
         return redirect()->away($url->url);
     }
 }
