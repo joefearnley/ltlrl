@@ -1,9 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Url;
 
 class HomeTest extends TestCase
 {
@@ -85,9 +82,10 @@ class HomeTest extends TestCase
             ->see('Google');
     }
 
-    public function test_little_url_redirect_to_home_when_url_is_not_found()
+    public function test_user_sees_404_when_url_is_not_found()
     {
-        $this->visit('/12458')
-            ->see('Make it Little');
+        $response = $this->call('GET', '/2r23f23f32');
+
+        $this->assertEquals(404, $response->status());
     }
 }

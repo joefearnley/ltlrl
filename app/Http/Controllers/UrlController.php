@@ -8,6 +8,14 @@ use App\Url;
 
 class UrlController extends Controller
 {
+    private $randomLibGenerator;
+    private $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    public function __construct(\RandomLib\Factory $factory)
+    {
+        $this->randomLibGenerator = $factory->getMediumStrengthGenerator();
+    }
+
     public function create(Request $request)
     {
         $this->validate($request, [
@@ -16,7 +24,7 @@ class UrlController extends Controller
 
         $url = URL::create([
             'url' => $request->get('url'),
-            'key' => '123414124124124',
+            'key' => $this->randomLibGenerator->generateString(6, $this->characters),
             'user_id' => Auth::check() ? Auth::id() : null
         ]);
 
