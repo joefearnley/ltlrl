@@ -21,6 +21,9 @@ class HomeController extends Controller
     {
         $url = Url::where('key', $key)->firstOrFail();
 
+        $url->clicks++;
+        $url->save();
+
         return redirect()->away($url->url);
     }
 }

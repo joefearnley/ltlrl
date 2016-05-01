@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Url;
 
 class HomeTest extends TestCase
 {
@@ -80,6 +81,20 @@ class HomeTest extends TestCase
 
         $this->visit('/' . $key)
             ->see('Google');
+    }
+
+    public function test_clicks_is_increased_when_an_url_is_hit()
+    {
+        $url = factory(App\Url::class)->create([
+            'url' => 'http://google.com',
+            'key' => '54kkjh'
+        ]);
+
+        $this->visit('/54kkjh');
+
+        $url = Url::find($url->id);
+
+        $this->assertEquals(1, $url->clicks);
     }
 
     public function test_user_sees_404_when_url_is_not_found()

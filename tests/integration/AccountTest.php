@@ -18,7 +18,8 @@ class AccountTest extends TestCase
 
         $this->actingAs($user)
             ->visit('/account/dashboard')
-             ->see('Account');
+             ->see('Account Overview')
+            ->see('Settings');
     }
 
 }
