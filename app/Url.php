@@ -14,4 +14,9 @@ class Url extends Model
     {
         return config('app.url') . '/' . $this->key;
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
