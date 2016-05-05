@@ -39,6 +39,7 @@
 
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
     <script>
         Vue.component('urls', {
             template: '#urls-template',
@@ -52,9 +53,9 @@
             },
             methods: {
                 fetchUrlList: function() {
-                    $.getJSON('/api/account/urls', function(urls) {
+                    this.$http.get('/api/account/urls', function(urls) {
                         this.list = urls;
-                    }.bind(this));
+                    });
                 },
                 deleteUrl: function(url) {
                     this.list.$remove(url);
