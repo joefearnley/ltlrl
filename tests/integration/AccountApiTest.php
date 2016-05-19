@@ -27,8 +27,11 @@ class AccountApiTest extends TestCase
             ->seeJson()
             ->seeJsonContains([
                 'url' => $url1->url,
+                'link' => $url1->link(),
                 'url' => $url2->url,
+                'link' => $url2->link(),
                 'url' => $url3->url,
+                'link' => $url3->link(),
                 'user_id' => "$user->id"
             ]);
     }

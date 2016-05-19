@@ -20,6 +20,7 @@
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <strong>Url:</strong> @{{ url.url }}<br>
+                                        <strong>Little Url:</strong> @{{ url.link }}<br>
                                         <strong>Clicks:</strong> @{{ url.clicks }} <br>
                                     </div>
                                     <div class="col-sm-4">
