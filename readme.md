@@ -1,3 +1,5 @@
-# lttlrl
+# ltlrl
 
-lttlrl is short for "little url". It is a url shortener.
+ltlrl is short for "little url". It is a url shortener.
+
+Check it out - http://ltlrl.pw
