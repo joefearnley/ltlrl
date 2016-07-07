@@ -23,8 +23,28 @@
                                         <strong>Little Url:</strong> @{{ url.link }}<br>
                                         <strong>Clicks:</strong> @{{ url.clicks }} <br>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <button class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</button>
+                                    <div class="col-sm-4 text-right">
+                                        <button class="btn btn-primary" @click="deleteUrl(url)"><i class="fa fa-pencil"></i> Edit</button>
+                                        <button class="btn btn-danger" @click="deleteUrl(url)"><i class="fa fa-trash"></i> Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template id="edit-template">
+                    <div>
+                        <h2 class="sub-header">Urls</h2>
+                        <div class="list-group">
+                            <div class="list-group-item" v-for="url in list">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong>Url:</strong> @{{ url.url }}<br>
+                                        <strong>Little Url:</strong> @{{ url.link }}<br>
+                                        <strong>Clicks:</strong> @{{ url.clicks }} <br>
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <button class="btn btn-primary" @click="deleteUrl(url)"><i class="fa fa-pencil"></i> Edit</button>
                                         <button class="btn btn-danger" @click="deleteUrl(url)"><i class="fa fa-trash"></i> Delete</button>
                                     </div>
                                 </div>
@@ -60,6 +80,9 @@
                 },
                 deleteUrl: function(url) {
                     this.list.$remove(url);
+                },
+                openEditModal: function(id) {
+
                 }
             }
         });
