@@ -23,11 +23,30 @@ class UrlController extends Controller
         ]);
 
         $url = URL::create([
-            'url' => $request->get('url'),
+            'url' => $request->input('url'),
             'key' => $this->randomLibGenerator->generateString(6, $this->characters),
             'user_id' => Auth::check() ? Auth::id() : null
         ]);
 
-        return redirect('/')->with('newUrl',  $url->link());
+        return response()->json([
+            'success' => true,
+            'url' => $url
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'url' => 'required|url'
+        ]);
+
+        $url = Url::find($request->input('id'));
+        $url->url = $request->input('url');
+        $url->save();
+
+        return response()->json([
+            'success' => true,
+            'url' => $url
+        ]);
     }
 }

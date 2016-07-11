@@ -24,74 +24,103 @@
                                         <strong>Clicks:</strong> @{{ url.clicks }} <br>
                                     </div>
                                     <div class="col-sm-4 text-right">
-                                        <button class="btn btn-primary" @click="deleteUrl(url)"><i class="fa fa-pencil"></i> Edit</button>
-                                        <button class="btn btn-danger" @click="deleteUrl(url)"><i class="fa fa-trash"></i> Delete</button>
+                                        <button class="btn btn-primary" id="edit-modal"><i class="fa fa-pencil"></i> Edit</button>
+                                        <button class="btn btn-danger" @click="deleteUrl(id)"><i class="fa fa-trash"></i> Delete</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </template>
-                <template id="edit-template">
-                    <div>
-                        <h2 class="sub-header">Urls</h2>
-                        <div class="list-group">
-                            <div class="list-group-item" v-for="url in list">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <strong>Url:</strong> @{{ url.url }}<br>
-                                        <strong>Little Url:</strong> @{{ url.link }}<br>
-                                        <strong>Clicks:</strong> @{{ url.clicks }} <br>
+                <template id="urls-template">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">Edit Url</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Url:</label>
+                                        <input type="text" class="form-control" id="url" value="">
                                     </div>
-                                    <div class="col-sm-4 text-right">
-                                        <button class="btn btn-primary" @click="deleteUrl(url)"><i class="fa fa-pencil"></i> Edit</button>
-                                        <button class="btn btn-danger" @click="deleteUrl(url)"><i class="fa fa-trash"></i> Delete</button>
-                                    </div>
-                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" id="save-url" class="btn btn-primary"><i class="fa fa-btn fa-save"></i> Save</button>
                             </div>
                         </div>
                     </div>
                 </template>
+
+                <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog">
+                </div>
             </div>
         </div>
     </div>
 @endsection
 
-
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script> --}}
     <script>
-        Vue.component('urls', {
-            template: '#urls-template',
-            data: function() {
-                return {
-                    list: []
-                }
-            },
-            created: function() {
-                this.fetchUrlList();
-            },
-            methods: {
-                fetchUrlList: function() {
-                    this.$http.get('/api/account/urls', function(urls) {
-                        this.list = urls;
-                    });
-                },
-                deleteUrl: function(url) {
-                    this.list.$remove(url);
-                },
-                openEditModal: function(id) {
 
-                }
+        var urlList = {
+            init: function() {
+                this.bindEvents();
+            },
+            bindEvents: function() {
+                $('#edit-url').click(this.showEditModal);
+                $('#save-url').click(this.showEditModal);
+                $('#deletel-url').click(this.showDeleteConfirmation);
+            },
+            showEditModal: function() {
+                $('#edit-modal').modal('show');
+            },
+            saveUrl: function() {
+            },
+            showDeleteConfirmation: function() {
+            },
+            deleteUrl: function() {
             }
+        }
+
+        $(function() {
+            urlList.init();
         });
 
-        new Vue({
-            el: '#app',
-            data: {
-                message: 'Hi Joe'
-            }
-        });
+        // Vue.component('urls', {
+        //     template: '#urls-template',
+        //     data: function() {
+        //         return {
+        //             list: []
+        //         }
+        //     },
+        //     created: function() {
+        //         this.fetchUrlList();
+        //     },
+        //     methods: {
+        //         fetchUrlList: function() {
+        //             this.$http.get('/api/account/urls', function(urls) {
+        //                 this.list = urls;
+        //             });
+        //         },
+        //         deleteUrl: function(url) {
+        //             this.list.$remove(url);
+        //         },
+        //         openEditModal: function(id) {
+        //             $('#edit-modal').modal('show');
+        //         }
+        //     }
+        // });
+        //
+        // new Vue({
+        //     el: '#app',
+        //     data: {
+        //         message: 'Hi Joe'
+        //     }
+        // });
     </script>
 @endsection
