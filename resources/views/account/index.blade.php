@@ -76,6 +76,7 @@
                 $('#save-url').click(this.showEditModal);
                 $('#deletel-url').click(this.showDeleteConfirmation);
             },
+
             showEditModal: function() {
                 $('#edit-modal').modal('show');
             },

@@ -52,7 +52,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <h4>
                     URL has been made little! - <strong>@{{ link }}</strong>
-                    <button id="copy-url" class="btn btn-success margin-left">
+                    <button id="copy-url" class="btn btn-success margin-left" data-link="@{{ link }}">
                         <i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard
                     </button>
                 </h4>
@@ -67,7 +67,23 @@
             },
             bindEvents: function() {
                 $(document).on('click', '#submit-form', this.submitForm);
-                $(document).on('click', '#copy-url', this.copyUrl);
+
+                var clipboard = new Clipboard('#copy-url', {
+                    text: function (trigger) {
+                        return $(trigger).data('link');
+                    }
+                });
+
+                clipboard.on('success', function(e) {
+                    e.clearSelection();
+                    $('#copy-url').notify('Success!', {
+                        className: 'success',
+                        position: 'right',
+                        autoHideDelay: 2000,
+                        arrowShow: false,
+                        gap: 10
+                    });
+                });
             },
             submitForm: function(e) {
                 e.preventDefault();
@@ -80,7 +96,7 @@
                 var data = $('#url-form').serialize();
                 $.post('url/create', data)
                     .success(function(response) {
-                        self.renderResponse('#response-message-template', '#response-message', response.url)
+                        self.renderResponse('#response-message-template', '#response-message', response.url);
                     }, 'json')
                     .error(function(response) {
                         self.showError(response.responseJSON.url[0]);
@@ -107,9 +123,6 @@
                 $formButton.closest('.form-group').removeClass('has-error');
                 $formButton.removeClass('btn-danger');
                 $('#url-error-message').text('');
-            },
-            copyUrl: function() {
-
             }
         };
 

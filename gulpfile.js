@@ -15,7 +15,9 @@ elixir(function(mix) {
         'jquery.validate.min.js',
         'mustache.min.js',
         'spin.min.js',
-        'ladda.min.js'
+        'ladda.min.js',
+        'clipboard.min.js',
+        'notify.js'
     ], 'public/js/app.js');
 
     mix.phpUnit();
