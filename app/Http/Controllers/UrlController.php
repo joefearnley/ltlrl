@@ -56,4 +56,13 @@ class UrlController extends Controller
             'url' => $url
         ]);
     }
+
+    public function delete($id)
+    {
+        Url::destroy($id);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
 }

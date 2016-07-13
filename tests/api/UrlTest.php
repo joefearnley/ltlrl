@@ -48,6 +48,63 @@ class UrlTest extends TestCase
         ]);
     }
 
+
+        public function test_create_url_with_invalid_url_returns_an_error()
+        {
+            $url = factory(App\Url::class)->create([
+                'url' => 'http://yahoo.com',
+                'user_id' => 1
+            ]);
+
+            $this->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
+
+            $postData = [
+                'id' => $url->id,
+                'url' => '//test.com/test'
+            ];
+
+            $this->json('POST', '/url/create', $postData)
+                ->see('The url format is invalid.');
+        }
+
+        public function test_create_url_with_no_url_returns_an_error()
+        {
+            $url = factory(App\Url::class)->create([
+                'url' => 'http://yahoo.com',
+                'user_id' => 1
+            ]);
+
+            $postData = [
+                'id' => $url->id,
+                'url' => ''
+            ];
+
+            $this->json('POST', '/url/create', $postData)
+                ->see('The url field is required.');
+        }
+
+    public function test_update_url()
+    {
+        $url = factory(App\Url::class)->create([
+            'url' => 'http://yahoo.com',
+            'user_id' => 1
+        ]);
+
+        $this->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
+
+        $postData = [
+            'id' => $url->id,
+            'url' => 'http://test.com/test'
+        ];
+
+        $this->json('POST', '/url/update', $postData)
+            ->seeJson([
+                'success' => true
+            ]);
+
+        $this->seeInDatabase('urls', ['url' => 'http://test.com/test']);
+    }
+
     public function test_update_url_with_invalid_url_returns_an_error()
     {
         $url = factory(App\Url::class)->create([
@@ -82,28 +139,6 @@ class UrlTest extends TestCase
             ->see('The url field is required.');
     }
 
-    public function test_update_url()
-    {
-        $url = factory(App\Url::class)->create([
-            'url' => 'http://yahoo.com',
-            'user_id' => 1
-        ]);
-
-        $this->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
-
-        $postData = [
-            'id' => $url->id,
-            'url' => 'http://test.com/test'
-        ];
-
-        $this->json('POST', '/url/update', $postData)
-            ->seeJson([
-                'success' => true
-            ]);
-
-        $this->seeInDatabase('urls', ['url' => 'http://test.com/test']);
-    }
-
     public function test_show_url()
     {
         $url = factory(App\Url::class)->create([
@@ -119,6 +154,22 @@ class UrlTest extends TestCase
                 'user_id' => '1',
                 'link' => 'http://localhost:8000/' . $url->key
             ]);
+    }
+
+    public function test_delete_url()
+    {
+        $url = factory(App\Url::class)->create([
+            'url' => 'http://yahoo.com'
+        ]);
+
+        $uri = '/url/delete/' . $url->id;
+
+        $this->json('POST', $uri)
+            ->seeJson([
+                'success' => true
+            ]);
+
+        $this->notSeeInDatabase('urls', ['url' => 'http://yahoo.com']);
     }
 
 }

@@ -17,7 +17,8 @@ elixir(function(mix) {
         'spin.min.js',
         'ladda.min.js',
         'clipboard.min.js',
-        'notify.js'
+        'notify.js',
+        'main.js'
     ], 'public/js/app.js');
 
     mix.phpUnit();
