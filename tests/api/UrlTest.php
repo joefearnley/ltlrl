@@ -9,7 +9,7 @@ class UrlTest extends TestCase
     public function test_create_new_url()
     {
         $postData = [
-            'url' => 'http://google.com'
+            'url' => 'http://yahoo.com'
         ];
 
         $this->json('POST', '/url/create', $postData)
@@ -18,10 +18,10 @@ class UrlTest extends TestCase
             ])
             ->seeJson([
                 'id' => 1,
-                'url' => 'http://google.com'
+                'url' => 'http://yahoo.com'
             ]);
 
-        $this->seeInDatabase('urls', ['url' => 'http://google.com']);
+        $this->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
     }
 
     public function test_user_id_is_stored_in_database_when_user_is_logged_in()
@@ -29,7 +29,7 @@ class UrlTest extends TestCase
         $user = factory(App\User::class)->create();
 
         $postData = [
-            'url' => 'http://google.com'
+            'url' => 'http://yahoo.com'
         ];
 
         $this->actingAs($user)
@@ -39,11 +39,11 @@ class UrlTest extends TestCase
             ])
             ->seeJson([
                 'id' => 1,
-                'url' => 'http://google.com'
+                'url' => 'http://yahoo.com'
             ]);
 
         $this->seeInDatabase('urls', [
-            'url' => 'http://google.com',
+            'url' => 'http://yahoo.com',
             'user_id' => $user->id
         ]);
     }
@@ -102,6 +102,23 @@ class UrlTest extends TestCase
             ]);
 
         $this->seeInDatabase('urls', ['url' => 'http://test.com/test']);
+    }
+
+    public function test_show_url()
+    {
+        $url = factory(App\Url::class)->create([
+            'url' => 'http://yahoo.com',
+            'user_id' => 1
+        ]);
+
+        $uri = '/url/' . $url->id;
+        $this->json('GET', $uri)
+            ->seeJson([
+                'id' => $url->id,
+                'url' => 'http://yahoo.com',
+                'user_id' => '1',
+                'link' => 'http://localhost:8000/' . $url->key
+            ]);
     }
 
 }

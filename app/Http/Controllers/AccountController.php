@@ -19,6 +19,10 @@ class AccountController extends Controller
 
     public function urls()
     {
-        return response()->json(Auth::user()->urls);
+        $response = [
+            'urls' => Auth::user()->urls
+        ];
+
+        return response()->json($response);
     }
 }

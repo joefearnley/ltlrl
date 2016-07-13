@@ -16,6 +16,13 @@ class UrlController extends Controller
         $this->randomLibGenerator = $factory->getMediumStrengthGenerator();
     }
 
+    public function show($id)
+    {
+        $url = Url::find($id);
+
+        return response()->json($url);
+    }
+
     public function create(Request $request)
     {
         $this->validate($request, [

@@ -11,7 +11,7 @@ class Url extends Model
         'url', 'key', 'user_id',
     ];
 
-    protected $appends = ['link'];
+    protected $appends = ['link', 'formatted_date'];
 
     public function link()
     {
@@ -21,6 +21,11 @@ class Url extends Model
     public function getLinkAttribute()
     {
         return $this->attributes['link'] = $this->link();
+    }
+
+    public function getFormattedDateAttribute()
+    {
+        return $this->attributes['formatted_date'] = $this->created_at->format('m/d/Y');
     }
 
     public function user()
