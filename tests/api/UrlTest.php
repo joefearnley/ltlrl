@@ -172,4 +172,9 @@ class UrlTest extends TestCase
         $this->notSeeInDatabase('urls', ['url' => 'http://yahoo.com']);
     }
 
+    public function test_fetch_click_data()
+    {
+        
+    }
+
 }

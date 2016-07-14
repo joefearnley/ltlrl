@@ -18,6 +18,7 @@ elixir(function(mix) {
         'ladda.min.js',
         'clipboard.min.js',
         'notify.js',
+        'chart.min.js',
         'main.js'
     ], 'public/js/app.js');
 

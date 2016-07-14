@@ -28,11 +28,14 @@
         @{{#urls}}
             <div class="list-group-item">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-4">
                         <strong>Url:</strong> @{{ url }}<br>
                         <strong>Little Url:</strong> @{{ link }}<br>
                         <strong>Clicks:</strong> @{{ clicks }} <br>
                         Created on <strong>@{{ formatted_date }}</strong>
+                    </div>
+                    <div class="col-sm-4">
+                        <canvas class="click-chart" height="100"></canvas>
                     </div>
                     <div class="col-sm-4 text-right">
                         <button class="btn btn-primary edit-url" data-id="@{{ id }}"><i class="fa fa-pencil"></i> Edit</button>
@@ -57,7 +60,6 @@
                         <input type="hidden" class="form-control" name="id" value="@{{ id }}">
                         <div class="form-group">
                             <label id="url-error-message" class="control-label" for="url"></label><br>
-                            <label for="recipient-name" class="control-label">Url:</label>
                             <input type="text" class="form-control" id="url" name="url" value="@{{ url }}">
                         </div>
                     </form>
@@ -73,15 +75,12 @@
     <script id="delete-modal-template" type="x-tmpl-mustache">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
                 <div class="modal-body">
                     <p>Are you sure you want to delete this url?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default cancel-delete-edit" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary delete-url ladda-button" data-id="@{{ id }}" data-style="expand-left"><i class="fa fa-btn fa-trash"></i> Delete</button>
+                    <button type="button" class="btn btn-danger delete-url ladda-button" data-id="@{{ id }}" data-style="expand-left"><i class="fa fa-btn fa-trash"></i> Delete</button>
                 </div>
             </div>
         </div>
@@ -108,11 +107,14 @@
                 });
             },
             loadUrlList: function() {
+                var self = urlList;
                 $.get('/api/account/urls')
                     .success(function(response) {
                         var template = $('#url-list-template').html();
                         var html = Mustache.render(template, response);
                         $('#url-list').html(html);
+
+                        self.createCharts();
                     });
             },
             showEditModal: function() {
@@ -173,6 +175,33 @@
             hideError: function() {
                 $('.form-group').removeClass('has-error');
                 $('#url-error-message').text('');
+            },
+            createCharts: function() {
+
+                // fetch data
+
+                $('.click-chart').each(function() {
+                    new Chart($(this), {
+                        type: 'line',
+                        data: {
+                            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                            datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                });
             }
         };
 
