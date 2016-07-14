@@ -1,5 +1,18 @@
 <?php
 
+if (getenv("CLEARDB_DATABASE_URL")) {
+    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+    $host = $url["host"];
+    $database = substr($url["path"], 1);
+    $username = $url["user"];
+    $password = $url["pass"];
+} else {
+    $host = env('DB_HOST', 'localhost');
+    $database = env('DB_DATABASE', 'forge');
+    $username = env('DB_USERNAME', 'forge');
+    $password = env('DB_PASSWORD', '');
+}
+
 return [
 
     /*
@@ -58,22 +71,9 @@ return [
             'prefix' => '',
         ],
 
-        $host = env('DB_HOST', 'localhost');
-        $database = env('DB_DATABASE', 'forge');
-        $username = env('DB_USERNAME', 'forge');
-        $password = env('DB_PASSWORD', '');
-
-        if (getenv("CLEARDB_DATABASE_URL")) {
-            $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-            $host = $url['host'];
-            $database = substr($url['path'], 1);
-            $username = $url['user'];
-            $password = $url['pass'];
-        }
-
         'mysql' => [
             'driver' => 'mysql',
-            'host' => $host
+            'host' => $host,
             'port' => env('DB_PORT', '3306'),
             'database' => $database,
             'username' => $username,
