@@ -12,14 +12,33 @@ class AccountTest extends TestCase
             ->see('Login');
     }
 
-    public function test_account_page_shows_properly()
+    public function test_index_page_shows_properly()
     {
         $user = factory(App\User::class)->create();
 
         $this->actingAs($user)
             ->visit('/account')
             ->see('Account Overview')
-            ->see('Settings');
+            ->see('Urls')
+            ->see('Settings')
+            ->see('Account Overview');
     }
 
+    public function test_urls_page_shows_properly()
+    {
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user)
+            ->visit('/account/urls')
+            ->see('Urls');
+    }
+
+    public function test_settings_page_shows_properly()
+    {
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user)
+            ->visit('/account/settings')
+            ->see('Account Settings');
+    }
 }

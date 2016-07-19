@@ -25,4 +25,14 @@ class AccountController extends Controller
 
         return response()->json($response);
     }
+
+    public function urlList()
+    {
+        return view('account.urlList');
+    }
+
+    public function settings()
+    {
+        return view('account.settings');
+    }
 }

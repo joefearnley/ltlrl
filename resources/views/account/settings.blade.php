@@ -5,8 +5,8 @@
         <div class="row">
             @include('account.nav')
             <div class="col-sm-9 col-md-10">
-                <h2>Account Overview</h2>
+                <h2>Account Settings</h2>
             </div>
-        </div>
+        </div>s
     </div>
 @endsection
