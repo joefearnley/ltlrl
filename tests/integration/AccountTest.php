@@ -8,7 +8,7 @@ class AccountTest extends TestCase
 
     public function test_user_needs_to_be_logged_in_to_view_account_section()
     {
-        $this->visit('/account/dashboard')
+        $this->visit('/account')
             ->see('Login');
     }
 
@@ -17,7 +17,7 @@ class AccountTest extends TestCase
         $user = factory(App\User::class)->create();
 
         $this->actingAs($user)
-            ->visit('/account/dashboard')
+            ->visit('/account')
             ->see('Account Overview')
             ->see('Settings');
     }
