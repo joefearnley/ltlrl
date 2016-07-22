@@ -2,6 +2,8 @@
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
+use App\User;
+
 class AccountApiTest extends TestCase
 {
     use DatabaseMigrations;
@@ -110,4 +112,65 @@ class AccountApiTest extends TestCase
         ]);
     }
 
+    public function test_update_password()
+    {
+        $user = factory(App\User::class)->create();
+
+        $postData = [
+            'id' => $user->id,
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ];
+
+        $this->actingAs($user)
+            ->json('POST', 'api/account/update-password', $postData)
+            ->seeJson([
+                'success' => true
+            ]);
+
+        $updatedUser = User::find($user->id);
+
+        $this->assertNotEquals($user->password, $updatedUser->password);
+    }
+
+    public function test_update_password_has_to_be_6_characters()
+    {
+        $user = factory(App\User::class)->create();
+
+        $postData = [
+            'password' => 'secre',
+            'password_confirmation' => 'secre'
+        ];
+
+        $this->actingAs($user)
+            ->json('POST', 'api/account/update-password', $postData)
+            ->see('The password must be at least 6 characters.');
+    }
+
+    public function test_update_password_field_is_required()
+    {
+        $user = factory(App\User::class)->create();
+
+        $postData = [
+            'password' => '',
+        ];
+
+        $this->actingAs($user)
+            ->json('POST', 'api/account/update-password', $postData)
+            ->see('The password field is required.');
+    }
+
+    public function test_update_password_confirmation_matches_password()
+    {
+        $user = factory(App\User::class)->create();
+
+        $postData = [
+            'password' => 'secret',
+            'password_confirmation' => 'secre'
+        ];
+
+        $this->actingAs($user)
+            ->json('POST', 'api/account/update-password', $postData)
+            ->see('The password confirmation does not match.');
+    }
 }

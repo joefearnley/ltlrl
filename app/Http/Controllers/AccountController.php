@@ -50,11 +50,25 @@ class AccountController extends Controller
         $user->email = $request->input('email');
         $user->save();
 
-        $response = [
+        return response()->json([
             'success' => true,
             'user' => $user
-        ];
+        ]);
+    }
 
-        return response()->json($response);
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = User::find($request->input('id'));
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'user' => $user
+        ]);
     }
 }
