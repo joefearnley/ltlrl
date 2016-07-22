@@ -39,6 +39,8 @@ class AccountTest extends TestCase
 
         $this->actingAs($user)
             ->visit('/account/settings')
-            ->see('Account Settings');
+            ->see('Account Settings')
+            ->see('Personal Information')
+            ->see('Update Password');
     }
 }

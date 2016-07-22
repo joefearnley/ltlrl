@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\User;
 
 class AccountController extends Controller
 {
@@ -33,6 +34,27 @@ class AccountController extends Controller
 
     public function settings()
     {
-        return view('account.settings');
+        return view('account.settings')->with('user', Auth::user());
+    }
+
+    public function updatePersonalInfo(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        $user = User::find($request->input('id'));
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->save();
+
+        $response = [
+            'success' => true,
+            'user' => $user
+        ];
+
+        return response()->json($response);
     }
 }

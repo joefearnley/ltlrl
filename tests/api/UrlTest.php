@@ -56,8 +56,6 @@ class UrlTest extends TestCase
                 'user_id' => 1
             ]);
 
-            $this->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
-
             $postData = [
                 'id' => $url->id,
                 'url' => '//test.com/test'
@@ -174,7 +172,7 @@ class UrlTest extends TestCase
 
     public function test_fetch_click_data()
     {
-        
+
     }
 
 }

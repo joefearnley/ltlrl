@@ -15,3 +15,5 @@ Route::post('url/update', 'UrlController@update');
 Route::post('url/delete/{id}', 'UrlController@delete');
 
 Route::get('/api/account/urls', 'AccountController@urls');
+Route::post('/api/account/update-personal-info', 'AccountController@updatePersonalInfo');
+Route::post('/api/account/update-password', 'AccountController@updatePassword');
