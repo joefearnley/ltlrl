@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Url;
+use App\Click;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,9 @@ class HomeController extends Controller
     {
         $url = Url::where('key', $key)->firstOrFail();
 
-        $url->clicks++;
-        $url->save();
+        Click::create([
+            'url_id' => $url->id
+        ]);
 
         return redirect()->away($url->url);
     }

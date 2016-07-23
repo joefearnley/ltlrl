@@ -48,38 +48,37 @@ class UrlTest extends TestCase
         ]);
     }
 
+    public function test_create_url_with_invalid_url_returns_an_error()
+    {
+        $url = factory(App\Url::class)->create([
+            'url' => 'http://yahoo.com',
+            'user_id' => 1
+        ]);
 
-        public function test_create_url_with_invalid_url_returns_an_error()
-        {
-            $url = factory(App\Url::class)->create([
-                'url' => 'http://yahoo.com',
-                'user_id' => 1
-            ]);
+        $postData = [
+            'id' => $url->id,
+            'url' => '//test.com/test'
+        ];
 
-            $postData = [
-                'id' => $url->id,
-                'url' => '//test.com/test'
-            ];
+        $this->json('POST', '/url/create', $postData)
+            ->see('The url format is invalid.');
+    }
 
-            $this->json('POST', '/url/create', $postData)
-                ->see('The url format is invalid.');
-        }
+    public function test_create_url_with_no_url_returns_an_error()
+    {
+        $url = factory(App\Url::class)->create([
+            'url' => 'http://yahoo.com',
+            'user_id' => 1
+        ]);
 
-        public function test_create_url_with_no_url_returns_an_error()
-        {
-            $url = factory(App\Url::class)->create([
-                'url' => 'http://yahoo.com',
-                'user_id' => 1
-            ]);
+        $postData = [
+            'id' => $url->id,
+            'url' => ''
+        ];
 
-            $postData = [
-                'id' => $url->id,
-                'url' => ''
-            ];
-
-            $this->json('POST', '/url/create', $postData)
-                ->see('The url field is required.');
-        }
+        $this->json('POST', '/url/create', $postData)
+            ->see('The url field is required.');
+    }
 
     public function test_update_url()
     {
@@ -168,11 +167,6 @@ class UrlTest extends TestCase
             ]);
 
         $this->notSeeInDatabase('urls', ['url' => 'http://yahoo.com']);
-    }
-
-    public function test_fetch_click_data()
-    {
-
     }
 
 }

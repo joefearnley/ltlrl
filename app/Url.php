@@ -11,7 +11,7 @@ class Url extends Model
         'url', 'key', 'user_id',
     ];
 
-    protected $appends = ['link', 'formatted_date'];
+    protected $appends = ['link', 'formatted_date', 'click_count'];
 
     public function link()
     {
@@ -28,8 +28,18 @@ class Url extends Model
         return $this->attributes['formatted_date'] = $this->created_at->format('m/d/Y');
     }
 
+    public function getClickCountAttribute()
+    {
+        return $this->attributes['click_count'] = $this->clicks->count();
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function clicks()
+    {
+        return $this->hasMany('App\Click');
     }
 }

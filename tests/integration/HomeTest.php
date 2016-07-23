@@ -39,29 +39,44 @@ class HomeTest extends TestCase
 
     public function test_little_url_redirect_to_correct_url()
     {
-        $key = '54kkjh';
-
-        factory(App\Url::class)->create([
-            'url' => 'http://yahoo.com',
-            'key' => $key
+        $url = factory(App\Url::class)->create([
+            'url' => 'http://yahoo.com'
         ]);
 
-        $this->visit('/' . $key)
+        $this->visit('/' . $url->key)
             ->see('Yahoo');
     }
 
     public function test_clicks_is_increased_when_an_url_is_hit()
     {
         $url = factory(App\Url::class)->create([
-            'url' => 'http://google.com',
-            'key' => '54kkjh'
+            'url' => 'http://yahoo.com'
         ]);
 
-        $this->visit('/54kkjh');
+        $this->visit('/' . $url->key);
 
         $url = Url::find($url->id);
 
-        $this->assertEquals(1, $url->clicks);
+        $this->assertEquals(1, $url->clicks->count());
+    }
+
+    public function test_click_record_created_when_url_is_hit()
+    {
+        $url = factory(App\Url::class)->create([
+            'url' => 'http://yahoo.com'
+        ]);
+
+        $this->visit('/' . $url->key);
+        $url = Url::find($url->id);
+        $this->assertEquals(1, $url->clicks->count());
+
+        $this->visit('/' . $url->key);
+        $url = Url::find($url->id);
+        $this->assertEquals(2, $url->clicks->count());
+
+        $this->seeInDatabase('clicks', [
+            'url_id' => $url->id
+        ]);
     }
 
     public function test_user_sees_404_when_url_is_not_found()
@@ -71,30 +86,4 @@ class HomeTest extends TestCase
         $this->assertEquals(404, $response->status());
     }
 
-    // public function test_main_form_requires_url()
-    // {
-    //     $this->visit('/')
-    //         ->see('Little URL')
-    //         ->press('Make it Little')
-    //         ->see('The url field is required');
-    // }
-
-    // public function test_main_form_requires_valid_url()
-    // {
-    //     $this->visit('/')
-    //         ->see('Little URL')
-    //         ->type('sdfasdfs', 'url')
-    //         ->press('Make it Little')
-    //         ->seePageIs('/')
-    //         ->see('The url format is invalid');
-    // }
-
-    // public function test_main_form_displays_new_link_after_submitted()
-    // {
-    //     $this->visit('/')
-    //         ->see('Little URL')
-    //         ->type('http://google.com', 'url')
-    //         ->press('Make it Little')
-    //         ->see('URL has been made little!');
-    // }
 }

@@ -26,7 +26,7 @@
                     <div class="col-sm-4">
                         <strong>Url:</strong> @{{ url }}<br>
                         <strong>Little Url:</strong> @{{ link }}<br>
-                        <strong>Clicks:</strong> @{{ clicks }} <br>
+                        <strong>Clicks:</strong> @{{ click_count }} <br>
                         Created on <strong>@{{ formatted_date }}</strong>
                     </div>
                     <div class="col-sm-4">
@@ -181,7 +181,7 @@
                         data: {
                             labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                             datasets: [{
-                                label: '# of Votes',
+                                label: '# of Clicks',
                                 data: [12, 19, 3, 5, 2, 3],
                                 borderWidth: 1
                             }]
