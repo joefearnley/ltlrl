@@ -39,12 +39,38 @@
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                             </ul>
                         </li>
-                        <li><button class="btn btn-primary">Make Little Url</button></li>
+                        <li><button id="show-add-url-form" class="btn btn-primary">Make Little Url</button></li>
                     @endif
                 </ul>
             </div>
         </div>
     </nav>
+
+    @if (Auth::check())
+        <div id="add-url-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Make Url Little</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add-url-form">
+                            {!! csrf_field() !!}
+                            <div class="form-group">
+                                <label id="url-error-message" class="control-label" for="url"></label><br>
+                                <input type="text" class="form-control" id="enter-url" name="url" placeholder="Enter Url">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default cancel-url-edit" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary save-url ladda-button" data-style="expand-left"><i class="fa fa-btn fa-save"></i> Make Little</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     @yield('content')
     <script src="/js/app.js"></script>

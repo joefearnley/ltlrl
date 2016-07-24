@@ -688,4 +688,24 @@ $.ajaxSetup({
         }
 });
 
+var createUrlForm = {
+    init: function() {
+        this.bindEvents();
+    },
+    bindEvents: function() {
+        $(document).on('click', '#show-add-url-form', this.showModal);
+
+        $('#add-url-modal').on('hidden.bs.modal', function() {
+            $('#enter-url').val('');
+        });
+    },
+    showModal: function() {
+        $('#add-url-modal').modal('show');
+    }
+};
+
+$(function() {
+    createUrlForm.init();
+});
+
 //# sourceMappingURL=app.js.map

@@ -90,36 +90,40 @@ var urlList = {
         $('#url-error-message').text('');
     },
     createCharts: function(urls) {
+        var self = urlList;
         urls.forEach(function(url) {
             var selector = '.click-chart-' + url.id;
             var labels = [];
             var data = [];
-            
+
             url.clicks.forEach(function(click) {
                 labels.push(click.formatted_date);
                 data.push(click.id);
             });
 
-            new Chart($(selector), {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '# of Clicks',
-                        data: data,
-                        borderWidth: 1
+            self.createChart(selector, labels, data);
+        });
+    },
+    createChart: function(selector, labels, data) {
+        new Chart($(selector), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# of Clicks',
+                    data: data,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
                     }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
                 }
-            });
+            }
         });
     }
 };
