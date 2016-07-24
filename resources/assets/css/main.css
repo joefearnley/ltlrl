@@ -36,3 +36,43 @@ footer {
 .margin-right {
     margin-right: 20px;
 }
+
+.tile {
+    display: block;
+    position: relative;
+    height: 120px;
+    padding: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border: 2px black solid;
+}
+
+.tile .img {
+    position: absolute;
+    line-height: 130px;
+    left: 10px;
+}
+.tile .content {
+    position: absolute;
+    right: 10px;
+    top: 25px;
+}
+
+.tile .img > [class*="fa-"] {
+    font-size: 40px;
+}
+
+.tile .content > p.big {
+    font-size: 35px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.tile .content > p {
+    text-align: right;
+}
+
+.tile p.title {
+    font-size: 16px;
+    margin-bottom: 2px;
+}

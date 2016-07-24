@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\User;
 
 class AccountController extends Controller
@@ -15,7 +16,18 @@ class AccountController extends Controller
 
     public function index()
     {
-        return view('account.index');
+        $daysMakingUrlsLittle = Carbon::now()->diffInDays(Auth::user()->created_at);
+
+        $urlsMadeLittle = Auth::user()->urls->count();
+
+        $urlsClickedOn = Auth::user()->urls->map(function($url) {
+            return $url->clicks->count();
+        })->sum();
+
+        return view('account.index')
+            ->with('daysMakingUrlsLittle', $daysMakingUrlsLittle)
+            ->with('urlsMadeLittle', $urlsMadeLittle)
+            ->with('urlsClickedOn', $urlsClickedOn);
     }
 
     public function urls()

@@ -16,10 +16,23 @@ class AccountTest extends TestCase
     {
         $user = factory(App\User::class)->create();
 
+        $url1 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+        $url2 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+        $url3 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+
+        $click1 = factory(App\Click::class)->create([ 'url_id' => $url1->id ]);
+        $click2 = factory(App\Click::class)->create([ 'url_id' => $url1->id ]);
+        $click3 = factory(App\Click::class)->create([ 'url_id' => $url2->id ]);
+
         $this->actingAs($user)
             ->visit('/account')
             ->see('Account Overview')
-            ->see('Urls')
+            ->see(1)
+            ->see('Days Making Urls Little')
+            ->see(3)
+            ->see('Urls Made Little')
+            ->see(5)
+            ->see('Urls Clicked On')
             ->see('Settings')
             ->see('Account Overview');
     }

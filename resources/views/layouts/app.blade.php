@@ -41,6 +41,7 @@
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                             </ul>
                         </li>
+                        <li><button class="btn btn-primary">Make Little Url</button></li>
                     @endif
                 </ul>
             </div>

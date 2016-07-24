@@ -109,7 +109,7 @@
                         var html = Mustache.render(template, response);
                         $('#url-list').html(html);
 
-                        self.createCharts();
+                        self.createCharts(response.urls);
                     });
             },
             showEditModal: function() {
@@ -127,10 +127,11 @@
                 var data = $('#edit-url-form').serialize();
                 $.post('/url/update', data)
                     .success(function(response) {
-                        $.notify('Url Saved!', {
-                            className: 'success',
-                            globalPosition: 'top center',
-                            autoHideDelay: 3000
+                        swal({
+                            title: 'Success!',
+                            text: 'Url Saved.',
+                            type: 'success',
+                            timer: 2000
                         });
                         $('#edit-modal').html('').modal('hide');
                         self.loadUrlList();
@@ -154,10 +155,11 @@
                 var self = urlList;
                 var uri = '/url/delete/' + $(this).data('id');
                 $.post(uri).success(function() {
-                    $.notify('Url Deleted!', {
-                        className: 'success',
-                        globalPosition: 'top center',
-                        autoHideDelay: 3000
+                    swal({
+                        title: 'Success!',
+                        text: 'Url Deleted.',
+                        type: 'success',
+                        timer: 2000
                     });
                     $('#delete-modal').html('').modal('hide');
                     self.loadUrlList();
@@ -179,7 +181,7 @@
                     new Chart($(this), {
                         type: 'line',
                         data: {
-                            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                            labels: ["", "Blue", "Yellow", "Green", "Purple", "Orange"],
                             datasets: [{
                                 label: '# of Clicks',
                                 data: [12, 19, 3, 5, 2, 3],

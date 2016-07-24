@@ -26,3 +26,9 @@ $factory->define(App\Url::class, function (Faker\Generator $faker) {
         'key' => str_random(10)
     ];
 });
+
+$factory->define(App\Click::class, function (Faker\Generator $faker) {
+    return [
+        'url_id' => $faker->randomDigit
+    ];
+});
