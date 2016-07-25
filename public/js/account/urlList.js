@@ -24,7 +24,6 @@ var urlList = {
                 var template = $('#url-list-template').html();
                 var html = Mustache.render(template, response);
                 $('#url-list').html(html);
-
                 self.createCharts(response.urls);
             });
     },

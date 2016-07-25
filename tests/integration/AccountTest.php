@@ -20,9 +20,11 @@ class AccountTest extends TestCase
         $url2 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
         $url3 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
 
-        $click1 = factory(App\Click::class)->create([ 'url_id' => $url1->id ]);
-        $click2 = factory(App\Click::class)->create([ 'url_id' => $url1->id ]);
-        $click3 = factory(App\Click::class)->create([ 'url_id' => $url2->id ]);
+        factory(App\Click::class)->create([ 'url_id' => $url1->id ]);
+        factory(App\Click::class)->create([ 'url_id' => $url1->id ]);
+        factory(App\Click::class)->create([ 'url_id' => $url2->id ]);
+        factory(App\Click::class)->create([ 'url_id' => $url2->id ]);
+        factory(App\Click::class)->create([ 'url_id' => $url2->id ]);
 
         $this->actingAs($user)
             ->visit('/account')

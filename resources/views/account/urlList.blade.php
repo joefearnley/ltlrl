@@ -39,6 +39,9 @@
             </div>
         </div>
     @{{/urls}}
+    @{{^urls}}
+        <h4>No Urls Made Little Yet.</h4>
+    @{{/urls}}
     </div>
 </script>
 
