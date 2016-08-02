@@ -39,35 +39,39 @@
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                             </ul>
                         </li>
+                        @if (Auth::check() && Route::getCurrentRoute()->getPath() != '/')
                         <li><button id="show-add-url-form" class="btn btn-primary">Make Little Url</button></li>
+                        @endif
                     @endif
                 </ul>
             </div>
         </div>
     </nav>
 
-    @if (Auth::check())
+    @if (Auth::check() && Route::getCurrentRoute()->getPath() != '/')
         <div id="add-url-modal" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Make Url Little</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="add-url-form">
+                <form id="add-url-form" data-toggle="validator" role="form">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Make Url Little</h4>
+                        </div>
+                        <div class="modal-body">
                             {!! csrf_field() !!}
                             <div class="form-group">
-                                <label id="url-error-message" class="control-label" for="url"></label><br>
-                                <input type="text" class="form-control" id="enter-url" name="url" placeholder="Enter Url">
+                                <input type="url" class="form-control" id="enter-url" name="url" placeholder="Enter Url" required>
+                                <div class="help-block with-errors"></div>
                             </div>
-                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default cancel-url-edit" data-dismiss="modal">Cancel</button>
+                            <button id="submit-make-url-little-button" class="btn btn-primary ladda-button" data-style="expand-left">
+                                <i class="fa fa-btn fa-save"></i> Make Little
+                            </button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default cancel-url-edit" data-dismiss="modal">Cancel</button>
-                        <button type="button" id="submit-make-url-little-button" class="btn btn-primary save-url ladda-button" data-style="expand-left"><i class="fa fa-btn fa-save"></i> Make Little</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     @endif

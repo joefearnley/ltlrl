@@ -9,8 +9,17 @@ var CreateUrlForm = {
         this.bindEvents();
     },
     bindEvents: function() {
+        var self = CreateUrlForm;
         $(document).on('click', '#show-add-url-form', this.showModal);
-        $(document).on('click', '#submit-make-url-little-button', $.proxy(this.saveUrl, this));
+        //$(document).on('click', '#submit-make-url-little-button', $.proxy(this.saveUrl, this));
+
+        $('#add-url-form').validator().on('submit', function (e) {
+            e.preventDefault();
+            console.log('alsfkjlkasjflksf');
+            if (!e.isDefaultPrevented()) {
+                self.saveUrl(e);
+            }
+        });
 
         $('#add-url-modal').on('hidden.bs.modal', function() {
             $('#enter-url').val('');

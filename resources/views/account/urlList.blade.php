@@ -7,6 +7,27 @@
             <div class="col-sm-9 col-md-10">
                 <div id="url-list">
                 </div>
+                <div class="text-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
         <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
@@ -19,7 +40,7 @@
 @section('scripts')
 <script id="url-list-template" type="x-tmpl-mustache">
     <h2 class="sub-header">Urls</h2>
-    <div class="list-group col-sm-12 col-md-10">
+    <div class="list-group col-sm-12">
     @{{#urls}}
         <div class="list-group-item">
             <div class="row">
@@ -29,10 +50,10 @@
                     <strong>Clicks:</strong> @{{ click_count }} <br>
                     Created on <strong>@{{ formatted_date }}</strong>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <canvas class="click-chart-@{{ id }}" height="100"></canvas>
                 </div>
-                <div class="col-sm-4 text-right">
+                <div class="col-sm-3 text-right">
                     <button class="btn btn-primary edit-url" data-id="@{{ id }}"><i class="fa fa-pencil"></i> Edit</button>
                     <button class="btn btn-danger confirm-delete-url" data-id="@{{ id }}"><i class="fa fa-trash"></i> Delete</button>
                 </div>
