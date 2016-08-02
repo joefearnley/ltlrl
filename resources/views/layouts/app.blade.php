@@ -65,7 +65,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default cancel-url-edit" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary save-url ladda-button" data-style="expand-left"><i class="fa fa-btn fa-save"></i> Make Little</button>
+                        <button type="button" id="submit-make-url-little-button" class="btn btn-primary save-url ladda-button" data-style="expand-left"><i class="fa fa-btn fa-save"></i> Make Little</button>
                     </div>
                 </div>
             </div>

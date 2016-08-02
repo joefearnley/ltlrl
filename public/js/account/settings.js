@@ -1,4 +1,4 @@
-var personalForm = {
+var PersonalForm = {
     init: function() {
         this.bindEvents();
     },
@@ -12,7 +12,7 @@ var personalForm = {
     },
     savePersonalInfo: function(e) {
         e.preventDefault();
-        var self = personalForm;
+        var self = PersonalForm;
         var l = Ladda.create(document.querySelector('#update-personal-info'));
         l.start();
         var data = $('#personal-info-form').serialize();
@@ -31,14 +31,12 @@ var personalForm = {
     }
 };
 
-var updatePasswordForm = {
+var UpdatePasswordForm = {
     init: function() {
         this.bindEvents();
     },
     bindEvents: function() {
-        // $('#update-personal-info').click(this.savePersonalInfo);
-
-        var self = updatePasswordForm;
+        var self = UpdatePasswordForm;
         $('#update-password-form').validator().on('submit', function (e) {
             if (!e.isDefaultPrevented()) {
                 self.updatePassword(e);
@@ -47,7 +45,7 @@ var updatePasswordForm = {
     },
     updatePassword: function(e) {
         e.preventDefault();
-        var self = updatePasswordForm;
+        var self = UpdatePasswordForm;
         var l = Ladda.create(document.querySelector('#update-password-button'));
         l.start();
         var data = $('#update-password-form').serialize();
@@ -83,6 +81,6 @@ var updatePasswordForm = {
 };
 
 $(function() {
-    personalForm.init();
-    updatePasswordForm.init();
+    PersonalForm.init();
+    UpdatePasswordForm.init();
 });

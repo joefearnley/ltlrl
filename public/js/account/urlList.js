@@ -1,4 +1,4 @@
-var urlList = {
+var UrlList = {
     init: function() {
         this.bindEvents();
         this.loadUrlList();
@@ -18,7 +18,7 @@ var urlList = {
         });
     },
     loadUrlList: function() {
-        var self = urlList;
+        var self = UrlList;
         $.get('/api/account/urls')
             .success(function(response) {
                 var template = $('#url-list-template').html();
@@ -36,7 +36,7 @@ var urlList = {
         });
     },
     saveUrl: function() {
-        var self = urlList;
+        var self = UrlList;
         var l = Ladda.create(document.querySelector('.ladda-button'));
         l.start();
         var data = $('#edit-url-form').serialize();
@@ -67,7 +67,7 @@ var urlList = {
         });
     },
     deleteUrl: function() {
-        var self = urlList;
+        var self = UrlList;
         var uri = '/url/delete/' + $(this).data('id');
         $.post(uri).success(function() {
             swal({
@@ -89,7 +89,7 @@ var urlList = {
         $('#url-error-message').text('');
     },
     createCharts: function(urls) {
-        var self = urlList;
+        var self = UrlList;
         urls.forEach(function(url) {
             var selector = '.click-chart-' + url.id;
             var labels = [];
@@ -128,5 +128,5 @@ var urlList = {
 };
 
 $(function() {
-    urlList.init();
+    UrlList.init();
 });
