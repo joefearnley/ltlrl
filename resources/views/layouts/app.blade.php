@@ -40,7 +40,7 @@
                             </ul>
                         </li>
                         @if (Auth::check() && Route::getCurrentRoute()->getPath() != '/')
-                        <li><button id="show-add-url-form" class="btn btn-primary">Make Little Url</button></li>
+                        <li><button id="show-add-url-form" class="btn btn-primary"><i class="fa fa-btn fa-plus"></i> Make Little Url</button></li>
                         @endif
                     @endif
                 </ul>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default cancel-url-edit" data-dismiss="modal">Cancel</button>
-                            <button id="submit-make-url-little-button" class="btn btn-primary ladda-button" data-style="expand-left">
+                            <button type="submit" id="submit-make-url-little-button" class="btn btn-primary ladda-button" data-style="expand-left">
                                 <i class="fa fa-btn fa-save"></i> Make Little
                             </button>
                         </div>

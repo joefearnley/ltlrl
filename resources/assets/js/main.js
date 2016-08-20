@@ -9,13 +9,9 @@ var CreateUrlForm = {
         this.bindEvents();
     },
     bindEvents: function() {
-        var self = CreateUrlForm;
+        var self = this;
         $(document).on('click', '#show-add-url-form', this.showModal);
-        //$(document).on('click', '#submit-make-url-little-button', $.proxy(this.saveUrl, this));
-
         $('#add-url-form').validator().on('submit', function (e) {
-            e.preventDefault();
-            console.log('alsfkjlkasjflksf');
             if (!e.isDefaultPrevented()) {
                 self.saveUrl(e);
             }
@@ -34,13 +30,16 @@ var CreateUrlForm = {
         l.start();
         var data = $('#add-url-form').serialize();
         $.post('/url/create', data)
-            .success(function(response) {
-                swal({
-                    title: 'Success!',
-                    text: 'Url Made Little.',
-                    type: 'success',
-                    timer: 2000
-                });
+            .done(function(response) {
+                $('#add-url-modal').modal('hide');
+                setTimeout(function() {
+                    swal({
+                        title: 'Success!',
+                        text: 'Url Made Little.',
+                        type: 'success',
+                        timer: 2000
+                    });
+                }, 300);
             })
             .always(function() {
                 l.stop();
