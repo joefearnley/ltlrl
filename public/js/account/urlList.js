@@ -20,7 +20,7 @@ var UrlList = {
     loadUrlList: function() {
         var self = UrlList;
         $.get('/api/account/urls')
-            .success(function(response) {
+            .done(function(response) {
                 var template = $('#url-list-template').html();
                 var html = Mustache.render(template, response);
                 $('#url-list').html(html);
@@ -29,7 +29,7 @@ var UrlList = {
     },
     showEditModal: function() {
         var uri = '/url/' + $(this).data('id');
-        $.get(uri).success(function(response) {
+        $.get(uri).done(function(response) {
             var template = $('#edit-modal-template').html();
             var html = Mustache.render(template, response);
             $('#edit-modal').html(html).modal('show');
@@ -41,7 +41,7 @@ var UrlList = {
         l.start();
         var data = $('#edit-url-form').serialize();
         $.post('/url/update', data)
-            .success(function(response) {
+            .done(function(response) {
                 swal({
                     title: 'Success!',
                     text: 'Url Saved.',
@@ -69,7 +69,7 @@ var UrlList = {
     deleteUrl: function() {
         var self = UrlList;
         var uri = '/url/delete/' + $(this).data('id');
-        $.post(uri).success(function() {
+        $.post(uri).done(function() {
             swal({
                 title: 'Success!',
                 text: 'Url Deleted.',

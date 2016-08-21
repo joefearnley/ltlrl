@@ -38,6 +38,43 @@ class AccountApiTest extends TestCase
             ]);
     }
 
+    public function test_account_api_requests_for_auth_users_urls_shows_clicks()
+    {
+        $user = factory(App\User::class)->create();
+
+        $url = factory(App\Url::class)->create([
+            'user_id' => $user->id
+        ]);
+
+        $click1 = factory(App\Click::class)->create([
+            'url_id' => $url->id
+        ]);
+
+        $click2 = factory(App\Click::class)->create([
+            'url_id' => $url->id
+        ]);
+
+        $this->actingAs($user)
+            ->visit('api/account/urls')
+            ->seeJson()
+            ->seeJsonContains([
+                'url' => $url->url,
+                'link' => $url->link(),
+                'user_id' => "$user->id",
+//                'clicks' => [
+//                    'id' => "$click1->id",
+//                    'url_id' => $url->id
+//                ]
+            ])
+            ->seeJsonContains([
+                'click_count' => 2
+            ])
+            ->seeJsonContains([
+                'id' => $click1->id,
+                'url_id' => $url->id
+            ]);
+    }
+
     public function test_update_personal_information_requires_name_field()
     {
         $user = factory(App\User::class)->create();

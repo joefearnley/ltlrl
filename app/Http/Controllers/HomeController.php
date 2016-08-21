@@ -18,6 +18,12 @@ class HomeController extends Controller
         return view('home.index');
     }
 
+    /**
+     * Redirect to intended url.
+     *
+     * @param $key
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function redirect($key)
     {
         $url = Url::where('key', $key)->firstOrFail();

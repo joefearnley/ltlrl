@@ -24,6 +24,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    /**
+     * A user has many urls.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function urls()
     {
         return $this->hasMany('App\Url');

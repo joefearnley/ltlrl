@@ -9,11 +9,21 @@ use App\User;
 
 class AccountController extends Controller
 {
+    /**
+     * Create a new account controller instance.
+     *
+     * AccountController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * Show the main account area.
+     *
+     * @return mixed
+     */
     public function index()
     {
         $daysMakingUrlsLittle = Carbon::now()->diffInDays(Auth::user()->created_at);
@@ -30,25 +40,46 @@ class AccountController extends Controller
             ->with('urlsClickedOn', $urlsClickedOn);
     }
 
+    /**
+     * Get the urls of the autentcated account.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function urls()
     {
         $response = [
             'urls' => Auth::user()->urls
         ];
 
-        return response()->json($response);
+        return response()->json(['urls' => Auth::user()->urls]);
     }
 
+    /**
+     * Get the url list view.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function urlList()
     {
         return view('account.urlList');
     }
 
+    /**
+     * Show the account settings page.
+     *
+     * @return $this
+     */
     public function settings()
     {
         return view('account.settings')->with('user', Auth::user());
     }
 
+    /**
+     * Update a users personal account information.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updatePersonalInfo(Request $request)
     {
         $this->validate($request, [
@@ -68,6 +99,12 @@ class AccountController extends Controller
         ]);
     }
 
+    /**
+     * Update the account's password.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updatePassword(Request $request)
     {
         $this->validate($request, [
