@@ -60,18 +60,18 @@ class AccountApiTest extends TestCase
             ->seeJsonContains([
                 'url' => $url->url,
                 'link' => $url->link(),
-                'user_id' => "$user->id",
-//                'clicks' => [
-//                    'id' => "$click1->id",
-//                    'url_id' => $url->id
-//                ]
+                'user_id' => "$user->id"
             ])
             ->seeJsonContains([
                 'click_count' => 2
             ])
             ->seeJsonContains([
                 'id' => $click1->id,
-                'url_id' => $url->id
+                'url_id' => "$url->id"
+            ])
+            ->seeJsonContains([
+                'id' => $click2->id,
+                'url_id' => "$url->id"
             ]);
     }
 
