@@ -18,7 +18,6 @@ class AccountTest extends TestCase
 
         $url1 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
         $url2 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
-        $url3 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
 
         factory(App\Click::class)->create([ 'url_id' => $url1->id ]);
         factory(App\Click::class)->create([ 'url_id' => $url1->id ]);

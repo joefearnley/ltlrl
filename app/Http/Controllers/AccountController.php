@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Libraries\AccountTotals;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\User;
 
 class AccountController extends Controller
@@ -26,22 +26,15 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $daysMakingUrlsLittle = Carbon::now()->diffInDays(Auth::user()->created_at);
-
-        $urlsMadeLittle = Auth::user()->urls->count();
-
-        $urlsClickedOn = Auth::user()->urls->map(function($url) {
-            return $url->clicks->count();
-        })->sum();
+        $accountTotals = new AccountTotals(Auth::user());
+        $accountTotals->calculate();
 
         return view('account.index')
-            ->with('daysMakingUrlsLittle', $daysMakingUrlsLittle)
-            ->with('urlsMadeLittle', $urlsMadeLittle)
-            ->with('urlsClickedOn', $urlsClickedOn);
+            ->with('accountTotals', $accountTotals);
     }
 
     /**
-     * Get the urls of the autentcated account.
+     * Get the urls of the authenticated account.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -51,7 +44,7 @@ class AccountController extends Controller
             'urls' => Auth::user()->urls
         ];
 
-        return response()->json(['urls' => Auth::user()->urls]);
+        return response()->json($response);
     }
 
     /**
