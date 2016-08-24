@@ -6,8 +6,8 @@ use \App\Libraries\AccountTotals;
 class AccountTotalTest extends TestCase
 {
     use DatabaseMigrations;
-
-    public function test_calculates_total_correctly()
+    
+    public function test_it_calculates_totals_correctly()
     {
         $user = factory(App\User::class)->create();
 

@@ -12,17 +12,9 @@ class AccountApiTest extends TestCase
     {
         $user = factory(App\User::class)->create();
 
-        $url1 = factory(App\Url::class)->create([
-            'user_id' => $user->id
-        ]);
-
-        $url2 = factory(App\Url::class)->create([
-            'user_id' => $user->id
-        ]);
-
-        $url3 = factory(App\Url::class)->create([
-            'user_id' => $user->id
-        ]);
+        $url1 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+        $url2 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+        $url3 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
 
         $this->actingAs($user)
             ->visit('api/account/urls')
@@ -42,17 +34,9 @@ class AccountApiTest extends TestCase
     {
         $user = factory(App\User::class)->create();
 
-        $url = factory(App\Url::class)->create([
-            'user_id' => $user->id
-        ]);
-
-        $click1 = factory(App\Click::class)->create([
-            'url_id' => $url->id
-        ]);
-
-        $click2 = factory(App\Click::class)->create([
-            'url_id' => $url->id
-        ]);
+        $url = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+        $click1 = factory(App\Click::class)->create([ 'url_id' => $url->id ]);
+        $click2 = factory(App\Click::class)->create([ 'url_id' => $url->id ]);
 
         $this->actingAs($user)
             ->visit('api/account/urls')
@@ -141,12 +125,11 @@ class AccountApiTest extends TestCase
             ->seeJson([
                 'name' => 'John Fearnley',
                 'email' => 'john.fearnley@gmail.com'
+            ])
+            ->seeInDatabase('users', [
+                'name' => 'John Fearnley',
+                'email' => 'john.fearnley@gmail.com'
             ]);
-
-        $this->seeInDatabase('users', [
-            'name' => 'John Fearnley',
-            'email' => 'john.fearnley@gmail.com'
-        ]);
     }
 
     public function test_update_password()
