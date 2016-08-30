@@ -90,6 +90,12 @@ var UrlList = {
     },
     createCharts: function(urls) {
         var self = UrlList;
+
+        var urlsGroupedByDate = [];
+        urls.forEach(function(url) {
+            
+        });
+
         urls.forEach(function(url) {
             var selector = '.click-chart-' + url.id;
             var labels = [];
