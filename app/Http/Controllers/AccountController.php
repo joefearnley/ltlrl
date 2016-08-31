@@ -26,11 +26,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accountTotals = new AccountTotals(Auth::user());
-        $accountTotals->calculate();
-
         return view('account.index')
-            ->with('accountTotals', $accountTotals);
+            ->with('user', Auth::user());
     }
 
     /**
@@ -40,11 +37,9 @@ class AccountController extends Controller
      */
     public function urls()
     {
-        $response = [
+        return response()->json([
             'urls' => Auth::user()->urls
-        ];
-
-        return response()->json($response);
+        ]);
     }
 
     /**

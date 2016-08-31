@@ -12,7 +12,9 @@ class Url extends Model
      * @var array
      */
     protected $fillable = [
-        'url', 'key', 'user_id',
+        'url',
+        'key',
+        'user_id',
     ];
 
     /**
@@ -20,7 +22,11 @@ class Url extends Model
      *
      * @var array
      */
-    protected $appends = ['link', 'formatted_date', 'click_count'];
+    protected $appends = [
+        'link',
+        'formatted_date',
+        'click_count'
+    ];
 
     /**
      * Link of the url.
@@ -82,8 +88,11 @@ class Url extends Model
         return $this->hasMany('App\Click');
     }
 
-    public function clicksGrouped()
+    public function clicksGroupedByDate()
     {
-        return $this->hasMany('App\Click');
+        return $this->clicks
+            ->groupBy(function($click) {
+                return $click->created_at->format('Y-d-m');
+            });
     }
 }

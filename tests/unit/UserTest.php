@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use \App\Libraries\AccountTotals;
+use \App\User;
 
-class AccountTotalTest extends TestCase
+class UserTest extends TestCase
 {
     use DatabaseMigrations;
-    
+
     public function test_it_calculates_totals_correctly()
     {
         $user = factory(App\User::class)->create();
@@ -20,11 +20,8 @@ class AccountTotalTest extends TestCase
         factory(App\Click::class)->create(['url_id' => $url2->id]);
         factory(App\Click::class)->create(['url_id' => $url2->id]);
 
-        $accountTotals = new AccountTotals($user);
-        $accountTotals->calculate();
-
-        $this->assertEquals(0, $accountTotals->getDaysMakingUrlsLittle());
-        $this->assertEquals(2, $accountTotals->getUrlsMade());
-        $this->assertEquals(5, $accountTotals->getUrlsClickedOn());
+        $this->assertEquals(0, $user->daysMakingUrlsLittle());
+        $this->assertEquals(2, $user->urlsMade());
+        $this->assertEquals(5, $user->urlsClickedOn());
     }
 }

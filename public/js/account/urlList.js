@@ -93,7 +93,7 @@ var UrlList = {
 
         var urlsGroupedByDate = [];
         urls.forEach(function(url) {
-            
+
         });
 
         urls.forEach(function(url) {
@@ -101,6 +101,7 @@ var UrlList = {
             var labels = [];
             var data = [];
 
+            //$.get('/')
             url.clicks.forEach(function(click) {
                 labels.push(click.formatted_date);
                 data.push(click.id);

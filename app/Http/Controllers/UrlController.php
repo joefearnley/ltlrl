@@ -42,7 +42,7 @@ class UrlController extends Controller
     {
         $url = Url::find($id);
 
-        return response()->json($url);
+        return response()->json($url->clicksGroupedByDate());
     }
 
     /**

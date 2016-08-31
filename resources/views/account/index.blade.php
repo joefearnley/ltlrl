@@ -13,7 +13,7 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                             <div class="content">
-                                <p class="big counter">{{ $accountTotals->getDaysMakingUrlsLittle() }}</p>
+                                <p class="big counter">{{ $user->daysMakingUrlsLittle() }}</p>
                                 <p class="title">Days Making Urls Little</p>
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                                 <i class="fa fa-link"></i>
                             </div>
                             <div class="content">
-                                <p class="big counter">{{ $accountTotals->getUrlsMade() }}</p>
+                                <p class="big counter">{{ $user->urlsMade() }}</p>
                                 <p class="title">Urls Made Little</p>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                 <i class="fa fa-mouse-pointer"></i>
                             </div>
                             <div class="content">
-                                <p class="big counter">{{ $accountTotals->getUrlsClickedOn() }}</p>
+                                <p class="big counter">{{ $user->urlsClickedOn() }}</p>
                                 <p class="title">Urls Clicked On</p>
                             </div>
                         </div>
