@@ -169,4 +169,30 @@ class UrlTest extends TestCase
         $this->notSeeInDatabase('urls', ['url' => 'http://yahoo.com']);
     }
 
+    public function test_url_displays_grouped_clicks_properly()
+    {
+        $user = factory(App\User::class)->create();
+
+        $url = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+        $click1 = factory(App\Click::class)->create([
+            'url_id' => $url->id,
+            'created_at' => '2016-01-01 00:00:00'
+        ]);
+
+        $click2 = factory(App\Click::class)->create([
+            'url_id' => $url->id,
+            'created_at' => '2016-01-01 00:00:00'
+        ]);
+
+        $click2 = factory(App\Click::class)->create([
+            'url_id' => $url->id,
+            'created_at' => '2016-01-03 00:00:00'
+        ]);
+
+        $this->json('GET', 'url/stats/' . $url->id)
+            ->seeJson([
+                'date' => '',
+                'count' => 2
+            ]);
+    }
 }
