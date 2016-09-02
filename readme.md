@@ -1,6 +1,6 @@
 # ltlrl
 
-ltlrl is short for "little url". It is a url shortener. http://ltlrl.pw
+**ltlrl** is short for "little url". It is a url shortener. http://ltlrl.pw
 
 ###tl;dr
 
