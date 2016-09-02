@@ -101,13 +101,15 @@ var UrlList = {
             var labels = [];
             var data = [];
 
-            //$.get('/')
-            url.clicks.forEach(function(click) {
-                labels.push(click.formatted_date);
-                data.push(click.id);
+            $.get('/url/stats/' + url.id).done(function(response) {
+                response.forEach(function(click) {
+                        labels.push(click.formatted_date);
+                        data.push(click.clicks);
+                });
+
+                self.createChart(selector, labels, data);
             });
 
-            self.createChart(selector, labels, data);
         });
     },
     createChart: function(selector, labels, data) {

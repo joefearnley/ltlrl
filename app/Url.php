@@ -87,18 +87,4 @@ class Url extends Model
     {
         return $this->hasMany('App\Click');
     }
-
-    public function clicksGroupedByDate()
-    {
-        return $this->clicks
-            ->groupBy(function($click) {
-                return $click->created_at->format('m/d/Y');
-            });
-
-        // select count(*), id, url_id, DATE(created_at) as date
-        // from clicks
-        // group by date;
-
-        //$groupedClicks =
-    }
 }

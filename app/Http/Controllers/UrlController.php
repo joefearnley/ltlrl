@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Url;
+use App\Click;
 
 class UrlController extends Controller
 {
@@ -108,12 +109,12 @@ class UrlController extends Controller
 
     public function stats($id)
     {
-        $url = Url::find($id);
+        $rawSql = 'count(*) as clicks, date(created_at) as date, created_at';
+        $clickData = Click::select(\DB::raw($rawSql))
+            ->where('url_id', $id)
+            ->groupBy('date')
+            ->get();
 
-        $groupedClicks = $url->clicksGroupedByDate();
-
-        return response()->json([
-            'grouped_clicks' => $groupedClicks
-        ]);
+        return response()->json($clickData);
     }
 }
