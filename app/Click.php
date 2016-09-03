@@ -41,4 +41,11 @@ class Click extends Model
     {
         return $this->attributes['formatted_date'] = $this->created_at->format('m/d/Y');
     }
+
+    public function scopeForUrlGroupedByDate($query, $urlId)
+    {
+        return $this->select(\DB:raw('count(*) as clicks, data(created_at) as date, created_at'))
+            ->where('url_id', $urlId)
+            ->groupBy('date');
+    }
 }

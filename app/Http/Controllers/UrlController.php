@@ -106,15 +106,4 @@ class UrlController extends Controller
             'success' => true
         ]);
     }
-
-    public function stats($id)
-    {
-        $rawSql = 'count(*) as clicks, date(created_at) as date, created_at';
-        $clickData = Click::select(\DB::raw($rawSql))
-            ->where('url_id', $id)
-            ->groupBy('date')
-            ->get();
-
-        return response()->json($clickData);
-    }
 }
