@@ -24,5 +24,5 @@ elixir(function(mix) {
         'main.js'
     ], 'public/js/app.js');
 
-    //mix.phpUnit();
+    mix.phpUnit();
 });
