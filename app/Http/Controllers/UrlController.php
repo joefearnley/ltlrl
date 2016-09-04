@@ -126,28 +126,8 @@ class UrlController extends Controller
      */
     public function clickStats($id)
     {
-        $clickData = $this->url->find($id)->clicksByDate();
-        $twoWeeksOfClickData = collect([]);
+        $latestStats = $this->url->find($id)->latestStats();
 
-        // Starting two weeks ago from today, loop over each day.
-        for ($i = 14; $i >= 0; $i--) {
-            // set date to day, clicks to 0
-            $data = [
-                'date' => Carbon::now()->subDays($i)->format('m/d'),
-                'clicks' => 0
-            ];
-
-            foreach ($clickData as $cd) {
-                // if the day exists in $clickData, add set click count for that day
-                if ($data['date'] === $cd->created_at->format('m/d')) {
-                    $data['clicks'] = (int) $cd->clicks;
-                }
-            }
-
-            $twoWeeksOfClickData->push($data);
-        }
-
-        // return 2 weeks worth of data.
-        return response()->json($twoWeeksOfClickData);
+        return response()->json($latestStats);
     }
 }

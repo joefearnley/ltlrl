@@ -98,14 +98,41 @@ class Url extends Model
      */
     public function clicksByDate()
     {
-//        return $this->clicks->filter(function($url) {
-//            return $url->created_at->gt(Carbon::now()->subWeeks(2));
-//        })->groupBy('formatted_date');
-
         return Click::select(DB::raw('count(*) as clicks, DATE(created_at) as date, created_at'))
             ->where('url_id', $this->id)
             ->where('created_at', '>', Carbon::now()->subWeeks(2))
             ->groupBy('date')
             ->get();
+    }
+
+    /**
+     * Get the number of clicks per day over the last two weeks.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function latestStats()
+    {
+        $clickData = $this->clicksByDate();
+        $latestStats = collect([]);
+
+        // Starting two weeks ago from today, loop over each day.
+        for ($i = 13; $i >= 0; $i--) {
+            // set date to day, clicks to 0
+            $data = [
+                'date' => Carbon::now()->subDays($i)->format('m/d'),
+                'clicks' => 0
+            ];
+
+            foreach ($clickData as $cd) {
+                // if the day exists in $clickData, add set click count for that day
+                if ($data['date'] === $cd->created_at->format('m/d')) {
+                    $data['clicks'] = (int) $cd->clicks;
+                }
+            }
+
+            $latestStats->push($data);
+        }
+
+        return $latestStats;
     }
 }

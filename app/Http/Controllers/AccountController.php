@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
+    /**
+     * User instance.
+     *
+     * @var
+     */
     private $user;
 
     /**
