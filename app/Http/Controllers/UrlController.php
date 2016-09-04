@@ -24,12 +24,23 @@ class UrlController extends Controller
     private $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     /**
-     * Create an instance of the url controller class.
+     * Url model instance
      *
+     * @var Url
+     */
+    private $url;
+
+
+    /**
+     *  Create an instance of the url controller class.
+     *
+     *
+     * @param Url $url
      * @param \RandomLib\Factory $factory
      */
-    public function __construct(\RandomLib\Factory $factory)
+    public function __construct(Url $url, \RandomLib\Factory $factory)
     {
+        $this->url = $url;
         $this->randomLibGenerator = $factory->getMediumStrengthGenerator();
     }
 
@@ -41,7 +52,7 @@ class UrlController extends Controller
      */
     public function show($id)
     {
-        $url = Url::find($id);
+        $url = $this->url->find($id);
 
         return response()->json($url);
     }
@@ -58,7 +69,7 @@ class UrlController extends Controller
             'url' => 'required|url'
         ]);
 
-        $url = URL::create([
+        $url = $this->url->create([
             'url' => $request->input('url'),
             'key' => $this->randomLibGenerator->generateString(6, $this->characters),
             'user_id' => Auth::check() ? Auth::id() : null
@@ -82,7 +93,7 @@ class UrlController extends Controller
             'url' => 'required|url'
         ]);
 
-        $url = Url::find($request->input('id'));
+        $url = $this->url->find($request->input('id'));
         $url->url = $request->input('url');
         $url->save();
 
@@ -100,10 +111,43 @@ class UrlController extends Controller
      */
     public function delete($id)
     {
-        Url::destroy($id);
+        $this->url->destroy($id);
 
         return response()->json([
             'success' => true
         ]);
+    }
+
+    /**
+     * Get the clicks stats for a given url.
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function clickStats($id)
+    {
+        $clickData = $this->forUrlGroupedByDate($urlId)->get();
+        $twoWeeksOfClickData = collect([]);
+
+        // Starting two weeks ago from today, loop over each day.
+        for ($i = 14; $i > 0; $i--) {
+            // set date to day, clicks to 0
+            $data = [
+                'date' => Carbon::now()->subDays($i)->format('m/d/Y'),
+                'clicks' => 0
+            ];
+
+            foreach ($clickData as $cd) {
+                // if the day exists in $clickData, add set click count for that day
+                if ($data['date'] === $cd->date) {
+                    $data['clicks'] = $cd->clicks;
+                }
+            }
+
+            $twoWeeksOfClickData->push($data);
+        }
+
+        // return 2 weeks worth of data.
+        return response()->json($twoWeeksOfClickData);
     }
 }

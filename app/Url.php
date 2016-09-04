@@ -87,4 +87,6 @@ class Url extends Model
     {
         return $this->hasMany('App\Click');
     }
+
+
 }

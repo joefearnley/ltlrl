@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
+use Carbon\Carbon;
 
 class Click extends Model
 {
@@ -42,10 +44,18 @@ class Click extends Model
         return $this->attributes['formatted_date'] = $this->created_at->format('m/d/Y');
     }
 
+    /**
+     * Query scope to get click count by date for url
+     *
+     * @param $query
+     * @param $urlId
+     * @return mixed
+     */
     public function scopeForUrlGroupedByDate($query, $urlId)
     {
-        return $this->select(\DB:raw('count(*) as clicks, data(created_at) as date, created_at'))
+        return $this->select(DB::raw('count(*) as clicks, DATE_FORMAT(created_at,\'%m/%d/%Y\') as date, created_at'))
             ->where('url_id', $urlId)
+            ->where('created_at', '>', Carbon::now()->subWeeks(2))
             ->groupBy('date');
     }
 }
