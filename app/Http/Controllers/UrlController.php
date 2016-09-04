@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Url;
-use App\Click;
+use Carbon\Carbon;
 
 class UrlController extends Controller
 {
@@ -126,21 +126,21 @@ class UrlController extends Controller
      */
     public function clickStats($id)
     {
-        $clickData = $this->forUrlGroupedByDate($urlId)->get();
+        $clickData = $this->url->find($id)->clicksByDate();
         $twoWeeksOfClickData = collect([]);
 
         // Starting two weeks ago from today, loop over each day.
-        for ($i = 14; $i > 0; $i--) {
+        for ($i = 14; $i >= 0; $i--) {
             // set date to day, clicks to 0
             $data = [
-                'date' => Carbon::now()->subDays($i)->format('m/d/Y'),
+                'date' => Carbon::now()->subDays($i)->format('m/d'),
                 'clicks' => 0
             ];
 
             foreach ($clickData as $cd) {
                 // if the day exists in $clickData, add set click count for that day
-                if ($data['date'] === $cd->date) {
-                    $data['clicks'] = $cd->clicks;
+                if ($data['date'] === $cd->created_at->format('m/d')) {
+                    $data['clicks'] = (int) $cd->clicks;
                 }
             }
 

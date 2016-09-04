@@ -103,7 +103,7 @@ var UrlList = {
 
             $.get('/url/stats/' + url.id).done(function(response) {
                 response.forEach(function(click) {
-                        labels.push(click.formatted_date);
+                        labels.push(click.date);
                         data.push(click.clicks);
                 });
 
@@ -127,7 +127,8 @@ var UrlList = {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            callback: function(value) {if (value % 1 === 0) {return value;}}
                         }
                     }]
                 }

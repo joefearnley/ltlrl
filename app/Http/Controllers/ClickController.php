@@ -37,11 +37,6 @@ class ClickController extends Controller
         $clickData = $this->click->forUrlGroupedByDate($urlId)->get();
         $twoWeeksOfClickData = collect([]);
 
-        // start at two weeks ago from today.
-        // loop over each day
-        // set date to day, clicks to 0
-        // if the day exists in $clickData, add set click count for that day
-        // return 2 weeks worth of data.
         for ($i = 14; $i > 0; $i--) {
             $data = [
                 'clicks' => 0,

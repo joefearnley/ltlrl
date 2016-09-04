@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Libraries\AccountTotals;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\User;
 
 class AccountController extends Controller
 {
+    private $user;
+
     /**
      * Create a new account controller instance.
      *
@@ -17,6 +17,7 @@ class AccountController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->user = Auth::user();
     }
 
     /**
@@ -27,7 +28,7 @@ class AccountController extends Controller
     public function index()
     {
         return view('account.index')
-            ->with('user', Auth::user());
+            ->with('user', $this->user);
     }
 
     /**
@@ -38,7 +39,7 @@ class AccountController extends Controller
     public function urls()
     {
         return response()->json([
-            'urls' => Auth::user()->urls
+            'urls' => $this->user->urls
         ]);
     }
 
@@ -59,7 +60,7 @@ class AccountController extends Controller
      */
     public function settings()
     {
-        return view('account.settings')->with('user', Auth::user());
+        return view('account.settings')->with('user', $this->user);
     }
 
     /**
@@ -75,7 +76,7 @@ class AccountController extends Controller
             'email' => 'required|email'
         ]);
 
-        $user = User::find($request->input('id'));
+        $user = $this->user->find($request->input('id'));
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -99,7 +100,7 @@ class AccountController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $user = User::find($request->input('id'));
+        $user = $this->user->find($request->input('id'));
         $user->password = bcrypt($request->input('password'));
         $user->save();
 

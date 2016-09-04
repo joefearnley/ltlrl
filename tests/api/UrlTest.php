@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Carbon\Carbon;
 
 class UrlTest extends TestCase
 {
@@ -173,7 +174,7 @@ class UrlTest extends TestCase
     {
         $user = factory(App\User::class)->create();
         $url = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
-        
+
         $oneDaysAgo = Carbon::now()->subDay(1);
         $twoDaysAgo = Carbon::now()->subDay(2);
         $sevenDaysAgo = Carbon::now()->subDay(7);
@@ -181,22 +182,22 @@ class UrlTest extends TestCase
 
         $this->createClicksForStats($url, $twoDaysAgo, $sevenDaysAgo);
 
-        $this->json('GET', 'click/stats/' . $url->id)
+        $this->json('GET', 'url/stats/' . $url->id)
             ->seeJson([
-                'date' => $oneDaysAgo->format('m/d/Y'),
-                'clicks' => '0'
+                'date' => $oneDaysAgo->format('m/d'),
+                'clicks' => 0
             ])
             ->seeJson([
-                'date' => $twoDaysAgo->format('m/d/Y'),
-                'clicks' => '2'
+                'date' => $twoDaysAgo->format('m/d'),
+                'clicks' => 2
             ])
             ->seeJson([
-                'date' => $sevenDaysAgo->format('m/d/Y'),
-                'clicks' => '1'
+                'date' => $sevenDaysAgo->format('m/d'),
+                'clicks' => 1
             ])
             ->seeJson([
-                'date' => $tenDaysAgo->format('m/d/Y'),
-                'clicks' => '0'
+                'date' => $tenDaysAgo->format('m/d'),
+                'clicks' => 0
             ]);
     }
 

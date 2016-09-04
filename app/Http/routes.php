@@ -13,10 +13,8 @@ Route::get('url/{id}', 'UrlController@show');
 Route::post('url/create', 'UrlController@create');
 Route::post('url/update', 'UrlController@update');
 Route::post('url/delete/{id}', 'UrlController@delete');
-Route::get('url/stats/{id}', 'ClickController@clickStats');
+Route::get('url/stats/{id}', 'UrlController@clickStats');
 
 Route::get('/api/account/urls', 'AccountController@urls');
 Route::post('/api/account/update-personal-info', 'AccountController@updatePersonalInfo');
 Route::post('/api/account/update-password', 'AccountController@updatePassword');
-
-Route::get('click/stats/{urlId}', 'ClickController@statsForUrl');

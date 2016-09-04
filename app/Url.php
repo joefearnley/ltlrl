@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
+use Carbon\Carbon;
+use App\Click;
 
 class Url extends Model
 {
@@ -14,7 +17,7 @@ class Url extends Model
     protected $fillable = [
         'url',
         'key',
-        'user_id',
+        'user_id'
     ];
 
     /**
@@ -88,5 +91,21 @@ class Url extends Model
         return $this->hasMany('App\Click');
     }
 
+    /**
+     * Query scope to get click count by date.
+     *
+     * @return mixed
+     */
+    public function clicksByDate()
+    {
+//        return $this->clicks->filter(function($url) {
+//            return $url->created_at->gt(Carbon::now()->subWeeks(2));
+//        })->groupBy('formatted_date');
 
+        return Click::select(DB::raw('count(*) as clicks, DATE(created_at) as date, created_at'))
+            ->where('url_id', $this->id)
+            ->where('created_at', '>', Carbon::now()->subWeeks(2))
+            ->groupBy('date')
+            ->get();
+    }
 }
