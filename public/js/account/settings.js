@@ -3,7 +3,7 @@ var PersonalForm = {
         this.bindEvents();
     },
     bindEvents: function() {
-        var self = personalForm;
+        var self = PersonalForm;
         $('#personal-info-form').validator().on('submit', function (e) {
             if (!e.isDefaultPrevented()) {
                 self.savePersonalInfo(e);
@@ -12,7 +12,6 @@ var PersonalForm = {
     },
     savePersonalInfo: function(e) {
         e.preventDefault();
-        var self = PersonalForm;
         var l = Ladda.create(document.querySelector('#update-personal-info'));
         l.start();
         var data = $('#personal-info-form').serialize();
