@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Url;
 use App\Click;
+use GeoIP;
 
 class HomeController extends Controller
 {
@@ -24,12 +25,18 @@ class HomeController extends Controller
      * @param $key
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirect($key)
+    public function redirect(Request $request, $key)
     {
+        echo '<pre>';
+        var_dump(GeoIP::getLocation());
+        die();
+
         $url = Url::where('key', $key)->firstOrFail();
 
         Click::create([
-            'url_id' => $url->id
+            'url_id' => $url->id,
+            'ip' => $request->ip(),
+            'country'
         ]);
 
         return redirect()->away($url->url);

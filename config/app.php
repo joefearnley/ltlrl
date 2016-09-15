@@ -157,6 +157,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //Barryvdh\Debugbar\ServiceProvider::class,
+        Torann\GeoIP\GeoIPServiceProvider::class,
 
     ],
 
@@ -203,7 +204,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-       // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'GeoIP' => 'Torann\GeoIP\GeoIPFacade',
 
     ],
 

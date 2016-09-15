@@ -30,7 +30,6 @@ class UrlController extends Controller
      */
     private $url;
 
-
     /**
      *  Create an instance of the url controller class.
      *
