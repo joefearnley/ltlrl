@@ -10,7 +10,7 @@ class HomeTest extends TestCase
     public function test_home_page_show_main_form()
     {
         $this->visit('/')
-             ->see('Little URL');
+            ->see('Little URL');
     }
 
     public function test_main_form_creates_url_in_database()

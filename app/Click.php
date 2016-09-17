@@ -15,6 +15,7 @@ class Click extends Model
      */
     protected $fillable = [
         'url_id',
+        'ip'
     ];
 
     /**
