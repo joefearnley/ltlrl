@@ -22,7 +22,11 @@ class AccountController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->user = Auth::user();
+
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            return $next($request);
+        });
     }
 
     /**
