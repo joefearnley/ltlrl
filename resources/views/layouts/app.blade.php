@@ -48,34 +48,6 @@
         </div>
     </nav>
 
-    @if (Auth::check() && Route::getCurrentRoute()->getPath() != '/')
-        <div id="add-url-modal" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <form id="add-url-form" data-toggle="validator" role="form">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="exampleModalLabel">Make Url Little</h4>
-                        </div>
-                        <div class="modal-body">
-                            {!! csrf_field() !!}
-                            <div class="form-group">
-                                <input type="url" class="form-control" id="enter-url" name="url" placeholder="Enter Url" required>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-default cancel-url-edit" data-dismiss="modal">Cancel</button>
-                            <button type="submit" id="submit-make-url-little-button" class="btn btn-primary ladda-button" data-style="expand-left">
-                                <i class="fa fa-btn fa-save"></i> Make Little
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    @endif
-
     @yield('content')
     <script src="/js/app.js"></script>
     @yield('scripts')
