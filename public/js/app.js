@@ -710,6 +710,7 @@ var CreateUrlForm = {
     },
     saveUrl: function(e) {
         e.preventDefault();
+        var self = this;
         var l = Ladda.create(document.querySelector('.ladda-button'));
         l.start();
         var data = $('#add-url-form').serialize();
@@ -723,11 +724,22 @@ var CreateUrlForm = {
                         type: 'success',
                         timer: 2000
                     });
+
+                    setTimeout(function() {
+                        self.refreshPage();
+                    }, 1000)
                 }, 300);
             })
             .always(function() {
                 l.stop();
             });
+    },
+    refreshPage: function() {
+        if (typeof UrlList != 'undefined') {
+            UrlList.loadUrlList();
+        } else if (window.location.pathname === '/account') {
+            window.location.reload();
+        }
     }
 };
 
