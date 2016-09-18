@@ -13,7 +13,7 @@ class AddIpToClickTable extends Migration
     public function up()
     {
         Schema::table('clicks', function ($table) {
-            $table->ipAddress('ip');
+            $table->ipAddress('ip')->nullable();
         });
     }
 

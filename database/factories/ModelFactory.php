@@ -29,6 +29,7 @@ $factory->define(App\Url::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Click::class, function (Faker\Generator $faker) {
     return [
-        'url_id' => $faker->randomDigit
+        'url_id' => $faker->randomDigit,
+        'ip' => $faker->localIpv4
     ];
 });
