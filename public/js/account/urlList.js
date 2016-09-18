@@ -16,6 +16,21 @@ var UrlList = {
         $('#delete-modal').on('hidden.bs.modal', function() {
             $(this).html('');
         });
+
+        new Clipboard('.copy-url', {
+            text: function (trigger) {
+                return $(trigger).data('url');
+            }
+        }).on('success', function(e) {
+            e.clearSelection();
+            swal({
+                showConfirmButton: false,
+                title: 'Success!',
+                text: 'Url Copied.',
+                type: 'success',
+                timer: 1000
+            });
+        });
     },
     loadUrlList: function() {
         var self = UrlList;
