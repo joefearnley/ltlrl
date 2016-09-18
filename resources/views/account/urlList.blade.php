@@ -24,10 +24,13 @@
         <div class="list-group-item">
             <div class="row">
                 <div class="col-sm-4">
-                    <strong>Url:</strong> @{{ url }}<br>
-                    <strong>Little Url:</strong> @{{ link }}<br>
+                    <strong>Url:</strong> <a href="@{{ url }}" targer="_blank">@{{ url }}</a><br>
+                    <strong>Little Url:</strong> <a href="@{{ link }}" targer="_blank">http://@{{ link }}</a><br>
                     <strong>Clicks:</strong> @{{ click_count }} <br>
-                    Created on <strong>@{{ formatted_date }}</strong>
+                    Created on <strong>@{{ formatted_date }}</strong><br>
+                    <button class="btn btn-success copy-url" data-url="@{{ link }}">
+                        <i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard
+                    </button>
                 </div>
                 <div class="col-sm-5">
                     <canvas class="click-chart-@{{ id }}" height="100"></canvas>
