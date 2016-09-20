@@ -74,12 +74,30 @@ var UrlList = {
             });
     },
     showDeleteConfirmation: function() {
+
+
+
         var uri = '/url/' + $(this).data('id');
+
+        swal({
+            title: 'Make Url Little',
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Make Little',
+            showLoaderOnConfirm: true,
+            preConfirm: $.proxy(this.saveUrl, this),
+            allowOutsideClick: false
+        }).then(this.showSuccessMessage);
+
+
         $.get(uri).success(function(response) {
             var template = $('#delete-modal-template').html();
             var html = Mustache.render(template, response);
             $('#delete-modal').html(html).modal('show');
         });
+
+
+
     },
     deleteUrl: function() {
         var self = UrlList;
