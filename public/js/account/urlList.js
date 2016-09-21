@@ -6,16 +6,14 @@ var UrlList = {
     bindEvents: function() {
         $(document).on('click', '.edit-url', this.showEditModal);
         $(document).on('click', '.save-url', this.saveUrl);
-        $(document).on('click', '.confirm-delete-url', this.showDeleteConfirmation);
-        $(document).on('click', '.delete-url', this.deleteUrl);
+        $(document).on('click', '.confirm-delete-url', $.proxy(this.showDeleteConfirmation, this));
+        // $(document).on('click', '.delete-url', this.deleteUrl);
 
         $('#edit-modal').on('hidden.bs.modal', function() {
             $(this).html('');
         });
 
-        $('#delete-modal').on('hidden.bs.modal', function() {
-            $(this).html('');
-        });
+        // $('#delete-modal').on('hidden.bs.modal', function() { $(this).html(''); });
 
         new Clipboard('.copy-url', {
             text: function (trigger) {
@@ -74,44 +72,46 @@ var UrlList = {
             });
     },
     showDeleteConfirmation: function() {
-
-
+        var self = this;
 
         var uri = '/url/' + $(this).data('id');
 
         swal({
-            title: 'Make Url Little',
-            input: 'text',
+            title: 'Are you sure?',
+            text: 'Are you sure you want to delete this Little Url?',
+            type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Make Little',
-            showLoaderOnConfirm: true,
-            preConfirm: $.proxy(this.saveUrl, this),
-            allowOutsideClick: false
-        }).then(this.showSuccessMessage);
-
-
-        $.get(uri).success(function(response) {
-            var template = $('#delete-modal-template').html();
-            var html = Mustache.render(template, response);
-            $('#delete-modal').html(html).modal('show');
-        });
-
-
-
-    },
-    deleteUrl: function() {
-        var self = UrlList;
-        var uri = '/url/delete/' + $(this).data('id');
-        $.post(uri).done(function() {
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            preConfirm: $.proxy(this.deleteUrl, this, uri)
+        }).then(function() {
             swal({
                 title: 'Success!',
                 text: 'Url Deleted.',
                 type: 'success',
                 timer: 2000
             });
-            $('#delete-modal').html('').modal('hide');
+
             self.loadUrlList();
         });
+
+        // $.get(uri).success(function(response) {
+        //     var template = $('#delete-modal-template').html();
+        //     var html = Mustache.render(template, response);
+        //     $('#delete-modal').html(html).modal('show');
+        // });
+    },
+    deleteUrl: function(uri) {
+        $.post(uri)
+            .done(function(response) {
+                setTimeout(function() {
+                    resolve();
+                }, 1000)
+            })
+            .fail(function(jqXHR) {
+                reject(jqXHR.responseJSON.url[0]);
+            });
     },
     showError: function(message) {
         $('.form-group').addClass('has-error');
@@ -123,12 +123,6 @@ var UrlList = {
     },
     createCharts: function(urls) {
         var self = UrlList;
-
-        // var urlsGroupedByDate = [];
-        // urls.forEach(function(url) {
-        //
-        // });
-
         urls.forEach(function(url) {
             var selector = '.click-chart-' + url.id;
             var labels = [];
@@ -136,13 +130,12 @@ var UrlList = {
 
             $.get('/url/stats/' + url.id).done(function(response) {
                 response.forEach(function(click) {
-                        labels.push(click.date);
-                        data.push(click.clicks);
+                    labels.push(click.date);
+                    data.push(click.clicks);
                 });
 
                 self.createChart(selector, labels, data);
             });
-
         });
     },
     createChart: function(selector, labels, data) {
