@@ -6,7 +6,7 @@ var UrlList = {
     bindEvents: function() {
         $(document).on('click', '.edit-url', this.showEditModal);
         $(document).on('click', '.save-url', this.saveUrl);
-        $(document).on('click', '.confirm-delete-url', $.proxy(this.showDeleteConfirmation, this));
+        $(document).on('click', '.confirm-delete-url', this.showDeleteConfirmation);
         // $(document).on('click', '.delete-url', this.deleteUrl);
 
         $('#edit-modal').on('hidden.bs.modal', function() {
@@ -72,9 +72,8 @@ var UrlList = {
             });
     },
     showDeleteConfirmation: function() {
-        var self = this;
-
-        var uri = '/url/' + $(this).data('id');
+        var self = UrlList;
+        var id = $(this).data('id');
 
         swal({
             title: 'Are you sure?',
@@ -84,7 +83,17 @@ var UrlList = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!',
-            preConfirm: $.proxy(this.deleteUrl, this, uri)
+            preConfirm: function() {
+                $.post('/url/' + id)
+                    .done(function(response) {
+                        setTimeout(function() {
+                            resolve();
+                        }, 1000);
+                    })
+                    .fail(function(jqXHR) {
+                        reject(jqXHR.responseJSON.url[0]);
+                    });
+            }
         }).then(function() {
             swal({
                 title: 'Success!',
@@ -102,16 +111,7 @@ var UrlList = {
         //     $('#delete-modal').html(html).modal('show');
         // });
     },
-    deleteUrl: function(uri) {
-        $.post(uri)
-            .done(function(response) {
-                setTimeout(function() {
-                    resolve();
-                }, 1000)
-            })
-            .fail(function(jqXHR) {
-                reject(jqXHR.responseJSON.url[0]);
-            });
+    deleteUrl: function(id) {
     },
     showError: function(message) {
         $('.form-group').addClass('has-error');
