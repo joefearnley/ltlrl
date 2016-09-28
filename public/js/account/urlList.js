@@ -7,13 +7,10 @@ var UrlList = {
         $(document).on('click', '.edit-url', this.showEditModal);
         $(document).on('click', '.save-url', this.saveUrl);
         $(document).on('click', '.confirm-delete-url', this.showDeleteConfirmation);
-        // $(document).on('click', '.delete-url', this.deleteUrl);
-
+        
         $('#edit-modal').on('hidden.bs.modal', function() {
             $(this).html('');
         });
-
-        // $('#delete-modal').on('hidden.bs.modal', function() { $(this).html(''); });
 
         new Clipboard('.copy-url', {
             text: function (trigger) {
@@ -80,19 +77,22 @@ var UrlList = {
             text: 'Are you sure you want to delete this Little Url?',
             type: 'warning',
             showCancelButton: true,
+            showLoaderOnConfirm: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!',
             preConfirm: function() {
-                $.post('/url/' + id)
-                    .done(function(response) {
-                        setTimeout(function() {
-                            resolve();
-                        }, 1000);
-                    })
-                    .fail(function(jqXHR) {
-                        reject(jqXHR.responseJSON.url[0]);
-                    });
+                return new Promise(function(resolve, reject) {
+                    $.post('/url/delete/' + id)
+                        .done(function(response) {
+                            setTimeout(function() {
+                                resolve();
+                            }, 1000);
+                        })
+                        .fail(function(jqXHR) {
+                            reject(jqXHR.responseJSON.url[0]);
+                        });
+                });
             }
         }).then(function() {
             swal({
@@ -104,14 +104,6 @@ var UrlList = {
 
             self.loadUrlList();
         });
-
-        // $.get(uri).success(function(response) {
-        //     var template = $('#delete-modal-template').html();
-        //     var html = Mustache.render(template, response);
-        //     $('#delete-modal').html(html).modal('show');
-        // });
-    },
-    deleteUrl: function(id) {
     },
     showError: function(message) {
         $('.form-group').addClass('has-error');
