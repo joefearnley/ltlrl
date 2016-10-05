@@ -10,18 +10,18 @@
                     <h1>Little URL</h1>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-controller="HomeController">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="url-form" action="url/create" method="post" class="form-horizontal">
+                            <form id="url-form" class="form-horizontal">
                                 {!! csrf_field() !!}
                                 <div class="form-group">
                                     <label id="url-error-message" class="control-label" for="url"></label>
                                     <div class="input-group input-group-lg">
-                                        <input type="text" name="url" id="url" class="form-control input-lg" placeholder="Enter Url and ...">
+                                        <input type="text" name="url" id="url" ng-model="url" class="form-control input-lg" placeholder="Enter Url and ...">
                                         <span class="input-group-btn">
-                                            <button id="submit-form" class="btn btn-default ladda-button" data-style="expand-left">
+                                            <button id="submit-form" class="btn btn-default ladda-button" data-style="expand-left" ng-click="createUrl()">
                                                 <span class="ladda-label">Make it Little</span>
                                             </button>
                                         </span>

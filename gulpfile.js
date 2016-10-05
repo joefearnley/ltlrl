@@ -13,6 +13,8 @@ elixir(function(mix) {
     mix.scripts([
         'jquery.min.js',
         'bootstrap.min.js',
+        'angular.min.js',
+        'angular-clipboard.js',
         'mustache.min.js',
         'spin.min.js',
         'ladda.min.js',
