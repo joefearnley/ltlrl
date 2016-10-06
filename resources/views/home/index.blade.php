@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="content" ng-controller="HomeController">
+    <div class="content" ng-app="home" ng-controller="HomeController">
         <div class="container content-page home-page">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 align-center">
