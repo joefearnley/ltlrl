@@ -14,26 +14,26 @@ home.controller('HomeController',
                 type: 'success',
                 showConfirmButton: false,
                 timer: 1000
-            })
+            });
         };
 
         $scope.removeErrorMessage  = function() {
             $scope.errorOccured = false;
-        }
+        };
 
         $scope.createUrl = function() {
             $scope.loading = true;
             UrlService.create($scope.url).then(showSuccessMessage, showErrorMessage);
         };
 
-        function showSuccessMessage(response) {
+        var showSuccessMessage = function(response) {
             $scope.currentUrl = response.data.url.link;
             $scope.urlCreated = true;
             $scope.loading = false;
             $scope.errorOccured = false;
         }
 
-        function showErrorMessage(response) {
+        var showErrorMessage = function(response) {
             $scope.urlCreated = false;
             $scope.errorOccured = true;
             $scope.errorMessage = response.data.url[0];

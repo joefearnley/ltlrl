@@ -1,11 +1,39 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="app" class="container-fluid">
+    <div id="app" class="container-fluid" ng-app="urlList" ng-controller="UrlListController">
         <div class="row">
             @include('account.nav')
             <div class="col-sm-9 col-md-10">
                 <div id="url-list">
+                    <h2 class="sub-header">Urls</h2>
+                    <div class="list-group col-sm-12">
+                        <div class="list-group-item" ng-repeat="url in urls">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <strong>Url:</strong> <a href="//@{{ url }}" targer="_blank">@{{ url.url }}</a><br>
+                                    <strong>Little Url:</strong> <a href="@{{ link }}" targer="_blank">@{{ url.link }}</a><br>
+                                    <strong>Clicks:</strong> @{{ url.click_count }} <br>
+                                    Created on <strong>@{{ url.formatted_date }}</strong><br>
+                                    <button class="btn btn-success copy-url" data-url="@{{ url.link }}" ng-click="copyUrl(url.url)">
+                                        <i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard
+                                    </button>
+                                </div>
+                                <div class="col-sm-5">
+                                    {{-- <canvas class="click-chart-@{{ id }}" height="100"></canvas> --}}
+                                </div>
+                                <div class="col-sm-3 text-right">
+                                    <button class="btn btn-primary edit-url" data-id="@{{ url.id }}" ng-click="editUrl(url.id)">
+                                        <i class="fa fa-pencil"></i> Edit
+                                    </button>
+                                    <button class="btn btn-danger confirm-delete-url" data-id="@{{ id }}" ng-click="deleteUrl(url.id)">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 ng-if="noUrlsFound">No Urls Made Little Yet.</h4>
+                    </div>
                 </div>
             </div>
         </div>
@@ -17,36 +45,6 @@
 @endsection
 
 @section('scripts')
-<script id="url-list-template" type="x-tmpl-mustache">
-    <h2 class="sub-header">Urls</h2>
-    <div class="list-group col-sm-12">
-    @{{#urls}}
-        <div class="list-group-item">
-            <div class="row">
-                <div class="col-sm-4">
-                    <strong>Url:</strong> <a href="//@{{ url }}" targer="_blank">@{{ url }}</a><br>
-                    <strong>Little Url:</strong> <a href="@{{ link }}" targer="_blank">@{{ link }}</a><br>
-                    <strong>Clicks:</strong> @{{ click_count }} <br>
-                    Created on <strong>@{{ formatted_date }}</strong><br>
-                    <button class="btn btn-success copy-url" data-url="@{{ link }}">
-                        <i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard
-                    </button>
-                </div>
-                <div class="col-sm-5">
-                    <canvas class="click-chart-@{{ id }}" height="100"></canvas>
-                </div>
-                <div class="col-sm-3 text-right">
-                    <button class="btn btn-primary edit-url" data-id="@{{ id }}"><i class="fa fa-pencil"></i> Edit</button>
-                    <button class="btn btn-danger confirm-delete-url" data-id="@{{ id }}"><i class="fa fa-trash"></i> Delete</button>
-                </div>
-            </div>
-        </div>
-    @{{/urls}}
-    @{{^urls}}
-        <h4>No Urls Made Little Yet.</h4>
-    @{{/urls}}
-    </div>
-</script>
 
 <script id="edit-modal-template" type="x-tmpl-mustache">
     <div class="modal-dialog" role="document">
