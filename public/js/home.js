@@ -1,34 +1,47 @@
 
-var LittleUrl = angular.module('LittleUrl', ['angular-clipboard']);
+var littleUrl = angular.module('littleUrl', ['angular-clipboard', 'angular-ladda']);
 
-LittleUrl.controller('HomeController',
+littleUrl.controller('HomeController',
     ['$scope', 'UrlService', 'clipboard', function($scope, UrlService, clipboard) {
-        $scope.createUrl = function() {
-            UrlService.create($scope.url)
-                .then(function successCallback(response) {
-                    console.log(response);
+        $scope.errorOccured = false;
+        $scope.urlCreated = false;
 
-                    var template = $('#response-message-template').html();
-                    var html = Mustache.render(template, response.url);
-                    $('#response-message').html(html);
-                }, function errorCallback(response) {
-                    var $formButton = angular.element('#submit-form');
-                    $formButton.addClass('btn-danger').closest('.form-group').addClass('has-error');
-                    angular.element('#url-error-message').text(response.data.url[0]);
-                });
+        $scope.createUrl = function() {
+            $scope.loading = true;
+            UrlService.create($scope.url).then(showSuccessMessage, showErrorMessage);
         };
 
-        $scope.copy = function() {
+        $scope.copyUrl = function() {
             clipboard.copyText($scope.url);
             swal({
                 title: 'Success',
                 text: 'Url Copied to Clipboard',
+                type: 'success',
+                showConfirmButton: false,
                 timer: 1000
             })
         };
+
+        $scope.removeErrorMessage  = function() {
+            $scope.errorOccured = false;
+        }
+
+        function showSuccessMessage(response) {
+            $scope.currentUrl = response.data.url.link;
+            $scope.urlCreated = true;
+            $scope.loading = false;
+            $scope.errorOccured = false;
+        }
+
+        function showErrorMessage(response) {
+            $scope.urlCreated = false;
+            $scope.errorOccured = true;
+            $scope.errorMessage = response.data.url[0];
+            $scope.loading = false;
+        }
 }]);
 
-LittleUrl.factory('UrlService', function($http) {
+littleUrl.factory('UrlService', function($http) {
     return {
         create: function(url) {
             return $http.post('url/create', { url: url });

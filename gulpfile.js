@@ -18,6 +18,7 @@ elixir(function(mix) {
         'mustache.min.js',
         'spin.min.js',
         'ladda.min.js',
+        'angular-ladda.min.js',
         'clipboard.min.js',
         'notify.js',
         'chart.min.js',
