@@ -118,4 +118,9 @@ class AccountController extends Controller
             'user' => $user
         ]);
     }
+
+    public function info()
+    {
+        return response()->json($this->user);
+    }
 }

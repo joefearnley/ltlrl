@@ -193,4 +193,24 @@ class AccountApiTest extends TestCase
             ->json('POST', 'api/account/update-password', $postData)
             ->see('The password confirmation does not match.');
     }
+
+    public function test_get_account_info()
+    {
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user)
+            ->get('api/account/info')
+            ->seeJson([
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email
+            ]);
+    }
+
+    public function test_error_is_thrown_when_getting_account_info_if_user_is_not_logged_in()
+    {
+        $response = $this->call('GET', 'api/account/info');
+
+        $this->assertEquals(302, $response->status());
+    }
 }
