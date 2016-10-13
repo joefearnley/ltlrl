@@ -2,41 +2,39 @@ var accountSettings = angular.module('acccount', ['angular-ladda']);
 
 accountSettings.controller('AccountSettingsController', function($scope, AccountService) {
 
-    AccountService.get(id).then(function(response) {
-        $scope.name = response.data.user.name;
-        $scope.email = response.data.user.email;
+    AccountService.getAccountInfo().then(function(response) {
+        $scope.name = response.data.name;
+        $scope.email = response.data.email;
     });
 
     $scope.updatePersonalInfo = function() {
-        $scope.loading = true;
-        console.log('updating....');
-        // AccountService.updateInfo($scope.name, $scope.email).then(function(response) {
-        //     $scope.loading = false;
-        //     showMessage('Success!', 'Person Info Updated.', 'success')
-        // }, function(error) {
-        //     // show the error....
-        //     // showMessage('Error!', 'Error Updating Personal Info.', 'error')
-        //     console.log(error);
-        // });
+        $scope.updatingInfo = true;
+        AccountService.updatePersonalInfo($scope.name, $scope.email)
+            .then(function(response) {
+                $scope.updatingInfo = false;
+                showMessage('Success!', 'Person Info Updated.', 'success');
+            }, function(error) {
+                $scope.updatingInfo = false;
+                showMessage('Error!', 'Error Updating Personal Info.', 'error');
+            });
     };
 
     $scope.updatePassword = function() {
-        $scope.loading = true;
+        $scope.updatingPassword = true;
         AccountService.updatePassword($scope.password, $scope.confirmPassword)
             .then(function(response) {
+                $scope.updatingPassword = false;
                 $scope.reset();
                 showMessage('Success!', 'Password Updated.', 'success');
             }, function(error) {
-                // show the error....
-                // showMessage('Error!', 'Error Updating Password.', 'error')
-                console.log(error);
+                $scope.updatingPassword = false;
+                showMessage('Error!', 'Error Updating Password.', 'error');
             });
     };
 
     $scope.reset = function() {
         $scope.password = '';
         $scope.confirmPassword = '';
-        $scope.loading = false;
     };
 
     function showMessage(title, text, type) {
@@ -44,23 +42,26 @@ accountSettings.controller('AccountSettingsController', function($scope, Account
             title: title,
             text: text,
             type: type,
-            timer: 1000
+            timer: 1000,
+            showConfirmButton: false
         });
     }
 
+    $scope.updatingInfo = false;
+    $scope.updatingPassword = false;
     $scope.reset();
 });
 
 accountSettings.factory('AccountService', function($http) {
     return {
-        get: function(id) {
-            return $http.get('/account/personal-info');
+        getAccountInfo: function() {
+            return $http.get('/api/account/info');
         },
         updatePersonalInfo: function(name, email) {
-            var data = {
+            var data = JSON.stringify({
                 name: name,
                 email: email
-            };
+            });
 
             return $http.post('/api/account/update-personal-info', data);
         },

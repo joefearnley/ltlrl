@@ -85,15 +85,13 @@ class AccountController extends Controller
             'email' => 'required|email'
         ]);
 
-        $user = $this->user->find($request->input('id'));
-
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->save();
+        $this->user->name = $request->input('name');
+        $this->user->email = $request->input('email');
+        $this->user->save();
 
         return response()->json([
             'success' => true,
-            'user' => $user
+            'user' => $this->user
         ]);
     }
 
@@ -119,6 +117,11 @@ class AccountController extends Controller
         ]);
     }
 
+    /**
+     * Get User information associated with account.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function info()
     {
         return response()->json($this->user);

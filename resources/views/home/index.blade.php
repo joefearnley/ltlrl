@@ -19,7 +19,7 @@
                                     <div class="input-group input-group-lg">
                                         <input type="text" name="url" id="url" ng-model="url" class="form-control input-lg" placeholder="Enter Url and ..." ng-keyup="removeErrorMessage()">
                                         <span class="input-group-btn">
-                                            <button id="submit-form" class="btn btn-default" ng-class="{ 'btn-danger': errorOccured }" ladda="loading" data-spinner-color="#FFFFFF" data-style="expand-left" ng-click="createUrl()">
+                                            <button class="btn btn-default" ng-class="{ 'btn-danger': errorOccured }" ladda="loading" data-spinner-color="#FFFFFF" data-style="expand-left" ng-click="createUrl()">
                                                 Make it Little
                                             </button>
                                         </span>

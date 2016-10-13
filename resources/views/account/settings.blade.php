@@ -16,7 +16,7 @@
                                 <label id="name-error-message" class="control-label" for="name"></label>
                                 <label class="col-md-3 control-label">Name</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="name" class="form-control" name="name" placeholder="Name" required>
+                                    <input type="text" id="name" class="form-control" name="name" placeholder="Name" ng-model="name" required>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -24,13 +24,13 @@
                                 <label id="email-error-message" class="control-label" for="email"></label>
                                 <label class="col-md-3 control-label">E-Mail Address</label>
                                 <div class="col-md-6">
-                                    <input type="email" id="email" class="form-control" name="email"  placeholder="E-Mail Address" data-error="Email address is invalid" required>
+                                    <input type="email" id="email" class="form-control" name="email"  placeholder="E-Mail Address" data-error="Email address is invalid" ng-model="email" required>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-5 col-md-offset-7">
-                                    <button class="btn btn-primary ladda-button" ng-click="updatePersonalInfo()" data-style="expand-left">
+                                    <button class="btn btn-primary ladda-button" ladda="updatingInfo" ng-click="updatePersonalInfo()" data-style="expand-left">
                                         <i class="fa fa-btn fa-save"></i> Save
                                     </button>
                                 </div>
@@ -61,7 +61,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-5 col-md-offset-7">
-                                    <button id="update-password-button" class="btn btn-primary ladda-button" data-style="expand-left">
+                                    <button class="btn btn-primary ladda-button" ladda="updatingPassword" ng-click="updatePassword()" data-style="expand-left">
                                         <i class="fa fa-btn fa-save"></i> Update
                                     </button>
                                 </div>
