@@ -135,6 +135,7 @@ class AccountApiTest extends TestCase
     public function test_update_password()
     {
         $user = factory(App\User::class)->create();
+        $oldPassword = $user->password;
 
         $postData = [
             'id' => $user->id,
@@ -150,7 +151,7 @@ class AccountApiTest extends TestCase
 
         $updatedUser = User::find($user->id);
 
-        $this->assertNotEquals($user->password, $updatedUser->password);
+        $this->assertNotEquals($oldPassword, $updatedUser->password);
     }
 
     public function test_update_password_has_to_be_6_characters()

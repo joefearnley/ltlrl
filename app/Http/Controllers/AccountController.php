@@ -107,13 +107,12 @@ class AccountController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $user = $this->user->find($request->input('id'));
-        $user->password = bcrypt($request->input('password'));
-        $user->save();
+        $this->user->password = bcrypt($request->input('password'));
+        $this->user->save();
 
         return response()->json([
             'success' => true,
-            'user' => $user
+            'user' => $this->user
         ]);
     }
 

@@ -48,14 +48,14 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Password</label>
                                 <div class="col-md-6">
-                                    <input type="password" name="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
+                                    <input type="password" name="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" ng-model="password" required>
                                     <div class="help-block">Minimum of 6 characters</div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Confirm Password</label>
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" id="inputPasswordConfirm" name="password_confirmation" data-match="#inputPassword" data-match-error="Passwords don't match" placeholder="Confirm" required>
+                                    <input type="password" class="form-control" id="inputPasswordConfirm" name="password_confirmation" data-match="#inputPassword" data-match-error="Passwords don't match" placeholder="Confirm" ng-model="confirmPassword" required>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
