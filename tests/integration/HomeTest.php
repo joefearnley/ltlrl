@@ -13,30 +13,6 @@ class HomeTest extends TestCase
             ->see('Little URL');
     }
 
-    public function test_main_form_creates_url_in_database()
-    {
-        $this->visit('/')
-            ->see('Little URL')
-            ->type('http://yahoo.com', 'url')
-            ->press('Make it Little')
-            ->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
-    }
-
-    public function test_user_id_is_stored_in_database_after_url_is_created_when_user_is_logged_in()
-    {
-        $user = factory(App\User::class)->create();
-
-        $this->actingAs($user)
-            ->visit('/')
-            ->see('Little URL')
-            ->type('http://yahoo.com', 'url')
-            ->press('Make it Little')
-            ->seeInDatabase('urls', [
-                'url' => 'http://yahoo.com',
-                'user_id' => $user->id
-            ]);
-    }
-
     public function test_little_url_redirect_to_correct_url()
     {
         $url = factory(App\Url::class)->create([

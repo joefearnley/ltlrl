@@ -118,7 +118,7 @@ class AccountApiTest extends TestCase
         ];
 
         $this->actingAs($user)
-            ->json('POST', 'api/account/update-personal-info', $postData)
+            ->post('api/account/update-personal-info', $postData)
             ->seeJson([
                 'success' => true
             ])
@@ -143,7 +143,7 @@ class AccountApiTest extends TestCase
         ];
 
         $this->actingAs($user)
-            ->json('POST', 'api/account/update-password', $postData)
+            ->post('api/account/update-password', $postData)
             ->seeJson([
                 'success' => true
             ]);

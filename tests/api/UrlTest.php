@@ -13,7 +13,7 @@ class UrlTest extends TestCase
             'url' => 'http://yahoo.com'
         ];
 
-        $this->json('POST', '/url/create', $postData)
+        $this->post('/url/create', $postData)
             ->seeJson([
                 'success' => true
             ])
@@ -34,7 +34,7 @@ class UrlTest extends TestCase
         ];
 
         $this->actingAs($user)
-            ->json('POST', '/url/create', $postData)
+            ->post('/url/create', $postData)
             ->seeJson([
                 'success' => true
             ])
@@ -144,8 +144,7 @@ class UrlTest extends TestCase
             'user_id' => 1
         ]);
 
-        $uri = '/url/' . $url->id;
-        $this->json('GET', $uri)
+        $this->get('/url/' . $url->id)
             ->seeJson([
                 'id' => $url->id,
                 'url' => 'http://yahoo.com',
@@ -160,9 +159,7 @@ class UrlTest extends TestCase
             'url' => 'http://yahoo.com'
         ]);
 
-        $uri = '/url/delete/' . $url->id;
-
-        $this->json('POST', $uri)
+        $this->post('/url/delete/' . $url->id)
             ->seeJson([
                 'success' => true
             ]);
@@ -182,7 +179,7 @@ class UrlTest extends TestCase
 
         $this->createClicksForStats($url, $twoDaysAgo, $sevenDaysAgo);
 
-        $this->json('GET', 'url/stats/' . $url->id)
+        $this->get('url/stats/' . $url->id)
             ->seeJson([
                 'date' => $oneDaysAgo->format('m/d'),
                 'clicks' => 0
