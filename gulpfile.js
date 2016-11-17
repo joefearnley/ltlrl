@@ -11,19 +11,21 @@ elixir(function(mix) {
     ], 'public/css/app.css');
 
     mix.scripts([
-        'jquery.min.js',
-        'bootstrap.min.js',
-        'angular.min.js',
-        'angular-clipboard.js',
-        'mustache.min.js',
-        'spin.min.js',
-        'ladda.min.js',
-        'angular-ladda.min.js',
-        'clipboard.min.js',
-        'notify.js',
-        'chart.min.js',
-        'validator.min.js',
-        'sweetalert2.min.js',
+        'lib/jquery.min.js',
+        'lib/bootstrap.min.js',
+        'lib/angular.min.js',
+        'lib/angular-clipboard.js',
+        'lib/mustache.min.js',
+        'lib/spin.min.js',
+        'lib/ladda.min.js',
+        'lib/angular-ladda.min.js',
+        'lib/clipboard.min.js',
+        'lib/chart.min.js',
+        'lib/validator.min.js',
+        'lib/sweetalert2.min.js'
+    ], 'public/js/lib.js');
+
+    mix.scripts([
         'main.js'
     ], 'public/js/app.js');
 
