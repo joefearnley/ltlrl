@@ -1,8 +1,8 @@
 
 var home = angular.module('home', ['angular-clipboard', 'angular-ladda']);
 
-home.controller('HomeController',
-    ['$scope', 'UrlService', 'clipboard', function($scope, UrlService, clipboard) {
+home.controller('HomeController', ['$scope', 'UrlService', 'clipboard', 
+    function($scope, UrlService, clipboard) {
         $scope.errorOccured = false;
         $scope.urlCreated = false;
 
@@ -31,14 +31,14 @@ home.controller('HomeController',
             $scope.urlCreated = true;
             $scope.loading = false;
             $scope.errorOccured = false;
-        }
+        };
 
         var showErrorMessage = function(response) {
             $scope.urlCreated = false;
             $scope.errorOccured = true;
             $scope.errorMessage = response.data.url[0];
             $scope.loading = false;
-        }
+        };
 }]);
 
 home.factory('UrlService', function($http) {

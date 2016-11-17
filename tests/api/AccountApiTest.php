@@ -18,12 +18,17 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->visit('api/account/urls')
-            ->seeJson()
             ->seeJsonContains([
                 'url' => $url1->url,
                 'link' => $url1->link(),
+                'user_id' => "$user->id"
+            ])
+            ->seeJsonContains([
                 'url' => $url2->url,
                 'link' => $url2->link(),
+                'user_id' => "$user->id"
+            ])
+            ->seeJsonContains([
                 'url' => $url3->url,
                 'link' => $url3->link(),
                 'user_id' => "$user->id"
@@ -40,7 +45,6 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->visit('api/account/urls')
-            ->seeJson()
             ->seeJsonContains([
                 'url' => $url->url,
                 'link' => $url->link(),
@@ -119,10 +123,10 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->post('api/account/update-personal-info', $postData)
-            ->seeJson([
+            ->seeJsonContains([
                 'success' => true
             ])
-            ->seeJson([
+            ->seeJsonContains([
                 'name' => 'John Fearnley',
                 'email' => 'john.fearnley@gmail.com'
             ])
@@ -145,7 +149,7 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->post('api/account/update-password', $postData)
-            ->seeJson([
+            ->seeJsonContains([
                 'success' => true
             ]);
 
@@ -201,7 +205,7 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->get('api/account/info')
-            ->seeJson([
+            ->seeJsonContains([
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email

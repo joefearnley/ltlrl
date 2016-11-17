@@ -14,10 +14,10 @@ class UrlTest extends TestCase
         ];
 
         $this->post('/url/create', $postData)
-            ->seeJson([
+            ->seeJsonContains([
                 'success' => true
             ])
-            ->seeJson([
+            ->seeJsonContains([
                 'id' => 1,
                 'url' => 'http://yahoo.com'
             ]);
@@ -35,10 +35,10 @@ class UrlTest extends TestCase
 
         $this->actingAs($user)
             ->post('/url/create', $postData)
-            ->seeJson([
+            ->seeJsonContains([
                 'success' => true
             ])
-            ->seeJson([
+            ->seeJsonContains([
                 'id' => 1,
                 'url' => 'http://yahoo.com'
             ]);
@@ -96,7 +96,7 @@ class UrlTest extends TestCase
         ];
 
         $this->json('POST', '/url/update', $postData)
-            ->seeJson([
+            ->seeJsonContains([
                 'success' => true
             ]);
 
@@ -145,7 +145,7 @@ class UrlTest extends TestCase
         ]);
 
         $this->get('/url/' . $url->id)
-            ->seeJson([
+            ->seeJsonContains([
                 'id' => $url->id,
                 'url' => 'http://yahoo.com',
                 'user_id' => '1',
@@ -160,7 +160,7 @@ class UrlTest extends TestCase
         ]);
 
         $this->post('/url/delete/' . $url->id)
-            ->seeJson([
+            ->seeJsonContains([
                 'success' => true
             ]);
 
@@ -180,19 +180,19 @@ class UrlTest extends TestCase
         $this->createClicksForStats($url, $twoDaysAgo, $sevenDaysAgo);
 
         $this->get('url/stats/' . $url->id)
-            ->seeJson([
+            ->seeJsonContains([
                 'date' => $oneDaysAgo->format('m/d'),
                 'clicks' => 0
             ])
-            ->seeJson([
+            ->seeJsonContains([
                 'date' => $twoDaysAgo->format('m/d'),
                 'clicks' => 2
             ])
-            ->seeJson([
+            ->seeJsonContains([
                 'date' => $sevenDaysAgo->format('m/d'),
                 'clicks' => 1
             ])
-            ->seeJson([
+            ->seeJsonContains([
                 'date' => $tenDaysAgo->format('m/d'),
                 'clicks' => 0
             ]);
