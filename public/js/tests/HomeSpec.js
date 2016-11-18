@@ -4,8 +4,8 @@ describe('home page test', function () {
 
     var $controller;
 
-    beforeEach(angular.mock.inject(function(_$controller_){
-        $controller = _$controller_;
+    beforeEach(angular.mock.inject(function(_controller_){
+        $controller = _controller_;
     }));
 
     // url is empty
