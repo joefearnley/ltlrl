@@ -1,5 +1,3 @@
-// Karma configuration
-// Generated on Fri Nov 18 2016 18:27:18 GMT-0500 (EST)
 
 module.exports = function(config) {
   config.set({
@@ -13,6 +11,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+        'lib/angular.min.js',
+        'app/*.js',
+        'tests/*.js'
     ],
 
     // list of files to exclude
@@ -27,7 +28,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['spec'],
+    reporters: ['progress'],
 
     // web server port
     port: 9876,
