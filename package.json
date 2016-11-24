@@ -1,6 +1,8 @@
 {
   "private": true,
   "devDependencies": {
+    "angular": "^1.5.8",
+    "angular-mocks": "^1.5.8",
     "gulp": "^3.9.1",
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-spec-reporter": "0.0.26"
