@@ -28,8 +28,8 @@ elixir(function(mix) {
     mix.scripts([
         'main.js',
         'app/app.js',
-        'controller/*.js',
-        'services/*.js'
+        'app/controllers/*.js',
+        'app/services/*.js'
     ], 'public/js/app.js');
 
     mix.phpUnit();
