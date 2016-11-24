@@ -26,7 +26,10 @@ elixir(function(mix) {
     ], 'public/js/lib.js');
 
     mix.scripts([
-        'main.js'
+        'main.js',
+        'app/app.js',
+        'controller/*.js',
+        'services/*.js'
     ], 'public/js/app.js');
 
     mix.phpUnit();

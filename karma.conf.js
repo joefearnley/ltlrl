@@ -11,11 +11,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        'lib/angular.min.js',
-        'lib/angular-mocks.js',
-        '../../../views/*',
-        'app/*.js',
-        'tests/*.js'
+        'node_modules/angular-mocks/angular-mocks.js',
+        'public/js/lib.js',
+        'public/js/app.js',
+        'resources/asset/js/tests/*.js'
     ],
 
     // list of files to exclude
