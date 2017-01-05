@@ -111,25 +111,29 @@ class Url extends Model
      */
     public function latestStats()
     {
-        $clickData = $this->clicksByDate();
+        return $this->lastTwoWeeksStats($this->clicksByDate());
+    }
+
+    private function lastTwoWeeksStats($clicks)
+    {
         $latestStats = collect([]);
 
         // Starting two weeks ago from today, loop over each day.
         for ($i = 13; $i >= 0; $i--) {
-            // set date to day, clicks to 0
-            $data = [
+            // initialize click data for the day
+            $clickDataForDay = [
                 'date' => Carbon::now()->subDays($i)->format('m/d'),
                 'clicks' => 0
             ];
 
-            foreach ($clickData as $cd) {
-                // if the day exists in $clickData, add set click count for that day
-                if ($data['date'] === $cd->created_at->format('m/d')) {
-                    $data['clicks'] = (int) $cd->clicks;
+            foreach ($clicks as $click) {
+                // if the day exists in $clicks, add set click count for that day
+                if ($clickDataForDay['date'] === $click->created_at->format('m/d')) {
+                    $clickDataForDay['clicks'] = (int) $click->clicks;
                 }
             }
 
-            $latestStats->push($data);
+            $latestStats->push($clickDataForDay);
         }
 
         return $latestStats;

@@ -186,7 +186,7 @@ class UrlTest extends TestCase
             ])
             ->seeJsonContains([
                 'date' => $twoDaysAgo->format('m/d'),
-                'clicks' => 2
+                'clicks' => 3
             ])
             ->seeJsonContains([
                 'date' => $sevenDaysAgo->format('m/d'),
@@ -200,15 +200,12 @@ class UrlTest extends TestCase
 
     public function createClicksForStats($url, $twoDaysAgo, $sevenDaysAgo)
     {
-        factory(App\Click::class)->create([
-            'url_id' => $url->id,
-            'created_at' => $twoDaysAgo->toDateTimeString()
-        ]);
-
-        factory(App\Click::class)->create([
-            'url_id' => $url->id,
-            'created_at' => $twoDaysAgo->toDateTimeString()
-        ]);
+        for ($i = 0; $i < 3; $i++) {
+            factory(App\Click::class)->create([
+                'url_id' => $url->id,
+                'created_at' => $twoDaysAgo->toDateTimeString()
+            ]);
+        }
 
         factory(App\Click::class)->create([
             'url_id' => $url->id,
