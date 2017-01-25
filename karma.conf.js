@@ -5,9 +5,10 @@ module.exports = function(config) {
         files: [
             'public/js/lib.js',
             'node_modules/angular-mocks/angular-mocks.js',
+            //'public/js/app.js',
             'resources/assets/js/app/app.js',
-            'resources/assets/js/app/controllers/home.controller.js',
-            //'resources/assets/js/app/services/*.js',
+            'resources/assets/js/app/controllers/*.js',
+            'resources/assets/js/app/services/*.js',
             'resources/assets/js/tests/*.js'
         ],
         exclude: [],
