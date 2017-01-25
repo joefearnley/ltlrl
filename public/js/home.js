@@ -1,7 +1,6 @@
 
-var home = angular.module('home', ['angular-clipboard', 'angular-ladda']);
-
-home.controller('HomeController', ['$scope', 'UrlService', 'clipboard',
+angular.module('home', ['angular-clipboard', 'angular-ladda'])
+.controller('HomeController', ['$scope', 'UrlService', 'clipboard',
     function($scope, UrlService, clipboard) {
         $scope.errorOccured = false;
         $scope.urlCreated = false;
@@ -39,9 +38,8 @@ home.controller('HomeController', ['$scope', 'UrlService', 'clipboard',
             $scope.errorMessage = response.data.url[0];
             $scope.loading = false;
         };
-}]);
-
-home.factory('UrlService', function($http) {
+}])
+.factory('UrlService', function($http) {
     return {
         create: function(url) {
             return $http.post('url/create', { url: url });
