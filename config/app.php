@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://ltlrl.pw'),
+    'url' => env('APP_URL', 'http://ltlrl.co'),
 
     /*
     |--------------------------------------------------------------------------
@@ -159,6 +159,7 @@ return [
         //Barryvdh\Debugbar\ServiceProvider::class,
         Torann\GeoIP\GeoIPServiceProvider::class,
 
+	Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
     ],
 
     /*
@@ -206,7 +207,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'GeoIP' => 'Torann\GeoIP\GeoIPFacade',
-
+    	'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
     ],
 
 ];
