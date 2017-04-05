@@ -1,16 +1,10 @@
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-var CreateUrlForm = {
+const CreateUrlForm = {
     init: function() {
         this.bindEvents();
     },
     bindEvents: function() {
-        var self = this;
-        $(document).on('click', '#show-add-url-form', $.proxy(this.showModal, this));
+        document.querySelector('#show-add-url-form')
+            .addEventListener('click', this.showModal.bind(this)); // this??
     },
     showModal: function() {
         swal({
@@ -19,23 +13,19 @@ var CreateUrlForm = {
             showCancelButton: true,
             confirmButtonText: 'Make Little',
             showLoaderOnConfirm: true,
-            preConfirm: $.proxy(this.saveUrl, this),
+            preConfirm: this.saveUrl.bind(this),
             allowOutsideClick: false
         }).then(this.showSuccessMessage);
     },
     saveUrl: function(url) {
-        var self = this;
-        return new Promise(function(resolve, reject) {
-            var data = {
-                url: url
-            };
-
-            $.post('/url/create', data)
+        const self = this;
+        return new Promise((resolve, reject) => {
+            $.post('/url/create', { url: url })
                 .done(function(response) {
                     setTimeout(function() {
                         self.refreshPage();
                         resolve();
-                    }, 1000)
+                    }, 1000);
                 })
                 .fail(function(jqXHR, textStatus, errorThrown) {
                     reject(jqXHR.responseJSON.url[0]);
@@ -53,12 +43,16 @@ var CreateUrlForm = {
     refreshPage: function() {
         if (typeof UrlList != 'undefined') {
             UrlList.loadUrlList();
-        } else if (window.location.pathname === '/account') {
-            window.location.reload();
         }
     }
 };
 
-$(function() {
+(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     CreateUrlForm.init();
-});
+})();
