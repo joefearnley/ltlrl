@@ -155,11 +155,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        //Barryvdh\Debugbar\ServiceProvider::class,
-        Torann\GeoIP\GeoIPServiceProvider::class,
-
-	Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+        Torann\GeoIP\GeoIPServiceProvider::class
     ],
 
     /*
@@ -205,9 +201,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'GeoIP' => 'Torann\GeoIP\GeoIPFacade',
-    	'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
+        'GeoIP' => Torann\GeoIP\GeoIPServiceProvider::class
     ],
 
 ];

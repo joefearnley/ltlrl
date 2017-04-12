@@ -10,8 +10,7 @@
         "ircmaxell/random-lib": "1.0.*@dev",
         "doctrine/dbal": "^2.5",
         "barryvdh/laravel-debugbar": "^2.2",
-        "torann/geoip": "0.2.*@dev",
-        "bugsnag/bugsnag-laravel": "^2.0"
+        "torann/geoip": "0.2.*@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
