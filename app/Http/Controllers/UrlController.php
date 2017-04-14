@@ -52,10 +52,10 @@ class UrlController extends Controller
             'url' => 'required|url'
         ]);
 
-        $url = new Url();
-        $url->url = $request->input('url');
-        $url->user_id = Auth::check() ? Auth::id() : null;
-        $url->save();
+        $url = $this->url->create([
+            'url' => $request->input('url'),
+            'user_id' => Auth::check() ? Auth::id() : null
+        ]);
 
         $hashids = new Hashids('', 6);
         $url->key = $hashids->encode($url->id);
