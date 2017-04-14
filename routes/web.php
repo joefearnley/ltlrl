@@ -1,4 +1,17 @@
 <?php
+    use Hashids\Hashids;
+
+Route::get('temp', function() {
+
+
+    $hashids = new Hashids('safwfwfe', 6);
+
+    echo '<pre>';
+    var_dump($hashids->encode(1));
+    var_dump($hashids->encode(2));
+    var_dump($hashids->encode(3));
+    die();
+});
 
 Route::auth();
 

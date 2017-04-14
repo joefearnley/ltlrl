@@ -6,23 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Url;
 use Carbon\Carbon;
+use Hashids\Hashids;
 
 class UrlController extends Controller
 {
-    /**
-     * Random string generator.
-     *
-     * @var \RandomLib\Generator
-     */
-    private $randomLibGenerator;
-
-    /**
-     * The characters to be used to generate the random characters.
-     *
-     * @var string
-     */
-    private $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
     /**
      * Url model instance
      *
@@ -33,14 +20,11 @@ class UrlController extends Controller
     /**
      *  Create an instance of the url controller class.
      *
-     *
      * @param Url $url
-     * @param \RandomLib\Factory $factory
      */
-    public function __construct(Url $url, \RandomLib\Factory $factory)
+    public function __construct(Url $url)
     {
         $this->url = $url;
-        $this->randomLibGenerator = $factory->getMediumStrengthGenerator();
     }
 
     /**
@@ -68,11 +52,14 @@ class UrlController extends Controller
             'url' => 'required|url'
         ]);
 
-        $url = $this->url->create([
-            'url' => $request->input('url'),
-            'key' => $this->randomLibGenerator->generateString(6, $this->characters),
-            'user_id' => Auth::check() ? Auth::id() : null
-        ]);
+        $url = new Url();
+        $url->url = $request->input('url');
+        $url->user_id = Auth::check() ? Auth::id() : null;
+        $url->save();
+
+        $hashids = new Hashids('', 6);
+        $url->key = $hashids->encode($url->id);
+        $url->save();
 
         return response()->json([
             'success' => true,
