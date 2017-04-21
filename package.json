@@ -1,38 +1,21 @@
 {
-  "name": "ltlrl",
-  "version": "1.0.0",
-  "description": "Little URL",
-  "main": "gulpfile.js",
-  "directories": {
-    "test": "./node_modules/karma/bin/karma start karma.conf.js"
-  },
-  "dependencies": {
-    "angular": "^1.5.8",
-    "angular-clipboard": "^1.5.0",
-    "angular-ladda": "^0.4.2",
-    "bootstrap-sass": "^3.0.0",
-    "laravel-elixir": "^5.0.0"
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
-    "angular": "^1.5.8",
-    "angular-mocks": "^1.5.8",
-    "gulp": "^3.9.1",
-    "jasmine-core": "^2.5.2",
-    "karma": "^1.4.0",
-    "karma-jasmine": "^1.0.2",
-    "karma-phantomjs-launcher": "^1.0.2",
-    "karma-spec-reporter": "0.0.26"
-  },
-  "scripts": {
-    "test": "karma start"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/joefearnley/ltlrl.git"
-  },
-  "author": "Joe Fearnley",
-  "bugs": {
-    "url": "https://github.com/joefearnley/ltlrl/issues"
-  },
-  "homepage": "https://github.com/joefearnley/ltlrl#readme"
+    "axios": "^0.15.3",
+    "bootstrap-sass": "^3.3.7",
+    "cross-env": "^3.2.3",
+    "jquery": "^3.1.1",
+    "laravel-mix": "0.*",
+    "lodash": "^4.17.4",
+    "vue": "^2.1.10"
+  }
 }
