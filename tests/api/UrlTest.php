@@ -118,8 +118,7 @@ class UrlTest extends TestCase
         ];
 
         $this->json('POST', '/url/update', $postData)
-            ->see('The url format is invalid.')
-            ->see('And the shit is goin to crumble.');
+            ->see('The url format is invalid.');
     }
 
     public function test_update_url_with_no_url_returns_an_error()
