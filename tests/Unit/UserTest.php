@@ -22,6 +22,8 @@ class UserTest extends TestCase
         factory(App\Click::class)->create(['url_id' => $url2->id]);
         factory(App\Click::class)->create(['url_id' => $url2->id]);
 
+
+
         $this->assertEquals(0, $user->daysMakingUrlsLittle());
         $this->assertEquals(2, $user->urlsMade());
         $this->assertEquals(5, $user->urlsClickedOn());
