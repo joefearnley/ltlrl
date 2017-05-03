@@ -19,18 +19,19 @@ class AccountApiTest extends TestCase
         $url3 = factory(Url::class)->create([ 'user_id' => $user->id ]);
 
         $this->actingAs($user)
-            ->visit('api/account/urls')
-            ->seeJsonContains([
+            ->get('api/account/urls')
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'url' => $url1->url,
                 'link' => $url1->link(),
                 'user_id' => "$user->id"
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'url' => $url2->url,
                 'link' => $url2->link(),
                 'user_id' => "$user->id"
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'url' => $url3->url,
                 'link' => $url3->link(),
                 'user_id' => "$user->id"
@@ -46,20 +47,21 @@ class AccountApiTest extends TestCase
         $click2 = factory(Click::class)->create([ 'url_id' => $url->id ]);
 
         $this->actingAs($user)
-            ->visit('api/account/urls')
-            ->seeJsonContains([
+            ->get('api/account/urls')
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'url' => $url->url,
                 'link' => $url->link(),
                 'user_id' => "$user->id"
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'click_count' => 2
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'id' => $click1->id,
                 'url_id' => "$url->id"
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'id' => $click2->id,
                 'url_id' => "$url->id"
             ]);
@@ -77,7 +79,8 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->json('POST', 'api/account/update-personal-info', $postData)
-            ->see('The name field is required.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The name field is required.']);
     }
 
     public function test_update_personal_information_requires_email_field()
@@ -92,7 +95,8 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->json('POST', 'api/account/update-personal-info', $postData)
-            ->see('The email field is required.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The email field is required.']);
     }
 
     public function test_update_personal_information_requires_valid_email()
@@ -107,7 +111,8 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->json('POST', 'api/account/update-personal-info', $postData)
-            ->see('The email must be a valid email address.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The email must be a valid email address.']);
     }
 
     public function test_update_personal_information()
@@ -125,14 +130,16 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->post('api/account/update-personal-info', $postData)
-            ->seeJsonContains([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'success' => true
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'name' => 'John Fearnley',
                 'email' => 'john.fearnley@gmail.com'
-            ])
-            ->seeInDatabase('users', [
+            ]);
+
+            $this->assertDatabaseHas('users', [
                 'name' => 'John Fearnley',
                 'email' => 'john.fearnley@gmail.com'
             ]);
@@ -151,7 +158,8 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->post('api/account/update-password', $postData)
-            ->seeJsonContains([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'success' => true
             ]);
 
@@ -171,7 +179,8 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->json('POST', 'api/account/update-password', $postData)
-            ->see('The password must be at least 6 characters.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The password must be at least 6 characters.']);
     }
 
     public function test_update_password_field_is_required()
@@ -184,7 +193,8 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->json('POST', 'api/account/update-password', $postData)
-            ->see('The password field is required.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The password field is required.']);
     }
 
     public function test_update_password_confirmation_matches_password()
@@ -198,7 +208,8 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->json('POST', 'api/account/update-password', $postData)
-            ->see('The password confirmation does not match.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The password confirmation does not match.']);
     }
 
     public function test_get_account_info()
@@ -207,7 +218,8 @@ class AccountApiTest extends TestCase
 
         $this->actingAs($user)
             ->get('api/account/info')
-            ->seeJsonContains([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email
