@@ -2,6 +2,9 @@
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\User;
+use App\Click;
+use App\Url;
 
 class UserTest extends TestCase
 {

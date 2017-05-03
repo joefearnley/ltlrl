@@ -3,6 +3,9 @@
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Carbon\Carbon;
+use App\User;
+use App\Click;
+use App\Url;
 
 class UrlTest extends TestCase
 {
@@ -15,15 +18,16 @@ class UrlTest extends TestCase
         ];
 
         $this->post('/url/create', $postData)
-            ->seeJsonContains([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'success' => true
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'id' => 1,
                 'url' => 'http://yahoo.com'
             ]);
 
-        $this->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
+        $this->assertDatabaseHas('urls', ['url' => 'http://yahoo.com']);
     }
 
     public function test_user_id_is_stored_in_database_when_user_is_logged_in()
@@ -36,15 +40,16 @@ class UrlTest extends TestCase
 
         $this->actingAs($user)
             ->post('/url/create', $postData)
-            ->seeJsonContains([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'success' => true
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'id' => 1,
                 'url' => 'http://yahoo.com'
             ]);
 
-        $this->seeInDatabase('urls', [
+        $this->assertDatabaseHas('urls', [
             'url' => 'http://yahoo.com',
             'user_id' => $user->id
         ]);
@@ -63,7 +68,8 @@ class UrlTest extends TestCase
         ];
 
         $this->json('POST', '/url/create', $postData)
-            ->see('The url format is invalid.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The url format is invalid.']);
     }
 
     public function test_create_url_with_no_url_returns_an_error()
@@ -79,7 +85,8 @@ class UrlTest extends TestCase
         ];
 
         $this->json('POST', '/url/create', $postData)
-            ->see('The url field is required.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The url field is required.']);
     }
 
     public function test_update_url()
@@ -89,7 +96,7 @@ class UrlTest extends TestCase
             'user_id' => 1
         ]);
 
-        $this->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
+        $this->assertDatabaseHas('urls', ['url' => 'http://yahoo.com']);
 
         $postData = [
             'id' => $url->id,
@@ -97,11 +104,12 @@ class UrlTest extends TestCase
         ];
 
         $this->json('POST', '/url/update', $postData)
-            ->seeJsonContains([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'success' => true
             ]);
 
-        $this->seeInDatabase('urls', ['url' => 'http://test.com/test']);
+        $this->assertDatabaseHas('urls', ['url' => 'http://test.com/test']);
     }
 
     public function test_update_url_with_invalid_url_returns_an_error()
@@ -111,7 +119,7 @@ class UrlTest extends TestCase
             'user_id' => 1
         ]);
 
-        $this->seeInDatabase('urls', ['url' => 'http://yahoo.com']);
+        $this->assertDatabaseHas('urls', ['url' => 'http://yahoo.com']);
 
         $postData = [
             'id' => $url->id,
@@ -119,7 +127,8 @@ class UrlTest extends TestCase
         ];
 
         $this->json('POST', '/url/update', $postData)
-            ->see('The url format is invalid.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The url format is invalid.']);
     }
 
     public function test_update_url_with_no_url_returns_an_error()
@@ -135,7 +144,8 @@ class UrlTest extends TestCase
         ];
 
         $this->json('POST', '/url/update', $postData)
-            ->see('The url field is required.');
+            ->assertStatus(422)
+            ->assertJsonFragment(['The url field is required.']);
     }
 
     public function test_show_url()
@@ -146,7 +156,8 @@ class UrlTest extends TestCase
         ]);
 
         $this->get('/url/' . $url->id)
-            ->seeJsonContains([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'id' => $url->id,
                 'url' => 'http://yahoo.com',
                 'user_id' => '1',
@@ -161,11 +172,12 @@ class UrlTest extends TestCase
         ]);
 
         $this->post('/url/delete/' . $url->id)
-            ->seeJsonContains([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'success' => true
             ]);
 
-        $this->notSeeInDatabase('urls', ['url' => 'http://yahoo.com']);
+        $this->assertDatabaseMissing('urls', ['url' => 'http://yahoo.com']);
     }
 
     public function test_url_click_stats_display_properly()
@@ -181,19 +193,20 @@ class UrlTest extends TestCase
         $this->createClicksForStats($url, $twoDaysAgo, $sevenDaysAgo);
 
         $this->get('url/stats/' . $url->id)
-            ->seeJsonContains([
+            ->assertStatus(200)
+            ->assertJsonFragment([
                 'date' => $oneDaysAgo->format('m/d'),
                 'clicks' => 0
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'date' => $twoDaysAgo->format('m/d'),
                 'clicks' => 3
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'date' => $sevenDaysAgo->format('m/d'),
                 'clicks' => 1
             ])
-            ->seeJsonContains([
+            ->assertJsonFragment([
                 'date' => $tenDaysAgo->format('m/d'),
                 'clicks' => 0
             ]);
