@@ -1,5 +1,6 @@
 <?php
 
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AccountTest extends TestCase
@@ -14,16 +15,16 @@ class AccountTest extends TestCase
 
     public function test_index_page_shows_properly()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $url1 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
-        $url2 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+        $url1 = factory(Url::class)->create([ 'user_id' => $user->id ]);
+        $url2 = factory(Url::class)->create([ 'user_id' => $user->id ]);
 
-        factory(App\Click::class)->create([ 'url_id' => $url1->id ]);
-        factory(App\Click::class)->create([ 'url_id' => $url1->id ]);
-        factory(App\Click::class)->create([ 'url_id' => $url2->id ]);
-        factory(App\Click::class)->create([ 'url_id' => $url2->id ]);
-        factory(App\Click::class)->create([ 'url_id' => $url2->id ]);
+        factory(Click::class)->create([ 'url_id' => $url1->id ]);
+        factory(Click::class)->create([ 'url_id' => $url1->id ]);
+        factory(Click::class)->create([ 'url_id' => $url2->id ]);
+        factory(Click::class)->create([ 'url_id' => $url2->id ]);
+        factory(Click::class)->create([ 'url_id' => $url2->id ]);
 
         $this->actingAs($user)
             ->visit('/account')
@@ -40,7 +41,7 @@ class AccountTest extends TestCase
 
     public function test_urls_page_shows_properly()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->visit('/account/urls')
@@ -49,7 +50,7 @@ class AccountTest extends TestCase
 
     public function test_settings_page_shows_properly()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->visit('/account/settings')

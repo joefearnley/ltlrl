@@ -16,7 +16,6 @@ class CreateUrlsTable extends Migration
             $table->increments('id');
             $table->string('url');
             $table->string('key');
-            $table->integer('clicks')->default(0);
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });

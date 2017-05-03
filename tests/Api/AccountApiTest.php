@@ -1,8 +1,10 @@
 <?php
 
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-
 use App\User;
+use App\Click;
+use App\Url;
 
 class AccountApiTest extends TestCase
 {
@@ -10,11 +12,11 @@ class AccountApiTest extends TestCase
 
     public function test_account_api_requests_for_auth_users_urls_return_properly()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $url1 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
-        $url2 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
-        $url3 = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+        $url1 = factory(Url::class)->create([ 'user_id' => $user->id ]);
+        $url2 = factory(Url::class)->create([ 'user_id' => $user->id ]);
+        $url3 = factory(Url::class)->create([ 'user_id' => $user->id ]);
 
         $this->actingAs($user)
             ->visit('api/account/urls')
@@ -37,11 +39,11 @@ class AccountApiTest extends TestCase
 
     public function test_account_api_requests_for_auth_users_urls_shows_clicks()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $url = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
-        $click1 = factory(App\Click::class)->create([ 'url_id' => $url->id ]);
-        $click2 = factory(App\Click::class)->create([ 'url_id' => $url->id ]);
+        $url = factory(Url::class)->create([ 'user_id' => $user->id ]);
+        $click1 = factory(Click::class)->create([ 'url_id' => $url->id ]);
+        $click2 = factory(Click::class)->create([ 'url_id' => $url->id ]);
 
         $this->actingAs($user)
             ->visit('api/account/urls')
@@ -65,7 +67,7 @@ class AccountApiTest extends TestCase
 
     public function test_update_personal_information_requires_name_field()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $postData = [
             'id' => $user->id,
@@ -80,7 +82,7 @@ class AccountApiTest extends TestCase
 
     public function test_update_personal_information_requires_email_field()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $postData = [
             'id' => $user->id,
@@ -95,7 +97,7 @@ class AccountApiTest extends TestCase
 
     public function test_update_personal_information_requires_valid_email()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $postData = [
             'id' => $user->id,
@@ -110,7 +112,7 @@ class AccountApiTest extends TestCase
 
     public function test_update_personal_information()
     {
-        $user = factory(App\User::class)->create([
+        $user = factory(User::class)->create([
             'name' => 'Joe Fearnley',
             'email' => 'joe.fearnley@gmail.com'
         ]);
@@ -138,7 +140,7 @@ class AccountApiTest extends TestCase
 
     public function test_update_password()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
         $oldPassword = $user->password;
 
         $postData = [
@@ -160,7 +162,7 @@ class AccountApiTest extends TestCase
 
     public function test_update_password_has_to_be_6_characters()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $postData = [
             'password' => 'secre',
@@ -174,7 +176,7 @@ class AccountApiTest extends TestCase
 
     public function test_update_password_field_is_required()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $postData = [
             'password' => '',
@@ -187,7 +189,7 @@ class AccountApiTest extends TestCase
 
     public function test_update_password_confirmation_matches_password()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $postData = [
             'password' => 'secret',
@@ -201,7 +203,7 @@ class AccountApiTest extends TestCase
 
     public function test_get_account_info()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->get('api/account/info')

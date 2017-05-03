@@ -1,5 +1,6 @@
 <?php
 
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Carbon\Carbon;
 
@@ -27,7 +28,7 @@ class UrlTest extends TestCase
 
     public function test_user_id_is_stored_in_database_when_user_is_logged_in()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $postData = [
             'url' => 'http://yahoo.com'
@@ -51,7 +52,7 @@ class UrlTest extends TestCase
 
     public function test_create_url_with_invalid_url_returns_an_error()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
             'user_id' => 1
         ]);
@@ -67,7 +68,7 @@ class UrlTest extends TestCase
 
     public function test_create_url_with_no_url_returns_an_error()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
             'user_id' => 1
         ]);
@@ -83,7 +84,7 @@ class UrlTest extends TestCase
 
     public function test_update_url()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
             'user_id' => 1
         ]);
@@ -105,7 +106,7 @@ class UrlTest extends TestCase
 
     public function test_update_url_with_invalid_url_returns_an_error()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
             'user_id' => 1
         ]);
@@ -123,7 +124,7 @@ class UrlTest extends TestCase
 
     public function test_update_url_with_no_url_returns_an_error()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
             'user_id' => 1
         ]);
@@ -139,7 +140,7 @@ class UrlTest extends TestCase
 
     public function test_show_url()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
             'user_id' => 1
         ]);
@@ -155,7 +156,7 @@ class UrlTest extends TestCase
 
     public function test_delete_url()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com'
         ]);
 
@@ -169,8 +170,8 @@ class UrlTest extends TestCase
 
     public function test_url_click_stats_display_properly()
     {
-        $user = factory(App\User::class)->create();
-        $url = factory(App\Url::class)->create([ 'user_id' => $user->id ]);
+        $user = factory(User::class)->create();
+        $url = factory(Url::class)->create([ 'user_id' => $user->id ]);
 
         $oneDaysAgo = Carbon::now()->subDay(1);
         $twoDaysAgo = Carbon::now()->subDay(2);
@@ -201,13 +202,13 @@ class UrlTest extends TestCase
     public function createClicksForStats($url, $twoDaysAgo, $sevenDaysAgo)
     {
         for ($i = 0; $i < 3; $i++) {
-            factory(App\Click::class)->create([
+            factory(Click::class)->create([
                 'url_id' => $url->id,
                 'created_at' => $twoDaysAgo->toDateTimeString()
             ]);
         }
 
-        factory(App\Click::class)->create([
+        factory(Click::class)->create([
             'url_id' => $url->id,
             'created_at' => $sevenDaysAgo
         ]);
