@@ -16,7 +16,7 @@ class HomeTest extends TestCase
 
     public function test_little_url_redirect_to_correct_url()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com'
         ]);
 
@@ -26,7 +26,7 @@ class HomeTest extends TestCase
 
     public function test_clicks_is_increased_when_an_url_is_hit()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com'
         ]);
 
@@ -39,7 +39,7 @@ class HomeTest extends TestCase
 
     public function test_click_record_created_when_url_is_hit()
     {
-        $url = factory(App\Url::class)->create([
+        $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com'
         ]);
 

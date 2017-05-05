@@ -9,8 +9,7 @@ class AccountTest extends TestCase
 
     public function test_user_needs_to_be_logged_in_to_view_account_section()
     {
-        $this->visit('/account')
-            ->see('Login');
+        $this->visit('/account')->see('Login');
     }
 
     public function test_index_page_shows_properly()
