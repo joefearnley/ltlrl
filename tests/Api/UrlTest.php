@@ -11,7 +11,8 @@ class UrlTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_create_new_url()
+    /** @test */
+    public function create_new_url()
     {
         $postData = [
             'url' => 'http://yahoo.com'
@@ -30,7 +31,8 @@ class UrlTest extends TestCase
         $this->assertDatabaseHas('urls', ['url' => 'http://yahoo.com']);
     }
 
-    public function test_user_id_is_stored_in_database_when_user_is_logged_in()
+    /** @test */
+    public function user_id_is_stored_in_database_when_user_is_logged_in()
     {
         $user = factory(User::class)->create();
 
@@ -55,7 +57,8 @@ class UrlTest extends TestCase
         ]);
     }
 
-    public function test_create_url_with_invalid_url_returns_an_error()
+    /** @test */
+    public function create_url_with_invalid_url_returns_an_error()
     {
         $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
@@ -72,7 +75,8 @@ class UrlTest extends TestCase
             ->assertJsonFragment(['The url format is invalid.']);
     }
 
-    public function test_create_url_with_no_url_returns_an_error()
+    /** @test */
+    public function create_url_with_no_url_returns_an_error()
     {
         $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
@@ -89,7 +93,8 @@ class UrlTest extends TestCase
             ->assertJsonFragment(['The url field is required.']);
     }
 
-    public function test_update_url()
+    /** @test */
+    public function update_url()
     {
         $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
@@ -112,7 +117,8 @@ class UrlTest extends TestCase
         $this->assertDatabaseHas('urls', ['url' => 'http://test.com/test']);
     }
 
-    public function test_update_url_with_invalid_url_returns_an_error()
+    /** @test */
+    public function update_url_with_invalid_url_returns_an_error()
     {
         $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
@@ -131,7 +137,8 @@ class UrlTest extends TestCase
             ->assertJsonFragment(['The url format is invalid.']);
     }
 
-    public function test_update_url_with_no_url_returns_an_error()
+    /** @test */
+    public function update_url_with_no_url_returns_an_error()
     {
         $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
@@ -148,7 +155,8 @@ class UrlTest extends TestCase
             ->assertJsonFragment(['The url field is required.']);
     }
 
-    public function test_show_url()
+    /** @test */
+    public function show_url()
     {
         $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com',
@@ -165,7 +173,8 @@ class UrlTest extends TestCase
             ]);
     }
 
-    public function test_delete_url()
+    /** @test */
+    public function delete_url()
     {
         $url = factory(Url::class)->create([
             'url' => 'http://yahoo.com'
@@ -180,7 +189,8 @@ class UrlTest extends TestCase
         $this->assertDatabaseMissing('urls', ['url' => 'http://yahoo.com']);
     }
 
-    public function test_url_click_stats_display_properly()
+    /** @test */
+    public function url_click_stats_display_properly()
     {
         $user = factory(User::class)->create();
         $url = factory(Url::class)->create([ 'user_id' => $user->id ]);

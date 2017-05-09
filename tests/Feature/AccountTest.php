@@ -7,12 +7,14 @@ class AccountTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_user_needs_to_be_logged_in_to_view_account_section()
+    /** @test */
+    public function user_needs_to_be_logged_in_to_view_account_section()
     {
         $this->get('/account')->see('Login');
     }
 
-    public function test_index_page_shows_properly()
+    /** @test */
+    public function index_page_shows_properly()
     {
         $user = factory(User::class)->create();
 
@@ -38,7 +40,8 @@ class AccountTest extends TestCase
             ->see('Account Overview');
     }
 
-    public function test_urls_page_shows_properly()
+    /** @test */
+    public function urls_page_shows_properly()
     {
         $user = factory(User::class)->create();
 
@@ -47,7 +50,8 @@ class AccountTest extends TestCase
             ->see('Urls');
     }
 
-    public function test_settings_page_shows_properly()
+    /** @test */
+    public function settings_page_shows_properly()
     {
         $user = factory(User::class)->create();
 
