@@ -1,29 +1,21 @@
 <?php
-    use Hashids\Hashids;
 
-Route::get('temp', function() {
+Route::auth();
 
+Route::get('account', 'AccountController@index');
+Route::get('account/urls', 'AccountController@urlList');
+Route::get('account/settings', 'AccountController@settings');
 
-    $hashids = new Hashids('safwfwfe', 6);
+Route::get('/', 'HomeController@index');
+Route::get('/{key}', 'HomeController@redirect');
 
-    echo '<pre>';
-    var_dump($hashids->encode(1));
-    var_dump($hashids->encode(2));
-    var_dump($hashids->encode(3));
-    die();
-});
+Route::get('url/{id}', 'UrlController@show');
+Route::post('url/create', 'UrlController@create');
+Route::post('url/update', 'UrlController@update');
+Route::post('url/delete/{id}', 'UrlController@delete');
+Route::get('url/stats/{id}', 'UrlController@clickStats');
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/api/account/urls', 'AccountController@urls');
+Route::post('/api/account/update-personal-info', 'AccountController@updatePersonalInfo');
+Route::post('/api/account/update-password', 'AccountController@updatePassword');
 
-Route::get('/', function () {
-    return view('welcome');
-});
