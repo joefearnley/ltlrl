@@ -10,7 +10,8 @@ class AccountApiTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_account_api_requests_for_auth_users_urls_return_properly()
+    /** @test */
+    public function account_api_requests_for_auth_users_urls_return_properly()
     {
         $user = factory(User::class)->create();
 
@@ -38,7 +39,8 @@ class AccountApiTest extends TestCase
             ]);
     }
 
-    public function test_account_api_requests_for_auth_users_urls_shows_clicks()
+    /** @test */
+    public function account_api_requests_for_auth_users_urls_shows_clicks()
     {
         $user = factory(User::class)->create();
 
@@ -67,7 +69,8 @@ class AccountApiTest extends TestCase
             ]);
     }
 
-    public function test_update_personal_information_requires_name_field()
+    /** @test */
+    public function update_personal_information_requires_name_field()
     {
         $user = factory(User::class)->create();
 
@@ -83,7 +86,8 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The name field is required.']);
     }
 
-    public function test_update_personal_information_requires_email_field()
+    /** @test */
+    public function update_personal_information_requires_email_field()
     {
         $user = factory(User::class)->create();
 
@@ -99,7 +103,8 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The email field is required.']);
     }
 
-    public function test_update_personal_information_requires_valid_email()
+    /** @test */
+    public function update_personal_information_requires_valid_email()
     {
         $user = factory(User::class)->create();
 
@@ -115,7 +120,8 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The email must be a valid email address.']);
     }
 
-    public function test_update_personal_information()
+    /** @test */
+    public function update_personal_information()
     {
         $user = factory(User::class)->create([
             'name' => 'Joe Fearnley',
@@ -145,7 +151,8 @@ class AccountApiTest extends TestCase
             ]);
     }
 
-    public function test_update_password()
+    /** @test */
+    public function update_password()
     {
         $user = factory(User::class)->create();
         $oldPassword = $user->password;
@@ -168,7 +175,8 @@ class AccountApiTest extends TestCase
         $this->assertNotEquals($oldPassword, $updatedUser->password);
     }
 
-    public function test_update_password_has_to_be_6_characters()
+    /** @test */
+    public function update_password_has_to_be_6_characters()
     {
         $user = factory(User::class)->create();
 
@@ -183,7 +191,8 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The password must be at least 6 characters.']);
     }
 
-    public function test_update_password_field_is_required()
+    /** @test */
+    public function update_password_field_is_required()
     {
         $user = factory(User::class)->create();
 
@@ -197,7 +206,8 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The password field is required.']);
     }
 
-    public function test_update_password_confirmation_matches_password()
+    /** @test */
+    public function update_password_confirmation_matches_password()
     {
         $user = factory(User::class)->create();
 
@@ -212,7 +222,8 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The password confirmation does not match.']);
     }
 
-    public function test_get_account_info()
+    /** @test */
+    public function get_account_info()
     {
         $user = factory(User::class)->create();
 
@@ -226,7 +237,8 @@ class AccountApiTest extends TestCase
             ]);
     }
 
-    public function test_error_is_thrown_when_getting_account_info_if_user_is_not_logged_in()
+    /** @test */
+    public function error_is_thrown_when_getting_account_info_if_user_is_not_logged_in()
     {
         $response = $this->call('GET', 'api/account/info');
 

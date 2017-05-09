@@ -18,4 +18,3 @@ Route::get('url/stats/{id}', 'UrlController@clickStats');
 Route::get('/api/account/urls', 'AccountController@urls');
 Route::post('/api/account/update-personal-info', 'AccountController@updatePersonalInfo');
 Route::post('/api/account/update-password', 'AccountController@updatePassword');
-

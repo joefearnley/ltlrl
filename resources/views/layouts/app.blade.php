@@ -30,7 +30,7 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
-                        @if (Auth::check() && Route::getCurrentRoute()->getPath() != '/')
+                        @if (Auth::check() && Route::getCurrentRoute()->uri() != '/')
                         <li><button id="show-add-url-form" class="btn btn-primary"><i class="fa fa-btn fa-plus"></i> Make Little Url</button></li>
                         @endif
                         <li class="dropdown">
