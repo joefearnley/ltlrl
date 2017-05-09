@@ -25,17 +25,17 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment([
                 'url' => $url1->url,
                 'link' => $url1->link(),
-                'user_id' => "$user->id"
+                'user_id' => $user->id
             ])
             ->assertJsonFragment([
                 'url' => $url2->url,
                 'link' => $url2->link(),
-                'user_id' => "$user->id"
+                'user_id' => $user->id
             ])
             ->assertJsonFragment([
                 'url' => $url3->url,
                 'link' => $url3->link(),
-                'user_id' => "$user->id"
+                'user_id' => $user->id
             ]);
     }
 
@@ -54,18 +54,18 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment([
                 'url' => $url->url,
                 'link' => $url->link(),
-                'user_id' => "$user->id"
+                'user_id' => $user->id
             ])
             ->assertJsonFragment([
                 'click_count' => 2
             ])
             ->assertJsonFragment([
                 'id' => $click1->id,
-                'url_id' => "$url->id"
+                'url_id' => $url->id
             ])
             ->assertJsonFragment([
                 'id' => $click2->id,
-                'url_id' => "$url->id"
+                'url_id' => $url->id
             ]);
     }
 
