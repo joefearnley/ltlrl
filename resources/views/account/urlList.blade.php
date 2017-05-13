@@ -4,7 +4,7 @@
     <div id="app" class="container-fluid" ng-app="urlList" ng-controller="UrlListController">
         <div class="row">
             @include('account.nav')
-            <div class="col-sm-9 col-md-10">
+            <div class="col-sm-9 col-md-10 main">
                 <div id="url-list">
                     <h2 class="sub-header">Urls</h2>
                     <div class="list-group col-sm-12">

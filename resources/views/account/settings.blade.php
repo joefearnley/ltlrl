@@ -4,7 +4,7 @@
     <div id="app" class="container-fluid" ng-app="acccount">
         <div class="row" ng-controller="AccountSettingsController">
             @include('account.nav')
-            <div class="col-sm-9 col-md-10">
+            <div class="col-sm-9 col-md-10 main">
                 <h2>Account Settings</h2>
                 <div class="row">
                     <div class="col-md-8">

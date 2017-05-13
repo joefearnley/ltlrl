@@ -1,4 +1,4 @@
-.align-center {
+s.align-center {
     text-align: center;
 }
 
@@ -84,4 +84,35 @@ footer {
 
 .home-page {
     margin-top: 150px;
+}
+
+.main {
+    background-color: #fff;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px;
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+.nav-sidebar > li > a {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+
+#show-add-url-form {
+    margin-top: 7px;
 }
