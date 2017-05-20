@@ -2,6 +2,9 @@
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\User;
+use App\Url;
+use App\Click;
 
 class AccountTest extends TestCase
 {
@@ -10,7 +13,7 @@ class AccountTest extends TestCase
     /** @test */
     public function user_needs_to_be_logged_in_to_view_account_section()
     {
-        $this->get('/account')->see('Login');
+        $this->get('/account')->assertSee('Redirecting to');
     }
 
     /** @test */
@@ -28,16 +31,16 @@ class AccountTest extends TestCase
         factory(Click::class)->create([ 'url_id' => $url2->id ]);
 
         $this->actingAs($user)
-            ->visit('/account')
-            ->see('Account Overview')
-            ->see(1)
-            ->see('Days Making Urls Little')
-            ->see(3)
-            ->see('Urls Made Little')
-            ->see(5)
-            ->see('Urls Clicked On')
-            ->see('Settings')
-            ->see('Account Overview');
+            ->get('/account')
+            ->assertSee('Account Overview')
+            ->assertSee('1')
+            ->assertSee('Days Making Urls Little')
+            ->assertSee('3')
+            ->assertSee('Urls Made Little')
+            ->assertSee('5')
+            ->assertSee('Urls Clicked On')
+            ->assertSee('Settings')
+            ->assertSee('Account Overview');
     }
 
     /** @test */
@@ -46,8 +49,8 @@ class AccountTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->actingAs($user)
-            ->visit('/account/urls')
-            ->see('Urls');
+            ->get('/account/urls')
+            ->assertSee('Urls');
     }
 
     /** @test */
@@ -56,9 +59,9 @@ class AccountTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->actingAs($user)
-            ->visit('/account/settings')
-            ->see('Account Settings')
-            ->see('Personal Information')
-            ->see('Update Password');
+            ->get('/account/settings')
+            ->assertSee('Account Settings')
+            ->assertSee('Personal Information')
+            ->assertSee('Update Password');
     }
 }
