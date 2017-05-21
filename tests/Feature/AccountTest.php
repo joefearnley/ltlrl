@@ -13,7 +13,7 @@ class AccountTest extends TestCase
     /** @test */
     public function user_needs_to_be_logged_in_to_view_account_section()
     {
-        $this->get('/account')->assertSee('Redirecting to');
+        $this->get('/account')->assertRedirect('/login');
     }
 
     /** @test */
@@ -32,6 +32,7 @@ class AccountTest extends TestCase
 
         $this->actingAs($user)
             ->get('/account')
+            ->assertStatus(200)
             ->assertSee('Account Overview')
             ->assertSee('1')
             ->assertSee('Days Making Urls Little')
@@ -50,6 +51,7 @@ class AccountTest extends TestCase
 
         $this->actingAs($user)
             ->get('/account/urls')
+            ->assertStatus(200)
             ->assertSee('Urls');
     }
 

@@ -10,8 +10,8 @@ class HomeTest extends TestCase
 
     public function test_home_page_show_main_form()
     {
-        $this->visit('/')
-            ->see('Little URL');
+        $this->get('/')
+            ->assertSee('Little URL');
     }
 
     public function test_little_url_redirect_to_correct_url()
@@ -20,8 +20,8 @@ class HomeTest extends TestCase
             'url' => 'http://yahoo.com'
         ]);
 
-        $this->visit('/' . $url->key)
-            ->see('Yahoo');
+        $this->get('/' . $url->key)
+            ->assertRedirect('http://yahoo.com');
     }
 
     public function test_clicks_is_increased_when_an_url_is_hit()
@@ -30,7 +30,7 @@ class HomeTest extends TestCase
             'url' => 'http://yahoo.com'
         ]);
 
-        $this->visit('/' . $url->key);
+        $this->get('/' . $url->key);
 
         $url = Url::find($url->id);
 
@@ -43,24 +43,22 @@ class HomeTest extends TestCase
             'url' => 'http://yahoo.com'
         ]);
 
-        $this->visit('/' . $url->key);
+        $this->get('/' . $url->key);
         $url = Url::find($url->id);
         $this->assertEquals(1, $url->clicks->count());
 
-        $this->visit('/' . $url->key);
+        $this->get('/' . $url->key);
         $url = Url::find($url->id);
         $this->assertEquals(2, $url->clicks->count());
 
-        $this->seeInDatabase('clicks', [
+        $this->assertDatabaseHas('clicks', [
             'url_id' => $url->id
         ]);
     }
 
     public function test_user_sees_404_when_url_is_not_found()
     {
-        $response = $this->call('GET', '/2r23f23f32');
-
-        $this->assertEquals(404, $response->status());
+        $this->get('/2r23f23f32')->assertStatus(404);
     }
 
 }
