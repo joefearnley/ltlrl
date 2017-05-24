@@ -9,15 +9,23 @@ use Tests\Browser\Pages\Home;
 
 class HomeTest extends DuskTestCase
 {
-    /**
-     * A basic browser test example.
-     *
-     * @return void
-     */
-    public function testBasicExample()
+    /** @test */
+    public function it_should_see_the_homepage()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(new Home);
+            $browser->visit(new Home)
+                ->assertSee('Little URL')
+                ->assertSee('Make it Little');
+        });
+    }
+
+    /** @test */
+    public function it_should_see_error_when_url_format_is_invalid()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new Home)
+                ->press('Make it Little')
+                ->assertSee('The url format is invalid.');
         });
     }
 }
