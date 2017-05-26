@@ -4,9 +4,16 @@ class HomeForm {
         this.submitButton = document.querySelector('#make-url-little');
         this.submitButton.addEventListener('click', this.createUrl);
     }
-    createUrl () {}
-    handleError() {}
-    showResult () {}
+    createUrl () {
+        // call to api and create utl 
+    }
+    handleError() {
+        // duh....
+    }
+
+    showResult () {
+        // let the user know they have something to work with.
+    }
 }
 
 var createUrl = () => {
