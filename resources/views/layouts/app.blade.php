@@ -34,7 +34,7 @@
                     </p>
                 @endif
                 <a href="{{ url('/account') }}" class="nav-item">Account</a>
-                <a href="{{ url('/logout') }}" class="nav-item">Logout</a>
+                <a href="{{ url('/logout') }}" class="nav-item">Logout </a>
             @endif
         </nav>
     </div>
