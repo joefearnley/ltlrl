@@ -21,9 +21,6 @@ class UrlTest extends TestCase
         $this->post('/url/create', $postData)
             ->assertStatus(200)
             ->assertJsonFragment([
-                'success' => true
-            ])
-            ->assertJsonFragment([
                 'id' => 1,
                 'url' => 'http://yahoo.com'
             ]);
@@ -43,9 +40,6 @@ class UrlTest extends TestCase
         $this->actingAs($user)
             ->post('/url/create', $postData)
             ->assertStatus(200)
-            ->assertJsonFragment([
-                'success' => true
-            ])
             ->assertJsonFragment([
                 'id' => 1,
                 'url' => 'http://yahoo.com'

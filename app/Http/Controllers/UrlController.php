@@ -61,10 +61,7 @@ class UrlController extends Controller
         $url->key = $hashids->encode($url->id);
         $url->save();
 
-        return response()->json([
-            'success' => true,
-            'url' => $url
-        ]);
+        return response()->json($url);
     }
 
     /**

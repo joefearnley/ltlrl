@@ -5,13 +5,18 @@ class HomeForm {
         this.submitButton.addEventListener('click', this.createUrl);
     }
     createUrl () {
-        // call to api and create utl 
+        axios.post('/url/create')
+            .then(response => {
+                this.showResult(response);
+            }).catch(error => {
+                this.handleError(error);
+            });
     }
     handleError() {
         // duh....
     }
 
-    showResult () {
+    showResult (url) {
         // let the user know they have something to work with.
     }
 }
@@ -21,6 +26,7 @@ var createUrl = () => {
         .then(response => {
             return response.json();
         }).then(response => {
+
         }).catch(error => {
             console.log(error);
         });

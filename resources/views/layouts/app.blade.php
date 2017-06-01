@@ -39,7 +39,7 @@
         </nav>
     </div>
     @yield('content')
-    <script src="/js/lib.js"></script>
+    <script src="/js/vendor.js"></script>
     <script src="/js/app.js"></script>
     @yield('scripts')
 </body>
