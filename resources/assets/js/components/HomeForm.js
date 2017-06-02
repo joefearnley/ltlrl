@@ -1,34 +1,34 @@
 
-class HomeForm {
-    constructor() {
-        this.submitButton = document.querySelector('#make-url-little');
-        this.submitButton.addEventListener('click', this.createUrl);
-        this.results = document.querySelector('#results');
-        this.urlField = document.querySelector('#url');
-    }
-
-    createUrl () {
+const homeForm = {
+    results: document.querySelector('#results'),
+    urlField: document.querySelector('#url'),
+    init: () => {
+        let self = this;
+        console.log('calling init...');
+        console.log(this);
+        //document.querySelector('#make-url-little').addEventListener('click', self.createUrl.bind(this));
+    },
+    showResult: (url) => {
+        this.results.innerHTML = this.template(url.url);
+    },
+    createUrl: () => {
+        console.log('creating url..');
         axios.post('/url/create')
             .then(this.showResult)
             .catch(this.handleError);
-    }
-
-    handleError() {
+    },
+    handleError: () => {
         // duh....
-    }
-
-    showResult (url) {
-        this.results.innerHTML = this.template(url.url);
-    }
-
+    },
     template (url) {
         return `
-        <h4>
-            URL has been made little! - <strong>${url}</strong>
-            <a class="button is-success"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
-        </h4>
+            <h4>
+                URL has been made little! - <strong>${url}</strong>
+                <a class="button is-success"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
+            </h4>
         `;
     }
-}
-
-export.module = HomeForm;
+};
+(() => {
+    homeForm.init()
+})();

@@ -5,7 +5,7 @@ mix.scripts([
 ], 'public/js/vendor.js');
 
 mix.scripts([
-    'resources/assets/js/app/home.js'
+    'resources/assets/js/components/HomeForm.js'
 ], 'public/js/app.js');
 
 mix.styles([
