@@ -739,9 +739,8 @@ module.exports = function bind(fn, thisArg) {
 
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 __webpack_require__(26);
 
 window.HomeForm = __webpack_require__(27);
@@ -1664,21 +1663,20 @@ var HomeForm = function () {
             var _this2 = this;
 
             axios.post('/url/create', { 'url': this.urlField.value }).then(function (response) {
-                return _this2.showResult(response.data);
+                return _this2.showResult(response.data.url).bind(_this2);
             }).catch(function (error) {
                 return _this2.handleError(error);
             });
         }
     }, {
+        key: 'showResult',
+        value: function showResult(url) {
+            this.results.innerHTML = this.template(url.url);
+        }
+    }, {
         key: 'handleError',
         value: function handleError(error) {
             var errorMessage = error.response.data.url[0];
-        }
-    }, {
-        key: 'showResult',
-        value: function showResult(url) {
-            console.log(this);
-            this.results.innerHTML = this.template(url.url);
         }
     }, {
         key: 'template',

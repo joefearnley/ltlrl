@@ -8,19 +8,17 @@ class HomeForm {
     }
 
     createUrl () {
-
         axios.post('/url/create', { 'url' : this.urlField.value })
-            .then(response => this.showResult(response.data))
+            .then(response => this.showResult(response.data.url).bind(this))
             .catch(error => this.handleError(error));
+    }
+
+    showResult (url) {
+        this.results.innerHTML = this.template(url.url);
     }
 
     handleError(error) {
         const errorMessage = error.response.data.url[0];
-    }
-
-    showResult (url) {
-        console.log(this);
-        this.results.innerHTML = this.template(url.url);
     }
 
     template (url) {
