@@ -8,7 +8,12 @@
                         <p class="control"><a id="make-url-little" class="button is-primary">Make it Little</a></p>
                     </div>
                 </form>
-                <div class="results"></div>
+                <div class="results" >
+                    <h4>
+                        URL has been made little! - <strong>${url.url}</strong>
+                        <a class="button is-success"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
+                    </h4>
+                </div>
             </div>
         </div>
     </div>
@@ -16,8 +21,11 @@
 
 <script>
     export default {
+        data: {
+            showResult: false
+        },
         mounted() {
-            console.log('Component mounted.')
+            console.log('HomeForm component mounted.')
         },
         methods: {
             createUrl () {
@@ -30,14 +38,6 @@
             },
             handleError(error) {
                 const errorMessage = error.response.data.url[0];
-            },
-            template (url) {
-                return `
-                <h4>
-                    URL has been made little! - <strong>${url.url}</strong>
-                    <a class="button is-success"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
-                </h4>
-                `;
             }
         }
     }
