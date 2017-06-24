@@ -21,8 +21,10 @@
 
 <script>
     export default {
-        data: {
-            showResult: false
+        data () {
+            return {
+                showResult: false
+            }
         },
         mounted() {
             console.log('HomeForm component mounted.')
