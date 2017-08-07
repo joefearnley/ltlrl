@@ -4,7 +4,8 @@ mix.scripts([
     'resources/assets/js/lib/sweetalert2.min.js'
 ], 'public/js/vendor.js');
 
-mix.js('resources/assets/js/app.js', 'public/js/app.js');
+mix.js('resources/assets/js/app.js', 'public/js/app.js')
+  .extract(['vue']);
 
 mix.styles([
     'resources/assets/css/bulma.min.css',
