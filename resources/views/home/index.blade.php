@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="content" id="app">
+        <home-form></home-form>
     </div>
 @endsection
 
