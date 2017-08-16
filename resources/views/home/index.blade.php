@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="content" id="app">
+    <div class="content">
         <home-form></home-form>
     </div>
 @endsection

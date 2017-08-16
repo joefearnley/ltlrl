@@ -1647,7 +1647,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            showResult: false
+            showResult: false,
+            url: ''
         };
     },
     mounted: function mounted() {},
@@ -1656,18 +1657,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         createUrl: function createUrl() {
             var _this = this;
 
-            axios.post('/url/create', { 'url': this.urlField.value }).then(function (response) {
-                return _this.showResult(response.data.url).bind(_this);
+            axios.post('/url/create', { 'url': this.url }).then(function (response) {
+                return _this.renderResults(response.data.url);
             }).catch(function (error) {
                 return _this.handleError(error);
             });
         },
-        showResult: function showResult(url) {
-            this.results.innerHTML = this.template(url.url);
+        renderResults: function renderResults(url) {
+            this.url = url;
             this.showResult = true;
+            swal('Oops...', 'Something went wrong!', 'error');
         },
         handleError: function handleError(error) {
-            var errorMessage = error.response.data.url[0];
+            console.log(error);
         }
     }
 });
@@ -19099,23 +19101,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column is-8 is-offset-2"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "results",
+  }, [_c('div', {
+    staticClass: "result align-center",
     class: {
       'is-hidden': !_vm.showResult
     }
-  }, [_vm._m(1)])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('form', [_c('div', {
+  }, [_c('p', [_vm._v("\n                    URL has been made little! - "), _c('strong', [_vm._v(_vm._s(_vm.url))]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('form', [_c('div', {
     staticClass: "field has-addons"
   }, [_c('p', {
     staticClass: "control is-expanded"
   }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.url),
+      expression: "url"
+    }],
     staticClass: "input",
     attrs: {
       "id": "url",
       "type": "text",
       "placeholder": "Enter Url and ..."
+    },
+    domProps: {
+      "value": (_vm.url)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.url = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('p', {
     staticClass: "control"
@@ -19123,17 +19138,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "button is-primary",
     attrs: {
       "id": "make-url-little"
+    },
+    on: {
+      "click": _vm.createUrl
     }
-  }, [_vm._v("Make it Little")])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('h4', [_vm._v("\n                    URL has been made little! - "), _c('strong', [_vm._v("${url.url}")]), _vm._v(" "), _c('a', {
-    staticClass: "button"
+  }, [_vm._v("Make it Little")])])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "button is-primary"
   }, [_c('i', {
     staticClass: "fa fa-clipboard",
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Copy to Clipboard")])])
+  }), _vm._v(" Copy to Clipboard")])
 }]}
 module.exports.render._withStripped = true
 if (false) {

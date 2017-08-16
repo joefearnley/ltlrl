@@ -38,7 +38,9 @@
             @endif
         </nav>
     </div>
-    @yield('content')
+    <div id="app">
+        @yield('content')
+    </div>
     <script src="/js/vendor.js"></script>
     <script src="/js/app.js"></script>
     @yield('scripts')

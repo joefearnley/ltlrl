@@ -2,18 +2,18 @@
     <div class="container home-page">
         <div class="columns">
             <div class="column is-8 is-offset-2">
+                <div class="result align-center" :class="{ 'is-hidden': !showResult }">
+                    <p>
+                        URL has been made little! - <strong>{{ url }}</strong>
+                        <a class="button is-primary"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
+                    </p>
+                </div>
                 <form>
                     <div class="field has-addons">
-                        <p class="control is-expanded"><input class="input" id="url" type="text" placeholder="Enter Url and ..."></p>
-                        <p class="control"><a id="make-url-little" class="button is-primary">Make it Little</a></p>
+                        <p class="control is-expanded"><input class="input" id="url" type="text" placeholder="Enter Url and ..." v-model="url"></p>
+                        <p class="control"><a id="make-url-little" class="button is-primary" @click="createUrl">Make it Little</a></p>
                     </div>
                 </form>
-                <div class="results" :class="{ 'is-hidden': !showResult }">
-                    <h4>
-                        URL has been made little! - <strong>${url.url}</strong>
-                        <a class="button"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
-                    </h4>
-                </div>
             </div>
         </div>
     </div>
@@ -23,23 +23,29 @@
     export default {
         data () {
             return {
-                showResult: false
+                showResult: false,
+                url: ''
             }
         },
         mounted() {
         },
         methods: {
             createUrl () {
-                axios.post('/url/create', { 'url' : this.urlField.value })
-                    .then(response => this.showResult(response.data.url).bind(this))
+                axios.post('/url/create', { 'url' : this.url })
+                    .then(response => this.renderResults(response.data.url))
                     .catch(error => this.handleError(error));
             },
-           showResult (url) {
-                this.results.innerHTML = this.template(url.url);
+           renderResults (url) {
+                this.url = url;
                 this.showResult = true;
+                swal(
+                  'Oops...',
+                  'Something went wrong!',
+                  'error'
+                )
             },
-            handleError(error) {
-                const errorMessage = error.response.data.url[0];
+            handleError (error) {
+                console.log(error);
             }
         }
     }
