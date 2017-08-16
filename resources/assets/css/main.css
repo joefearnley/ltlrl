@@ -116,3 +116,8 @@ footer {
 #show-add-url-form {
     margin-top: 7px;
 }
+
+.swal2-modal {
+    top: 0;
+    left: 0;
+}

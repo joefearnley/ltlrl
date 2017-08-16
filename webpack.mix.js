@@ -1,8 +1,8 @@
 const { mix } = require('laravel-mix');
 
-mix.scripts([
-  'resources/assets/js/lib/sweetalert2.min.js'
-], 'public/js/vendor.js');
+// mix.scripts([
+//   'resources/assets/js/lib/sweetalert2.min.js'
+// ], 'public/js/vendor.js');
 
 mix.js([
   'resources/assets/js/app.js'

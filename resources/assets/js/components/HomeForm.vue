@@ -11,7 +11,7 @@
                 <form>
                     <div class="field has-addons">
                         <p class="control is-expanded"><input class="input" id="url" type="text" placeholder="Enter Url and ..." v-model="url"></p>
-                        <p class="control"><a id="make-url-little" class="button is-primary" @click="createUrl">Make it Little</a></p>
+                        <p class="control"><a id="make-url-little" class="button is-primary" @click="createUrl" :class="{ 'is-hidden': isLoading }">Make it Little</a></p>
                     </div>
                 </form>
             </div>
@@ -24,6 +24,7 @@
         data () {
             return {
                 showResult: false,
+                isLoading: false,
                 url: ''
             }
         },
@@ -31,21 +32,20 @@
         },
         methods: {
             createUrl () {
+                this.isLoading = true;
                 axios.post('/url/create', { 'url' : this.url })
                     .then(response => this.renderResults(response.data.url))
-                    .catch(error => this.handleError(error));
+                    .catch(error => console.log(error));
             },
            renderResults (url) {
                 this.url = url;
-                this.showResult = true;
-                swal(
-                  'Oops...',
-                  'Something went wrong!',
-                  'error'
+                // this.showResult = true;
+                //this.isLoading = false;
+                this.$swal(
+                    'Oops...',
+                    'Something went wrong!',
+                    'error'
                 )
-            },
-            handleError (error) {
-                console.log(error);
             }
         }
     }
