@@ -13,6 +13,7 @@
                         <p class="control is-expanded"><input class="input" id="url" type="text" placeholder="Enter Url and ..." v-model="url"></p>
                         <p class="control"><a id="make-url-little" class="button is-primary" @click="createUrl" :class="{ 'is-loading': isLoading }">Make it Little</a></p>
                     </div>
+                    <p class="help is-danger" v-model="error"></p>
                 </form>
             </div>
         </div>
@@ -32,7 +33,6 @@
         },
         methods: {
             createUrl () {
-                console.log('is loading...');
                 this.isLoading = true;
                 axios.post('/url/create', { 'url' : this.url })
                     .then(response => this.renderResults(response.data.url))
