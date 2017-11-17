@@ -19142,6 +19142,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   })]), _vm._v(" "), _c('p', {
+    staticClass: "help is-danger",
+    model: {
+      value: (_vm.error),
+      callback: function($$v) {
+        _vm.error = $$v
+      },
+      expression: "error"
+    }
+  }, [_vm._v("This is the error")]), _vm._v(" "), _c('p', {
     staticClass: "control"
   }, [_c('a', {
     staticClass: "button is-primary",
@@ -19154,16 +19163,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.createUrl
     }
-  }, [_vm._v("Make it Little")])])]), _vm._v(" "), _c('p', {
-    staticClass: "help is-danger",
-    model: {
-      value: (_vm.error),
-      callback: function($$v) {
-        _vm.error = $$v
-      },
-      expression: "error"
-    }
-  })])])])])
+  }, [_vm._v("Make it Little")])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "button is-primary"

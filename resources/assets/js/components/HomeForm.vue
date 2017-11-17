@@ -11,9 +11,9 @@
                 <form>
                     <div class="field has-addons">
                         <p class="control is-expanded"><input class="input" id="url" type="text" placeholder="Enter Url and ..." v-model="url"></p>
+                        <p class="help is-danger" v-model="error">This is the error</p>
                         <p class="control"><a id="make-url-little" class="button is-primary" @click="createUrl" :class="{ 'is-loading': isLoading }">Make it Little</a></p>
                     </div>
-                    <p class="help is-danger" v-model="error"></p>
                 </form>
             </div>
         </div>

@@ -11,31 +11,34 @@
 </head>
 <body>
     <div class="container">
-        <nav class="nav">
-            <div class="nav-left">
-                <a class="nav-item" href="{{ url('/') }}">Little Url</a>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="{{ url('/') }}">Little Url</a>
+                <button class="button navbar-burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
-            <span class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </span>
-            <div class="nav-right nav-menu">
-            @if (Auth::guest())
-                <a href="{{ url('/login') }}" class="nav-item">Login</a>
-                <a href="{{ url('/register') }}" class="nav-item">Register</a>
-            @else
-                @if (Auth::check() && Route::getCurrentRoute()->uri() != '/')
-                    <p class="control">
-                        <a  id="show-add-url-form" class="button is-primary">
-                            <span class="icon"><i class="fa fa-plus"></i></span>
-                            <span>Make Little Url</span>
-                        </a>
-                    </p>
-                @endif
-                <a href="{{ url('/account') }}" class="nav-item">Account</a>
-                <a href="{{ url('/logout') }}" class="nav-item">Logout</a>
-            @endif
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    @if (Auth::guest())
+                        <a href="{{ url('/login') }}" class="navbar-item">Login</a>
+                        <a href="{{ url('/register') }}" class="navbar-item">Register</a>
+                    @else
+                        @if (Auth::check() && Route::getCurrentRoute()->uri() != '/')
+                            <p class="control">
+                                <a  id="show-add-url-form" class="button is-primary">
+                                    <span class="icon"><i class="fa fa-plus"></i></span>
+                                    <span>Make Little Url</span>
+                                </a>
+                            </p>
+                        @endif
+                        <a href="{{ url('/account') }}" class="navbar-item">Account</a>
+                        <a href="{{ url('/logout') }}" class="navbar-item">Logout</a>
+                    @endif
+                </div>
+            </div>
         </nav>
     </div>
     <div id="app">
