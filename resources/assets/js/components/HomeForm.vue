@@ -10,10 +10,10 @@
                 </div>
                 <form>
                     <div class="field has-addons">
-                        <p class="control is-expanded"><input class="input" id="url" type="text" placeholder="Enter Url and ..." v-model="url"></p>
-                        <p class="help is-danger" v-model="error">This is the error</p>
+                        <p class="control is-expanded"><input class="input" :class="{ 'is-danger': hasError }"  id="url" type="text" placeholder="Enter Url and ..." v-model="url"></p>
                         <p class="control"><a id="make-url-little" class="button is-primary" @click="createUrl" :class="{ 'is-loading': isLoading }">Make it Little</a></p>
                     </div>
+                    <p class="help is-danger" v-if="hasError">Please enter valid URL</p>
                 </form>
             </div>
         </div>
@@ -26,7 +26,8 @@
             return {
                 showResult: false,
                 isLoading: false,
-                url: ''
+                url: '',
+                hasError: false
             }
         },
         mounted() {
@@ -34,9 +35,10 @@
         methods: {
             createUrl () {
                 this.isLoading = true;
+                this.hasError = false;
                 axios.post('/url/create', { 'url' : this.url })
                     .then(response => this.renderResults(response.data.url))
-                    .catch(error => console.log(error));
+                    .catch(error => this.displayError(error));
             },
            renderResults (url) {
                 this.url = url;
@@ -44,7 +46,8 @@
                 this.isLoading = false;
             },
             displayError (error) {
-
+                this.isLoading = false;
+                this.hasError = true;
             }
         }
     }
