@@ -19372,7 +19372,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'is-hidden': !_vm.showResult
     }
-  }, [_c('p', [_vm._v("\n                    URL has been made little! - "), _c('strong', [_vm._v(_vm._s(_vm.url))]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('form', [_c('div', {
+  }, [_c('p', [_c('span', {
+    attrs: {
+      "id": "copy-message"
+    }
+  }, [_vm._v("URL has been made little! - "), _c('strong', [_vm._v(_vm._s(_vm.url))])]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('form', [_c('div', {
     staticClass: "field has-addons"
   }, [_c('p', {
     staticClass: "control is-expanded"
