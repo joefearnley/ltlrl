@@ -19,3 +19,7 @@ Route::get('/api/account/urls', 'AccountController@urls');
 Route::get('/api/account/info', 'AccountController@info');
 Route::post('/api/account/update-personal-info', 'AccountController@updatePersonalInfo');
 Route::post('/api/account/update-password', 'AccountController@updatePassword');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
