@@ -20,6 +20,8 @@ Route::get('/api/account/info', 'AccountController@info');
 Route::post('/api/account/update-personal-info', 'AccountController@updatePersonalInfo');
 Route::post('/api/account/update-password', 'AccountController@updatePassword');
 
-Auth::routes();
+//Auth::routes();
+
+Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
