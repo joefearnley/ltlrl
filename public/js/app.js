@@ -73,7 +73,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(7);
+var bind = __webpack_require__(8);
 
 /*global toString:true*/
 
@@ -397,10 +397,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(3);
+    adapter = __webpack_require__(4);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(3);
+    adapter = __webpack_require__(4);
   }
   return adapter;
 }
@@ -471,7 +471,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 2 */
@@ -504,6 +504,12 @@ module.exports = g;
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(11);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -512,7 +518,7 @@ var settle = __webpack_require__(17);
 var buildURL = __webpack_require__(20);
 var parseHeaders = __webpack_require__(26);
 var isURLSameOrigin = __webpack_require__(24);
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(7);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(19);
 
 module.exports = function xhrAdapter(config) {
@@ -685,7 +691,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -711,7 +717,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -723,7 +729,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -747,7 +753,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -765,7 +771,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -955,7 +961,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -974,12 +980,6 @@ Vue.component('home-form', __webpack_require__(33));
 var app = new Vue({ el: '#app' });
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(11);
-
-/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -987,7 +987,7 @@ module.exports = __webpack_require__(11);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(7);
+var bind = __webpack_require__(8);
 var Axios = __webpack_require__(13);
 var defaults = __webpack_require__(1);
 
@@ -1022,9 +1022,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(4);
+axios.Cancel = __webpack_require__(5);
 axios.CancelToken = __webpack_require__(12);
-axios.isCancel = __webpack_require__(5);
+axios.isCancel = __webpack_require__(6);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -1045,7 +1045,7 @@ module.exports.default = axios;
 "use strict";
 
 
-var Cancel = __webpack_require__(4);
+var Cancel = __webpack_require__(5);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -1262,7 +1262,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(18);
-var isCancel = __webpack_require__(5);
+var isCancel = __webpack_require__(6);
 var defaults = __webpack_require__(1);
 
 /**
@@ -1372,7 +1372,7 @@ module.exports = function enhanceError(error, config, code, response) {
 "use strict";
 
 
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(7);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -1874,6 +1874,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         displayError: function displayError(error) {
             this.isLoading = false;
             this.hasError = true;
+        },
+        copyToClipboard: function copyToClipboard(e) {
+            console.log(e);
         }
     }
 });
@@ -1903,7 +1906,7 @@ window._ = __webpack_require__(30);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(10);
+window.axios = __webpack_require__(3);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -1920,6 +1923,13 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+window.axios = __webpack_require__(3);
+
+window.axios.defaults.headers.common = {
+  'X-CSRF-TOKEN': window.Laravel.csrfToken,
+  'X-Requested-With': 'XMLHttpRequest'
+};
 
 /***/ }),
 /* 30 */
@@ -19204,7 +19214,7 @@ if (token) {
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(9)))
 
 /***/ }),
 /* 32 */
@@ -19372,11 +19382,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'is-hidden': !_vm.showResult
     }
-  }, [_c('p', [_c('span', {
-    attrs: {
-      "id": "copy-message"
+  }, [_c('p', [_c('span', [_vm._v("URL has been made little! - "), _c('strong', [_vm._v(_vm._s(_vm.url))])]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "clipboard",
+      rawName: "v-clipboard",
+      value: (_vm.copyToClipboard),
+      expression: "copyToClipboard"
+    }],
+    staticClass: "button is-primary",
+    on: {
+      "success": _vm.copyToClipboard,
+      "error": _vm.copyToClipboardError
     }
-  }, [_vm._v("URL has been made little! - "), _c('strong', [_vm._v(_vm._s(_vm.url))])]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('form', [_c('div', {
+  }, [_c('i', {
+    staticClass: "fa fa-clipboard",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v(" Copy to Clipboard")])])]), _vm._v(" "), _c('form', [_c('div', {
     staticClass: "field has-addons"
   }, [_c('p', {
     staticClass: "control is-expanded"
@@ -19421,16 +19444,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Make it Little")])])]), _vm._v(" "), (_vm.hasError) ? _c('p', {
     staticClass: "help is-danger"
   }, [_vm._v("Please enter valid URL")]) : _vm._e()])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "button is-primary"
-  }, [_c('i', {
-    staticClass: "fa fa-clipboard",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v(" Copy to Clipboard")])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -30299,7 +30313,7 @@ module.exports = function(module) {
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(9);
+module.exports = __webpack_require__(10);
 
 
 /***/ })

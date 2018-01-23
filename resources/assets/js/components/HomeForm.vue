@@ -4,8 +4,8 @@
             <div class="column is-8 is-offset-2">
                 <div class="result align-center" :class="{ 'is-hidden': !showResult }">
                     <p>
-                        <span id="copy-message">URL has been made little! - <strong>{{ url }}</strong></span>
-                        <a class="button is-primary"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
+                        <span>URL has been made little! - <strong>{{ url }}</strong></span>
+                        <a v-clipboard="copyToClipboard" @success="copyToClipboard" @error="copyToClipboardError" class="button is-primary"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
                     </p>
                 </div>
                 <form>
@@ -48,6 +48,9 @@
             displayError (error) {
                 this.isLoading = false;
                 this.hasError = true;
+            },
+            copyToClipboard(e) {
+                console.log(e);
             }
         }
     }
