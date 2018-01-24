@@ -5,7 +5,7 @@
                 <div class="result align-center" :class="{ 'is-hidden': !showResult }">
                     <p>
                         <span>URL has been made little! - <strong>{{ url }}</strong></span>
-                        <a v-clipboard="copyToClipboard" @success="copyToClipboard" @error="copyToClipboardError" class="button is-primary"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
+                        <a v-clipboard="url" @success="copyToClipboard" @error="copyToClipboardError" class="button is-primary"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
                     </p>
                 </div>
                 <form>
@@ -21,6 +21,9 @@
 </template>
 
 <script>
+    import VueClipboards from 'vue-clipboards';
+    Vue.use(VueClipboards);
+
     export default {
         data () {
             return {
@@ -50,6 +53,15 @@
                 this.hasError = true;
             },
             copyToClipboard(e) {
+                this.$swal({
+                    title: 'Success!',
+                    text: 'Url Copied to Clipboard.',
+                    type: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            },
+            copyToClipboardError(e) {
                 console.log(e);
             }
         }
