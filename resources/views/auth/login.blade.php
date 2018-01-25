@@ -1,14 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
- -->
 <div class="container has-text-centered">
     <div class="column is-4 is-offset-4">
-        <h3 class="title has-text-grey">Login</h3>
         <div class="box">
             <form method="POST" action="{{ url('/login') }}">
+                {!! csrf_field() !!}
                 <div class="field">
                     <div class="control">
                         <input class="input" type="email" placeholder="Your Email" autofocus="">
@@ -21,10 +18,10 @@
                 </div>
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox">Remember me
+                        <input type="checkbox">&nbsp;&nbsp;Remember me
                     </label>
                 </div>
-                <a class="button is-block is-primary">Login</a>
+                <button type="submit" class="button is-block is-primary login">Login</button>
             </form>
         </div>
         <p class="has-text-grey">
