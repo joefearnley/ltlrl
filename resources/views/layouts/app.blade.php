@@ -28,7 +28,7 @@
                 <div class="navbar-end">
                     @if (Auth::guest())
                         <a href="{{ url('/login') }}" class="navbar-item">Login</a>
-                        <a href="{{ url('/register') }}" class="navbar-item">Register</a>
+                        <a href="{{ url('/register') }}" class="navbar-item">Sign Up</a>
                     @else
                         @if (Auth::check() && Route::getCurrentRoute()->uri() != '/')
                             <p class="control">
@@ -48,7 +48,6 @@
     <div id="app">
         @yield('content')
     </div>
-<!--     <script src="/js/vendor.js"></script> -->
     <script src="/js/app.js"></script>
     @yield('scripts')
 </body>
