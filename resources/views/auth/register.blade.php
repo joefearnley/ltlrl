@@ -45,7 +45,7 @@
                     @endif
                 </div>
                 <button type="submit" class="button is-block is-primary">
-                    <i class="fa fa-btn fa-user"> Sign Up
+                    <i class="fas fa-btn fa-user"></i> Sign Up
                 </button>
             </form>
         </div>

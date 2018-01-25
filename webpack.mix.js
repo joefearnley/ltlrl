@@ -10,7 +10,7 @@ mix.js([
 
 mix.styles([
   'resources/assets/css/bulma.min.css',
-  'resources/assets/css/font-awesome.min.css',
+  'resources/assets/css/fontawesome-all.min.css',
   'resources/assets/css/sweetalert2.min.css',
   'resources/assets/css/main.css'
 ], 'public/css/app.css');

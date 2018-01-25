@@ -17,7 +17,7 @@
                     @endif
                 </div>
                 <button type="submit" class="button is-block is-primary">
-                    <i class="fa fa-btn fa-envelope"></i> Send Password Reset Link
+                    <i class="fas fa-btn fa-envelope"></i> Send Password Reset Link
                 </button>
             </form>
         </div>

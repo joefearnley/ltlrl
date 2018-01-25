@@ -31,11 +31,11 @@
                     </label>
                 </div>
                 <button type="submit" class="button is-block is-primary">
-                    <i class="fa fa-btn fa-sign-in"> Login
+                    <i class="fas fa-btn fa-sign-in-alt"></i> Login
                 </button>
             </form>
         </div>
-        <p class="has-text-grey">
+        <p class="has-text-grey has-text-centered">
             <a href="{{ url('/password/reset') }}">Forgot Password</a>
         </p>
     </div>

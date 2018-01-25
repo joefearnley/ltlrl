@@ -7,7 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Little Url</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
     <link href="/css/app.css" rel="stylesheet">
     <script>
         window.Laravel = <?php echo json_encode([ 'csrfToken' => csrf_token() ]); ?>
