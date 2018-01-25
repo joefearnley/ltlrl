@@ -44,7 +44,9 @@
                         <p class="help is-danger">{{ $errors->first('password_confirmation') }}</p>
                     @endif
                 </div>
-                <button type="submit" class="button is-block is-primary">Sign Up</button>
+                <button type="submit" class="button is-block is-primary">
+                    <i class="fa fa-btn fa-user"> Sign Up
+                </button>
             </form>
         </div>
     </div>

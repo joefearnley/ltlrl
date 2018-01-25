@@ -30,7 +30,9 @@
                         <input type="checkbox">&nbsp;&nbsp;Remember me
                     </label>
                 </div>
-                <button type="submit" class="button is-block is-primary">Login</button>
+                <button type="submit" class="button is-block is-primary">
+                    <i class="fa fa-btn fa-sign-in"> Login
+                </button>
             </form>
         </div>
         <p class="has-text-grey">
