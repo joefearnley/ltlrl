@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container">
     <div class="column is-4 is-offset-4">
         <h4 class="title is-4 has-text-centered">Sign Up</h4>

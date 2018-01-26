@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/test', function() {
+    return view('auth.passwords.reset');
+});
+
 Route::auth();
 
 Route::get('account', 'AccountController@index');
@@ -21,7 +25,5 @@ Route::post('/api/account/update-personal-info', 'AccountController@updatePerson
 Route::post('/api/account/update-password', 'AccountController@updatePassword');
 
 Auth::routes();
-
-// Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');

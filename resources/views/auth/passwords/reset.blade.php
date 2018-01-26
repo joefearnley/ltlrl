@@ -1,69 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
-                        {!! csrf_field() !!}
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ $email or old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation">
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-refresh"></i>Reset Password
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+    <div class="column is-4 is-offset-4">
+        <h4 class="title is-4 has-text-centered">Reset Password</h4>
+        <div class="box">
+            <form method="POST" action="{{ url('/password/reset') }}">
+                {!! csrf_field() !!}
+                <input type="hidden" name="token" value="">
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input class="input {{ $errors->has('email') ? 'is-danger' : '' }}" type="email" name="email" value="{{ old('email') }}" autofocus="">
+                    </div>
+                    @if ($errors->has('email'))
+                        <p class="help is-danger">{{ $errors->first('email') }}</p>
+                    @endif
                 </div>
-            </div>
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                        <input class="input {{ $errors->has('password') ? 'is-danger' : '' }}" type="password" name="password" value="{{ old('password') }}">
+                    </div>
+                    @if ($errors->has('password'))
+                        <p class="help is-danger">{{ $errors->first('password') }}</p>
+                    @endif
+                </div>
+                <div class="field">
+                    <label class="label">Confirm Password</label>
+                    <div class="control">
+                        <input class="input {{ $errors->has('password_confirmation') ? 'is-danger' : '' }}" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}">
+                    </div>
+                    @if ($errors->has('password_confirmation'))
+                        <p class="help is-danger">{{ $errors->first('password_confirmation') }}</p>
+                    @endif
+                </div>
+                <button type="submit" class="button is-block is-primary">
+                    <i class="fas fa-btn fa-sync-alt"></i> Reset Password
+                </button>
+            </form>
         </div>
     </div>
 </div>
