@@ -5,7 +5,9 @@
                 <div class="result align-center" :class="{ 'is-hidden': !showResult }">
                     <p>
                         <span>URL has been made little! - <strong>{{ url }}</strong></span>
-                        <a v-clipboard="url" @success="copyToClipboard" @error="copyToClipboardError" class="button is-primary"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard</a>
+                        <a v-clipboard="url" @success="copyToClipboard" @error="copyToClipboardError" class="button is-primary">
+                            <i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard
+                        </a>
                     </p>
                 </div>
                 <form>
@@ -37,6 +39,7 @@
         },
         methods: {
             createUrl () {
+                this.showResult = true;
                 this.isLoading = true;
                 this.hasError = false;
                 axios.post('/url/create', { 'url' : this.url })

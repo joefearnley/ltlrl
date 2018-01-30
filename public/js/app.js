@@ -1844,6 +1844,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
@@ -1863,6 +1865,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
         createUrl: function createUrl() {
             var _this = this;
 
+            this.showResult = true;
             this.isLoading = true;
             this.hasError = false;
             axios.post('/url/create', { 'url': this.url }).then(function (response) {
@@ -22923,7 +22926,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Copy to Clipboard")])])]), _vm._v(" "), _c('form', [_c('div', {
+  }), _vm._v(" Copy to Clipboard\n                    ")])])]), _vm._v(" "), _c('form', [_c('div', {
     staticClass: "field has-addons"
   }, [_c('p', {
     staticClass: "control is-expanded"
