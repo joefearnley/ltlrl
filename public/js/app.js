@@ -1846,6 +1846,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
@@ -1865,7 +1871,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
         createUrl: function createUrl() {
             var _this = this;
 
-            this.showResult = true;
+            this.showResult = false;
             this.isLoading = true;
             this.hasError = false;
             axios.post('/url/create', { 'url': this.url }).then(function (response) {
@@ -1880,13 +1886,14 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
             this.isLoading = false;
         },
         displayError: function displayError(error) {
+            this.showResult = false;
             this.isLoading = false;
             this.hasError = true;
         },
         copyToClipboard: function copyToClipboard(e) {
             this.$swal({
                 title: 'Success!',
-                text: 'Url Copied to Clipboard.',
+                text: 'URL Copied to Clipboard.',
                 type: 'success',
                 timer: 1500,
                 showConfirmButton: false
@@ -22909,7 +22916,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'is-hidden': !_vm.showResult
     }
-  }, [_c('p', [_c('span', [_vm._v("URL has been made little! - "), _c('strong', [_vm._v(_vm._s(_vm.url))])]), _vm._v(" "), _c('a', {
+  }, [_c('p', [_c('span', [_vm._v("Your URL has been made little! - "), _c('strong', [_c('a', {
+    attrs: {
+      "href": _vm.url,
+      "target": "_blank"
+    }
+  }, [_vm._v(_vm._s(_vm.url))])])])]), _vm._v(" "), _c('p', [_c('a', {
     directives: [{
       name: "clipboard",
       rawName: "v-clipboard",
@@ -22922,11 +22934,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "error": _vm.copyToClipboardError
     }
   }, [_c('i', {
-    staticClass: "fa fa-clipboard",
+    staticClass: "fa fa-btn fa-clipboard",
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Copy to Clipboard\n                    ")])])]), _vm._v(" "), _c('form', [_c('div', {
+  }), _vm._v(" Copy\n                    ")])])]), _vm._v(" "), _c('form', [_c('div', {
     staticClass: "field has-addons"
   }, [_c('p', {
     staticClass: "control is-expanded"
@@ -22944,7 +22956,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "url",
       "type": "text",
-      "placeholder": "Enter Url and ..."
+      "placeholder": "Enter URL and ..."
     },
     domProps: {
       "value": (_vm.url)
@@ -22968,7 +22980,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.createUrl
     }
-  }, [_vm._v("Make it Little")])])]), _vm._v(" "), (_vm.hasError) ? _c('p', {
+  }, [_vm._v("\n                            Make it Little\n                        ")])])]), _vm._v(" "), (_vm.hasError) ? _c('p', {
     staticClass: "help is-danger"
   }, [_vm._v("Please enter valid URL")]) : _vm._e()])])])])
 },staticRenderFns: []}
