@@ -1,0 +1,128 @@
+.align-center {
+    text-align: center;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: 'Lato';
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #f5f5f5;
+    padding-top: 20px;
+}
+
+.result {
+    margin-bottom: 80px;
+}
+
+.fa-btn {
+    margin-right: 6px;
+}
+
+.margin-left {
+    margin-left: 20px;
+}
+
+.margin-right {
+    margin-right: 20px;
+}
+
+.tile {
+    display: block;
+    position: relative;
+    height: 120px;
+    padding: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border: 2px black solid;
+}
+
+.tile .img {
+    position: absolute;
+    line-height: 130px;
+    left: 10px;
+}
+.tile .content {
+    position: absolute;
+    right: 10px;
+    top: 25px;
+}
+
+.tile .img > [class*="fa-"] {
+    font-size: 40px;
+}
+
+.tile .content > p.big {
+    font-size: 35px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.tile .content > p {
+    text-align: right;
+}
+
+.tile p.title {
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+#show-add-url-form {
+    margin-right: 10px;
+    margin-top: 8px;
+}
+
+.home-page {
+    margin-top: 100px;
+}
+
+.main {
+    background-color: #fff;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px;
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+.nav-sidebar > li > a {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+
+#show-add-url-form {
+    margin-top: 7px;
+}
+
+#copy-message {
+    margin-right: 15px;,
+    vertical-align: bottom;
+}
+
+.swal2-modal {
+    top: 0;
+    left: 0;
+}
