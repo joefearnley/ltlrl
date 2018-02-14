@@ -1,5 +1,18 @@
 <?php
 
+if (getenv("CLEARDB_DATABASE_URL")) {
+    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+    $host = $url["host"];
+    $database = substr($url["path"], 1);
+    $username = $url["user"];
+    $password = $url["pass"];
+} else {
+    $host = env('DB_HOST', 'localhost');
+    $database = env('DB_DATABASE', 'forge');
+    $username = env('DB_USERNAME', 'forge');
+    $password = env('DB_PASSWORD', '');
+}
+
 return [
 
     /*
@@ -36,6 +49,12 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'prefix' => '',
+        ],
+
+        'testing' => [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
             'prefix' => '',
         ],
 
