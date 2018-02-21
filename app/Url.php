@@ -25,29 +25,29 @@ class Url extends Model
      * @var array
      */
     protected $appends = [
-        'link',
+        'short_url',
         'formatted_date',
         'click_count'
     ];
 
     /**
-     * Link of the url.
+     * Shortened version of the url.
      *
      * @return string
      */
-    public function link()
+    public function shortUrl()
     {
         return config('app.url') . '/' . $this->key;
     }
 
     /**
-     * Set the link model attribute.
+     * Set the short_url model attribute.
      *
      * @return string
      */
-    public function getLinkAttribute()
+    public function getShortUrlAttribute()
     {
-        return $this->attributes['link'] = $this->link();
+        return $this->attributes['short_url'] = $this->shortUrl();
     }
 
     /**
