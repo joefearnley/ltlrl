@@ -163,7 +163,7 @@ class UrlTest extends TestCase
                 'id' => $url->id,
                 'url' => 'http://yahoo.com',
                 'user_id' => '1',
-                'short_url' => 'http://localhost/' . $url->key
+                'short_url' => config('app.url') . '/' . $url->key
             ]);
     }
 
