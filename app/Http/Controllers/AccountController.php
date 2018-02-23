@@ -59,7 +59,7 @@ class AccountController extends Controller
      */
     public function urlList()
     {
-        return view('account.urlList');
+        return view('account.urls');
     }
 
     /**

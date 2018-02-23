@@ -4,7 +4,7 @@
 <div class="container">
     <div class="columns">
     @include('account.nav')
-    <div class="column is-9">
+    <div class="column is-9 m-t-xl">
         <section class="hero is-primary welcome is-small">
             <div class="hero-body">
                 <div class="container">
@@ -37,8 +37,4 @@
         </section>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script src="/js/account/overview.js"></script>
 @endsection

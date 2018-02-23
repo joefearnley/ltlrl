@@ -13,6 +13,7 @@ import VueSweetAlert from 'vue-sweetalert';
 
 Vue.use(VueSweetAlert);
 Vue.component('home-form', require('./components/HomeForm.vue'));
+Vue.component('urls-list', require('./components/UrlsList.vue'));
 
 const app = new Vue({
     el: '#app'
