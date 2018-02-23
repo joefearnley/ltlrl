@@ -5,9 +5,6 @@
     <div class="columns">
     @include('account.nav')
     <div class="column is-9">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-            <h1>Account Overview</h1>
-        </nav>
         <section class="hero is-primary welcome is-small">
             <div class="hero-body">
                 <div class="container">
