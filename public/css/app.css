@@ -45,46 +45,6 @@ footer {
     margin-right: 20px;
 }
 
-.tile {
-    display: block;
-    position: relative;
-    height: 120px;
-    padding: 10px;
-    margin-bottom: 20px;
-    overflow: hidden;
-    border: 2px black solid;
-}
-
-.tile .img {
-    position: absolute;
-    line-height: 130px;
-    left: 10px;
-}
-.tile .content {
-    position: absolute;
-    right: 10px;
-    top: 25px;
-}
-
-.tile .img > [class*="fa-"] {
-    font-size: 40px;
-}
-
-.tile .content > p.big {
-    font-size: 35px;
-    font-weight: 400;
-    margin-bottom: 0;
-}
-
-.tile .content > p {
-    text-align: right;
-}
-
-.tile p.title {
-    font-size: 16px;
-    margin-bottom: 2px;
-}
-
 #show-add-url-form {
     margin-right: 10px;
     margin-top: 8px;
@@ -96,29 +56,6 @@ footer {
 
 .main {
     background-color: #fff;
-}
-
-.navbar {
-    margin-bottom: 0;
-}
-
-/* Sidebar navigation */
-.nav-sidebar {
-    margin-right: -21px;
-    margin-bottom: 20px;
-    margin-left: -20px;
-}
-
-.nav-sidebar > li > a {
-    padding-right: 20px;
-    padding-left: 20px;
-}
-
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-    color: #fff;
-    background-color: #428bca;
 }
 
 #show-add-url-form {
@@ -133,4 +70,26 @@ footer {
 .swal2-modal {
     top: 0;
     left: 0;
+}
+
+.stats .tile {
+    border: none;
+}
+
+.stats .tile.is-ancestor {
+    margin-top: 0;
+}
+
+.menu-list a.is-active {
+    background-color: #00d1b2;
+}
+
+.menu-list a:hover {
+    background-color: #fff;
+    color: #00d1b2;
+}
+
+.menu-list a:hover.is-active {
+    background-color: #00d1b2;
+    color: #fff;
 }
