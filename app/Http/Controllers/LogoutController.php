@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LogoutController extends Controller
 {

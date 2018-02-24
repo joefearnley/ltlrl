@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class LogoutTest extends TestCase
 {
