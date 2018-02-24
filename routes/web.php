@@ -14,6 +14,7 @@ Route::post('url/delete/{id}', 'UrlController@delete');
 Route::get('url/stats/{id}', 'UrlController@clickStats');
 
 Route::get('account', 'AccountController@index');
+Route::get('account/urls', 'AccountController@urls');
 Route::get('account/settings', 'AccountController@settings');
 Route::get('/api/account/info', 'AccountController@info');
 //Route::post('/api/account/update-personal-info', 'AccountController@updatePersonalInfo');

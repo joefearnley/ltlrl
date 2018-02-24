@@ -41,23 +41,11 @@ class AccountController extends Controller
     }
 
     /**
-     * Get the urls of the authenticated account.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function urls()
-    {
-        return response()->json([
-            'urls' => $this->user->urls
-        ]);
-    }
-
-    /**
      * Get the url list view.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function urlList()
+    public function urls()
     {
         return view('account.urls');
     }
