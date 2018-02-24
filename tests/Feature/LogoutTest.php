@@ -22,6 +22,7 @@ class LogoutTest extends TestCase
         $this->assertTrue(Auth::check());
         $this->get('logout')
             ->assertRedirect('login');
+
         $this->assertFalse(Auth::check());
     }
 }

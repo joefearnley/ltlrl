@@ -2,7 +2,7 @@
 
 Auth::routes();
 
-// Route::get('logout','LoginController@logout');
+Route::get('logout','LogoutController@logout');
 
 Route::get('/', 'HomeController@index');
 Route::get('/{key}', 'HomeController@redirect');
