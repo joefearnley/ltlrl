@@ -33,6 +33,7 @@
         },
         methods: {
             getUrls () {
+                axios.get('/urls/')
             },
            renderResults (url) {
             }

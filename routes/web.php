@@ -2,6 +2,8 @@
 
 Auth::routes();
 
+// Route::get('logout','LoginController@logout');
+
 Route::get('/', 'HomeController@index');
 Route::get('/{key}', 'HomeController@redirect');
 
