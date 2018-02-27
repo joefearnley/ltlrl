@@ -39,6 +39,10 @@ class UserTest extends TestCase
 
     public function attempt_to_access_users_urls_when_not_logged_in_returns_error()
     {
+        $user = factory(User::class)->create();
+
+        $this->get('/api/user/urls')
+            ->assertStatus(404);
     }
 
     public function attempt_to_access_another_users_urls_returns_error()
