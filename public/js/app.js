@@ -47077,6 +47077,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
@@ -47087,7 +47098,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
             showResult: false,
             isLoading: false,
             url: '',
-            hasError: false
+            hasError: false,
+            shortUrl: ''
         };
     },
     mounted: function mounted() {},
@@ -47100,13 +47112,14 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
             this.isLoading = true;
             this.hasError = false;
             axios.post('/url/create', { 'url': this.url }).then(function (response) {
-                return _this.renderResults(response.data.url);
+                return _this.renderResults(response);
             }).catch(function (error) {
                 return _this.displayError(error);
             });
         },
-        renderResults: function renderResults(url) {
-            this.url = url;
+        renderResults: function renderResults(response) {
+
+            this.shortUrl = response.data.short_url.slice(7);
             this.showResult = true;
             this.isLoading = false;
         },
@@ -50658,43 +50671,55 @@ var render = function() {
             class: { "is-hidden": !_vm.showResult }
           },
           [
-            _c("p", [
-              _c("span", [
-                _vm._v("Your URL has been made little! - "),
-                _c("strong", [
-                  _c("a", { attrs: { href: _vm.url, target: "_blank" } }, [
-                    _vm._v(_vm._s(_vm.url))
-                  ])
-                ])
-              ])
-            ]),
+            _vm._m(0),
             _vm._v(" "),
-            _c("p", [
-              _c(
-                "a",
-                {
+            _c("div", { staticClass: "field has-addons has-addons-centered" }, [
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
                   directives: [
                     {
-                      name: "clipboard",
-                      rawName: "v-clipboard",
-                      value: _vm.url,
-                      expression: "url"
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.shortUrl,
+                      expression: "shortUrl"
                     }
                   ],
-                  staticClass: "button is-primary",
+                  staticClass: "input",
+                  attrs: { type: "text", placeholder: "Find a repository" },
+                  domProps: { value: _vm.shortUrl },
                   on: {
-                    success: _vm.copyToClipboard,
-                    error: _vm.copyToClipboardError
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.shortUrl = $event.target.value
+                    }
                   }
-                },
-                [
-                  _c("i", {
-                    staticClass: "fa fa-btn fa-clipboard",
-                    attrs: { "aria-hidden": "true" }
-                  }),
-                  _vm._v(" Copy\n                    ")
-                ]
-              )
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "clipboard",
+                        rawName: "v-clipboard",
+                        value: _vm.url,
+                        expression: "url"
+                      }
+                    ],
+                    staticClass: "button tooltip",
+                    attrs: { "data-tooltip": "Copy to Clipboard" },
+                    on: {
+                      success: _vm.copyToClipboard,
+                      error: _vm.copyToClipboardError
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-clipboard" })]
+                )
+              ])
             ])
           ]
         ),
@@ -50741,7 +50766,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                            Make it Little\n                        "
+                    "\n                                Make it Little\n                            "
                   )
                 ]
               )
@@ -50758,7 +50783,14 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [_c("strong", [_vm._v("Your URL has been made little!")])])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

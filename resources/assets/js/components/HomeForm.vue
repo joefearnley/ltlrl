@@ -3,12 +3,23 @@
         <div class="columns">
             <div class="column is-8 is-offset-2">
                 <div class="result align-center" :class="{ 'is-hidden': !showResult }">
-                    <p><span>Your URL has been made little! - <strong><a v-bind:href="url" target="_blank">{{ url }}</a></strong></span></p>
-                    <p>
+                    <p><strong>Your URL has been made little!</strong></p>
+                    <div class="field has-addons has-addons-centered">
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Find a repository"  v-model="shortUrl">
+                        </div>
+                        <div class="control">
+                            <button v-clipboard="url" @success="copyToClipboard" @error="copyToClipboardError" class="button tooltip" data-tooltip="Copy to Clipboard">
+                                <i class="fas fa-clipboard"></i>
+                            </button>
+                        </div>
+                    </div>
+
+<!--                     <p>
                         <a v-clipboard="url" @success="copyToClipboard" @error="copyToClipboardError" class="button is-primary">
                             <i class="fa fa-btn fa-clipboard" aria-hidden="true"></i> Copy
                         </a>
-                    </p>
+                    </p> -->
                 </div>
                 <form>
                     <div class="field has-addons">
@@ -38,7 +49,8 @@
                 showResult: false,
                 isLoading: false,
                 url: '',
-                hasError: false
+                hasError: false,
+                shortUrl: ''
             }
         },
         mounted() {
@@ -49,11 +61,12 @@
                 this.isLoading = true;
                 this.hasError = false;
                 axios.post('/url/create', { 'url' : this.url })
-                    .then(response => this.renderResults(response.data.url))
+                    .then(response => this.renderResults(response))
                     .catch(error => this.displayError(error));
             },
-           renderResults (url) {
-                this.url = url;
+           renderResults (response) {
+
+                this.shortUrl = response.data.short_url.slice(7);
                 this.showResult = true;
                 this.isLoading = false;
             },
