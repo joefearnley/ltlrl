@@ -30,7 +30,7 @@
                 <div class="tile is-parent">
                     <article class="tile is-child box">
                         <p class="title">{{ $user->urlsClickedOn() }}</p>
-                        <p class="subtitle">Urls Clicked on</p>
+                        <p class="subtitle">Urls Clicked On</p>
                     </article>
                 </div>
             </div>

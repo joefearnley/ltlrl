@@ -1,5 +1,6 @@
 <template>
-    <div class="column m-t-xl">
+    <div class="column m-t-md">
+        <h1 class="title">Urls</h1>
         <section class="section">
             <div class="columns">
                 <div class="column is-2">
@@ -7,7 +8,7 @@
                     <strong>Little Url:</strong> <a href="" targer="_blank">asfasfd</a><br>
                     <strong>Clicks:</strong>url.click_count<br>
                     Created on <strong>url.formatted_date</strong><br>
-                    <button class="btn btn-success copy-url" data-url="">
+                    <button class="button is-primary copy-url" data-url="">
                     <i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard
                     </button>
                 </div>

@@ -50847,6 +50847,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50856,7 +50857,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        getUrls: function getUrls() {},
+        getUrls: function getUrls() {
+            axios.get('/urls/');
+        },
         renderResults: function renderResults(url) {}
     }
 });
@@ -50876,7 +50879,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column m-t-xl" }, [
+    return _c("div", { staticClass: "column m-t-md" }, [
+      _c("h1", { staticClass: "title" }, [_vm._v("Urls")]),
+      _vm._v(" "),
       _c("section", { staticClass: "section" }, [
         _c("div", { staticClass: "columns" }, [
           _c("div", { staticClass: "column is-2" }, [
@@ -50904,7 +50909,7 @@ var staticRenderFns = [
             _c(
               "button",
               {
-                staticClass: "btn btn-success copy-url",
+                staticClass: "button is-primary copy-url",
                 attrs: { "data-url": "" }
               },
               [

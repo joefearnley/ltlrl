@@ -86,6 +86,10 @@ footer {
     color: #fff;
 }
 
+.panel-block form {
+    width: 100%;
+}
+
 /* spacing utilities */
 .m-none { margin: 0; }
 .p-none { padding: 0; }
