@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+//use Auth;
 
 class UserController extends Controller
 {
@@ -18,12 +20,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-
-        $this->middleware(function ($request, $next) {
-            $this->user = Auth::user();
-            return $next($request);
-        });
+        $this->user = \Auth::user();
     }
 
     /**
@@ -33,8 +30,13 @@ class UserController extends Controller
      */
     public function urls()
     {
+
+        echo '<pre>';
+        var_dump($this->user());
+        die();
+
         return response()->json([
-            'urls' => $this->user->urls
+            'urls' => $urls
         ]);
     }
 }

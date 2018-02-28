@@ -17,8 +17,12 @@ class UserTest extends TestCase
     public function get_urls_for_authenticated_user()
     {
         $user = factory(User::class)->create();
-        $url1 = factory(Url::class)->create();
-        $url2 = factory(Url::class)->create();
+        $url1 = factory(Url::class)->create([
+            'user_id' => $user->id
+        ]);
+        $url2 = factory(Url::class)->create([
+            'user_id' => $user->id
+        ]);
 
         $this->actingAs($user);
 
@@ -43,9 +47,5 @@ class UserTest extends TestCase
 
         $this->get('/api/user/urls')
             ->assertStatus(404);
-    }
-
-    public function attempt_to_access_another_users_urls_returns_error()
-    {
     }
 }
