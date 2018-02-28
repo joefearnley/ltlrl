@@ -1,8 +1,6 @@
 <div class="column is-one-fifth sidebar">
     <aside class="menu">
-        <p class="menu-label">
-            {{request()->path()}}
-        </p>
+        <p class="menu-label"></p>
         <ul class="menu-list">
             <li>
                 <a href="/account" class="{{ request()->path() == 'account' ? 'is-active' : '' }}">
@@ -15,7 +13,7 @@
                 </a>
             </li>
             <li>
-                <a href="/account/settings" class="i{{ request()->path() == 'account/settings' ? 'is-active' : '' }}">
+                <a href="/account/settings" class="{{ request()->path() == 'account/settings' ? 'is-active' : '' }}">
                     <i class="fas fa-cog"></i> Settings
                 </a>
             </li>

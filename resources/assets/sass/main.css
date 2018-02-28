@@ -21,20 +21,16 @@ footer {
     padding-top: 20px;
 }
 
+#app {
+    border-top: 2px solid #eee;
+}
+
 .result {
     margin-bottom: 80px;
 }
 
 .fa-btn {
     margin-right: 6px;
-}
-
-.margin-left {
-    margin-left: 20px;
-}
-
-.margin-right {
-    margin-right: 20px;
 }
 
 #show-add-url-form {

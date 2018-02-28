@@ -4,7 +4,7 @@
 <div class="container">
     <div class="columns">
     @include('account.nav')
-    <div class="column is-9 m-t-xl">
+    <div class="column is-9 m-t-md">
         <section class="hero is-primary welcome is-small">
             <div class="hero-body">
                 <div class="container">
@@ -22,10 +22,10 @@
                     </article>
                 </div>
                 <div class="tile is-parent">
-                        <article class="tile is-child box">
-                            <p class="title">{{ $user->urlsMade() }}</p>
-                            <p class="subtitle">Urls Made Little</p>
-                        </article>
+                    <article class="tile is-child box">
+                        <p class="title">{{ $user->urlsMade() }}</p>
+                        <p class="subtitle">Urls Made Little</p>
+                    </article>
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box">

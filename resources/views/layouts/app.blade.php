@@ -31,7 +31,7 @@
                     @else
                         @if (Auth::check() && Route::getCurrentRoute()->uri() != '/')
                             <p class="control">
-                                <a  id="show-add-url-form" class="button is-primary">
+                                <a  id="show-add-url-form" class="button is-primary is-outlined">
                                     <span class="icon"><i class="fa fa-plus"></i></span>
                                     <span>Make Little Url</span>
                                 </a>

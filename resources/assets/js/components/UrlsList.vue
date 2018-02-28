@@ -1,27 +1,105 @@
 <template>
     <div class="column m-t-md">
         <h1 class="title">Urls</h1>
-        <section class="section">
+        <section class="">
             <div class="columns">
-                <div class="column is-2">
-                    <strong>Url:</strong> <a href="" targer="_blank">url.url</a><br>
-                    <strong>Little Url:</strong> <a href="" targer="_blank">asfasfd</a><br>
-                    <strong>Clicks:</strong>url.click_count<br>
-                    Created on <strong>url.formatted_date</strong><br>
-                    <button class="button is-primary copy-url" data-url="">
-                    <i class="fa fa-clipboard" aria-hidden="true"></i> Copy to Clipboard
-                    </button>
+                <div class="column is-3">
+                    <div class="is-size-7 m-b-sm">Mar 2, 2018</div>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Find a repository" value="lttrl.pw/kdf8eir">
+                        </div>
+                        <div class="control">
+                            <button class="button is-success tooltip" data-tooltip="Copy to Clipboard"><i class="fas fa-clipboard"></i></button>
+                        </div>
+                    </div>
+                    <strong>Url:</strong> google.com <br>
+                    <strong>Clicks:</strong> 32<br>
                 </div>
                 <div class="column is-7">
                     <canvas class="click-chart-" height="100"></canvas>
                 </div>
                 <div class="column is-3 is-pulled-right">
-                    <a class="button is-primary"><i class="far fa-edit fa-btn"></i> Edit</a>
-                    <a class="button is-danger"><i class="far fa-trash-alt fa-btn"></i> Delete</a>
+                    <a class="button is-info is-small"><i class="far fa-edit fa-btn"></i> Edit</a>
+                    <a class="button is-danger is-small"><i class="far fa-trash-alt fa-btn"></i> Delete</a>
                 </div>
             </div>
         </section>
         <hr>
+        <section class="">
+            <div class="columns">
+                <div class="column is-3">
+                    <div class="is-size-7 m-b-sm">Mar 2, 2018</div>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Find a repository" value="lttrl.pw/kdf8eir">
+                        </div>
+                        <div class="control">
+                            <a class="button is-success "><i class="fas fa-clipboard"></i></a>
+                        </div>
+                    </div>
+                    <strong>Url:</strong> google.com <br>
+                    <strong>Clicks:</strong> 32<br>
+                </div>
+                <div class="column is-7">
+                    <canvas class="click-chart-" height="100"></canvas>
+                </div>
+                <div class="column is-3 is-pulled-right">
+                    <a class="button is-info is-small"><i class="far fa-edit fa-btn"></i> Edit</a>
+                    <a class="button is-danger is-small"><i class="far fa-trash-alt fa-btn"></i> Delete</a>
+                </div>
+            </div>
+        </section>
+        <hr>
+        <section class="">
+            <div class="columns">
+                <div class="column is-3">
+                    <div class="is-size-7 m-b-sm">Mar 2, 2018</div>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Find a repository" value="lttrl.pw/kdf8eir">
+                        </div>
+                        <div class="control">
+                            <a class="button is-success "><i class="fas fa-clipboard"></i></a>
+                        </div>
+                    </div>
+                    <strong>Url:</strong> google.com <br>
+                    <strong>Clicks:</strong> 32<br>
+                </div>
+                <div class="column is-7">
+                    <canvas class="click-chart-" height="100"></canvas>
+                </div>
+                <div class="column is-3 is-pulled-right">
+                    <a class="button is-info is-small"><i class="far fa-edit fa-btn"></i> Edit</a>
+                    <a class="button is-danger is-small"><i class="far fa-trash-alt fa-btn"></i> Delete</a>
+                </div>
+            </div>
+        </section>
+        <hr>
+          <section class="">
+            <div class="columns">
+                <div class="column is-3">
+                    <div class="is-size-7 m-b-sm">Mar 2, 2018</div>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Find a repository" value="lttrl.pw/kdf8eir">
+                        </div>
+                        <div class="control">
+                            <a class="button is-success "><i class="fas fa-clipboard"></i></a>
+                        </div>
+                    </div>
+                    <strong>Url:</strong> google.com <br>
+                    <strong>Clicks:</strong> 32<br>
+                </div>
+                <div class="column is-7">
+                    <canvas class="click-chart-" height="100"></canvas>
+                </div>
+                <div class="column is-3 is-pulled-right">
+                    <a class="button is-info is-small"><i class="far fa-edit fa-btn"></i> Edit</a>
+                    <a class="button is-danger is-small"><i class="far fa-trash-alt fa-btn"></i> Delete</a>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 

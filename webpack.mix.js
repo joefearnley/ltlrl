@@ -8,8 +8,9 @@ mix.js([
   'resources/assets/js/app.js'
 ], 'public/js/app.js');
 
-mix.styles([
+mix.combine([
   'resources/assets/sass/bulma.min.css',
+  'resources/assets/sass/bulma-tooltip.min.css',
   'resources/assets/sass/fontawesome-all.min.css',
   'resources/assets/sass/sweetalert2.min.css',
   'resources/assets/sass/main.css'
