@@ -47,6 +47,9 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->get('/user/urls')
-            ->assertStatus(404);
+            ->assertStatus(401)
+            ->assertJson([
+                'message' => 'Unauthenticated.'
+            ]);
     }
 }

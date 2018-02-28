@@ -13,7 +13,7 @@ Route::post('url/update', 'UrlController@update');
 Route::post('url/delete/{id}', 'UrlController@delete');
 Route::get('url/stats/{id}', 'UrlController@clickStats');
 
-Route::get('user/urls', 'UserController@urls');
+Route::get('/user/urls', 'UserController@urls');
 
 Route::get('account', 'AccountController@index');
 Route::get('account/urls', 'AccountController@urls');
