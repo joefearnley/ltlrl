@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-//use Auth;
+use Auth;
 
 class UserController extends Controller
 {
@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->user = \Auth::user();
+        $this->user = Auth::user();
     }
 
     /**
@@ -30,13 +30,8 @@ class UserController extends Controller
      */
     public function urls()
     {
-
-        echo '<pre>';
-        var_dump($this->user());
-        die();
-
         return response()->json([
-            'urls' => $urls
+            'urls' => Auth::user()->urls
         ]);
     }
 }

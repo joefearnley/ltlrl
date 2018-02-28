@@ -26,26 +26,27 @@ class UserTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->get('/api/user/urls')
+        $this->get('/user/urls')
             ->assertStatus(200)
             ->assertJsonFragment([
                 'id' => $url1->id,
                 'url' => $url1->url,
                 'key' => $url1->key,
-                'user_id' => $user->id
+                'user_id' => "$user->id"
             ])->assertJsonFragment([
                 'id' => $url2->id,
                 'url' => $url2->url,
                 'key' => $url2->key,
-                'user_id' => $user->id
+                'user_id' => "$user->id"
             ]);
     }
 
+    /** @test */
     public function attempt_to_access_users_urls_when_not_logged_in_returns_error()
     {
         $user = factory(User::class)->create();
 
-        $this->get('/api/user/urls')
+        $this->get('/user/urls')
             ->assertStatus(404);
     }
 }
