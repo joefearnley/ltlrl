@@ -47082,12 +47082,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
@@ -47102,7 +47096,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
             shortUrl: ''
         };
     },
-    mounted: function mounted() {},
 
     methods: {
         createUrl: function createUrl() {
@@ -50766,7 +50759,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                                Make it Little\n                            "
+                    "\n                            Make it Little\n                        "
                   )
                 ]
               )
@@ -50885,79 +50878,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50965,12 +50885,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             urls: []
         };
     },
+    mounted: function mounted() {
+        console.log('getting urls....');
+        this.getUrls();
+    },
 
     methods: {
         getUrls: function getUrls() {
-            axios.get('/urls/');
+            var _this = this;
+
+            axios.get('/account/urls/').then(function (response) {
+                return _this.renderResults(response);
+            }).catch(function (error) {
+                return console.log(error);
+            });
         },
-        renderResults: function renderResults(url) {}
+        renderResults: function renderResults(response) {
+            console.log(response);
+            this.urls = response.data.urls;
+        }
     }
 });
 
@@ -50982,247 +50915,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "column m-t-md" },
+    [
+      _c("h1", { staticClass: "title" }, [_vm._v("Urls")]),
+      _vm._v(" "),
+      _vm._l(_vm.urls, function(url) {
+        return _c("li", { key: url.id }, [_vm._m(0, true)])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column m-t-md" }, [
-      _c("h1", { staticClass: "title" }, [_vm._v("Urls")]),
-      _vm._v(" "),
-      _c("section", {}, [
-        _c("div", { staticClass: "columns" }, [
-          _c("div", { staticClass: "column is-3" }, [
-            _c("div", { staticClass: "is-size-7 m-b-sm" }, [
-              _vm._v("Mar 2, 2018")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "field has-addons" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  staticClass: "input",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Find a repository",
-                    value: "lttrl.pw/kdf8eir"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "control" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "button is-success tooltip",
-                    attrs: { "data-tooltip": "Copy to Clipboard" }
-                  },
-                  [_c("i", { staticClass: "fas fa-clipboard" })]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("strong", [_vm._v("Url:")]),
-            _vm._v(" google.com "),
-            _c("br"),
-            _vm._v(" "),
-            _c("strong", [_vm._v("Clicks:")]),
-            _vm._v(" 32"),
-            _c("br")
+    return _c("section", [
+      _c("div", { staticClass: "columns" }, [
+        _c("div", { staticClass: "column is-3" }, [
+          _c("div", { staticClass: "is-size-7 m-b-sm" }, [
+            _vm._v("Mar 2, 2018")
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "column is-7" }, [
-            _c("canvas", {
-              staticClass: "click-chart-",
-              attrs: { height: "100" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "column is-3 is-pulled-right" }, [
-            _c("a", { staticClass: "button is-info is-small" }, [
-              _c("i", { staticClass: "far fa-edit fa-btn" }),
-              _vm._v(" Edit")
+          _c("div", { staticClass: "field has-addons" }, [
+            _c("div", { staticClass: "control" }, [
+              _c("input", {
+                staticClass: "input",
+                attrs: {
+                  type: "text",
+                  placeholder: "Find a repository",
+                  value: "lttrl.pw/kdf8eir"
+                }
+              })
             ]),
             _vm._v(" "),
-            _c("a", { staticClass: "button is-danger is-small" }, [
-              _c("i", { staticClass: "far fa-trash-alt fa-btn" }),
-              _vm._v(" Delete")
+            _c("div", { staticClass: "control" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button is-success tooltip",
+                  attrs: { "data-tooltip": "Copy to Clipboard" }
+                },
+                [_c("i", { staticClass: "fas fa-clipboard" })]
+              )
             ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("section", {}, [
-        _c("div", { staticClass: "columns" }, [
-          _c("div", { staticClass: "column is-3" }, [
-            _c("div", { staticClass: "is-size-7 m-b-sm" }, [
-              _vm._v("Mar 2, 2018")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "field has-addons" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  staticClass: "input",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Find a repository",
-                    value: "lttrl.pw/kdf8eir"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "control" }, [
-                _c("a", { staticClass: "button is-success " }, [
-                  _c("i", { staticClass: "fas fa-clipboard" })
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("strong", [_vm._v("Url:")]),
-            _vm._v(" google.com "),
-            _c("br"),
-            _vm._v(" "),
-            _c("strong", [_vm._v("Clicks:")]),
-            _vm._v(" 32"),
-            _c("br")
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "column is-7" }, [
-            _c("canvas", {
-              staticClass: "click-chart-",
-              attrs: { height: "100" }
-            })
+          _c("strong", [_vm._v("Url:")]),
+          _vm._v(" google.com "),
+          _c("br"),
+          _vm._v(" "),
+          _c("strong", [_vm._v("Clicks:")]),
+          _vm._v(" 32"),
+          _c("br")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "column is-7" }, [
+          _c("canvas", {
+            staticClass: "click-chart-",
+            attrs: { height: "100" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "column is-3 is-pulled-right" }, [
+          _c("a", { staticClass: "button is-info is-small" }, [
+            _c("i", { staticClass: "far fa-edit fa-btn" }),
+            _vm._v(" Edit")
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "column is-3 is-pulled-right" }, [
-            _c("a", { staticClass: "button is-info is-small" }, [
-              _c("i", { staticClass: "far fa-edit fa-btn" }),
-              _vm._v(" Edit")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "button is-danger is-small" }, [
-              _c("i", { staticClass: "far fa-trash-alt fa-btn" }),
-              _vm._v(" Delete")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("section", {}, [
-        _c("div", { staticClass: "columns" }, [
-          _c("div", { staticClass: "column is-3" }, [
-            _c("div", { staticClass: "is-size-7 m-b-sm" }, [
-              _vm._v("Mar 2, 2018")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "field has-addons" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  staticClass: "input",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Find a repository",
-                    value: "lttrl.pw/kdf8eir"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "control" }, [
-                _c("a", { staticClass: "button is-success " }, [
-                  _c("i", { staticClass: "fas fa-clipboard" })
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("strong", [_vm._v("Url:")]),
-            _vm._v(" google.com "),
-            _c("br"),
-            _vm._v(" "),
-            _c("strong", [_vm._v("Clicks:")]),
-            _vm._v(" 32"),
-            _c("br")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "column is-7" }, [
-            _c("canvas", {
-              staticClass: "click-chart-",
-              attrs: { height: "100" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "column is-3 is-pulled-right" }, [
-            _c("a", { staticClass: "button is-info is-small" }, [
-              _c("i", { staticClass: "far fa-edit fa-btn" }),
-              _vm._v(" Edit")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "button is-danger is-small" }, [
-              _c("i", { staticClass: "far fa-trash-alt fa-btn" }),
-              _vm._v(" Delete")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("section", {}, [
-        _c("div", { staticClass: "columns" }, [
-          _c("div", { staticClass: "column is-3" }, [
-            _c("div", { staticClass: "is-size-7 m-b-sm" }, [
-              _vm._v("Mar 2, 2018")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "field has-addons" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  staticClass: "input",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Find a repository",
-                    value: "lttrl.pw/kdf8eir"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "control" }, [
-                _c("a", { staticClass: "button is-success " }, [
-                  _c("i", { staticClass: "fas fa-clipboard" })
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("strong", [_vm._v("Url:")]),
-            _vm._v(" google.com "),
-            _c("br"),
-            _vm._v(" "),
-            _c("strong", [_vm._v("Clicks:")]),
-            _vm._v(" 32"),
-            _c("br")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "column is-7" }, [
-            _c("canvas", {
-              staticClass: "click-chart-",
-              attrs: { height: "100" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "column is-3 is-pulled-right" }, [
-            _c("a", { staticClass: "button is-info is-small" }, [
-              _c("i", { staticClass: "far fa-edit fa-btn" }),
-              _vm._v(" Edit")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "button is-danger is-small" }, [
-              _c("i", { staticClass: "far fa-trash-alt fa-btn" }),
-              _vm._v(" Delete")
-            ])
+          _c("a", { staticClass: "button is-danger is-small" }, [
+            _c("i", { staticClass: "far fa-trash-alt fa-btn" }),
+            _vm._v(" Delete")
           ])
         ])
       ])

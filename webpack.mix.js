@@ -9,9 +9,9 @@ mix.js([
 ], 'public/js/app.js');
 
 mix.combine([
-  'resources/assets/sass/bulma.min.css',
-  'resources/assets/sass/bulma-tooltip.min.css',
-  'resources/assets/sass/fontawesome-all.min.css',
-  'resources/assets/sass/sweetalert2.min.css',
-  'resources/assets/sass/main.css'
+  'resources/assets/css/bulma.min.css',
+  'resources/assets/css/bulma-tooltip.min.css',
+  'resources/assets/css/fontawesome-all.min.css',
+  'resources/assets/css/sweetalert2.min.css',
+  'resources/assets/css/main.css'
 ], 'public/css/app.css');

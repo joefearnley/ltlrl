@@ -57,7 +57,8 @@ class AccountController extends Controller
      */
     public function settings()
     {
-        return view('account.settings')->with('user', $this->user);
+        return view('account.settings')
+            ->with('user', $this->user);
     }
 
     /**

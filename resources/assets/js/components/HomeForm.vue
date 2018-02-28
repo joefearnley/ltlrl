@@ -14,12 +14,6 @@
                             </button>
                         </div>
                     </div>
-
-<!--                     <p>
-                        <a v-clipboard="url" @success="copyToClipboard" @error="copyToClipboardError" class="button is-primary">
-                            <i class="fa fa-btn fa-clipboard" aria-hidden="true"></i> Copy
-                        </a>
-                    </p> -->
                 </div>
                 <form>
                     <div class="field has-addons">
@@ -52,8 +46,6 @@
                 hasError: false,
                 shortUrl: ''
             }
-        },
-        mounted() {
         },
         methods: {
             createUrl () {
