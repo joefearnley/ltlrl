@@ -10,7 +10,9 @@
                             <input class="input" type="text" placeholder="Find a repository" :value="url.short_url.slice(7)">
                         </div>
                         <div class="control">
-                            <button class="button is-success is-outlined tooltip" data-tooltip="Copy to Clipboard"><i class="fas fa-clipboard"></i></button>
+                            <button v-clipboard="url.short_url" class="button is-success is-outlined tooltip" @success="copyToClipboard" @error="copyToClipboardError" data-tooltip="Copy to Clipboard">
+                                <i class="fas fa-clipboard"></i>
+                            </button>
                         </div>
                     </div>
                     <p><strong>Url:</strong> {{ url.url }} </p>
@@ -21,7 +23,7 @@
                     </p>
                 </div>
                 <div class="column is-7">
-                    <canvas class="click-chart-" height="100"></canvas>
+                    <canvas class="click-chart" height="100"></canvas>
                 </div>
             </div>
             <hr>
@@ -30,14 +32,16 @@
 </template>
 
 <script>
+    import { Bar } from 'vue-chartjs'
+
     export default {
+        extends: Bar,
         data () {
             return {
                 urls: []
             }
         },
         mounted() {
-            console.log('getting urls....');
             this.getUrls();
         },
         methods: {
@@ -48,10 +52,32 @@
             },
            renderResults (response) {
                 this.urls = response.data.urls;
+
+                this.urls.forEach(url => this.getStats(url));
+            },
+            getStats(url) {
+                axios.get(`urls/stats/${url.id}`)
+                    .then(response => this.renderChart(response))
+                    .catch(error => console.log(error));
+            },
+            renderChart(url) {
+
             },
             edit() {
             },
             delete() {
+            },
+            copyToClipboard(e) {
+                this.$swal({
+                    title: 'Success!',
+                    text: 'URL Copied to Clipboard.',
+                    type: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            },
+            copyToClipboardError(e) {
+                console.log(e);
             }
         }
     }

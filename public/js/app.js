@@ -13899,6 +13899,8 @@ module.exports = __webpack_require__(13);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_sweetalert__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_sweetalert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_sweetalert__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_clipboards__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_clipboards___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_clipboards__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -13912,8 +13914,11 @@ window.Vue = __webpack_require__(37);
 
 
 
+
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_sweetalert___default.a);
-Vue.component('home-form', __webpack_require__(41));
+Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_clipboards___default.a);
+
+Vue.component('home-form', __webpack_require__(42));
 Vue.component('urls-list', __webpack_require__(45));
 
 var app = new Vue({
@@ -46996,150 +47001,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-var normalizeComponent = __webpack_require__(11)
-/* script */
-var __vue_script__ = __webpack_require__(42)
-/* template */
-var __vue_template__ = __webpack_require__(44)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/HomeForm.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3b348dfa", Component.options)
-  } else {
-    hotAPI.reload("data-v-3b348dfa", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_clipboards__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_clipboards___default.a);
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            showResult: false,
-            isLoading: false,
-            url: '',
-            hasError: false,
-            shortUrl: ''
-        };
-    },
-
-    methods: {
-        createUrl: function createUrl() {
-            var _this = this;
-
-            this.showResult = false;
-            this.isLoading = true;
-            this.hasError = false;
-            axios.post('/url/create', { 'url': this.url }).then(function (response) {
-                return _this.renderResults(response);
-            }).catch(function (error) {
-                return _this.displayError(error);
-            });
-        },
-        renderResults: function renderResults(response) {
-
-            this.shortUrl = response.data.short_url.slice(7);
-            this.showResult = true;
-            this.isLoading = false;
-        },
-        displayError: function displayError(error) {
-            this.showResult = false;
-            this.isLoading = false;
-            this.hasError = true;
-        },
-        copyToClipboard: function copyToClipboard(e) {
-            this.$swal({
-                title: 'Success!',
-                text: 'URL Copied to Clipboard.',
-                type: 'success',
-                timer: 1500,
-                showConfirmButton: false
-            });
-        },
-        copyToClipboardError: function copyToClipboardError(e) {
-            console.log(e);
-        }
-    }
-});
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
 		module.exports = factory();
@@ -50647,6 +50508,144 @@ module.exports = __webpack_require__(29);
 });
 
 /***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(43)
+/* template */
+var __vue_template__ = __webpack_require__(44)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/HomeForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3b348dfa", Component.options)
+  } else {
+    hotAPI.reload("data-v-3b348dfa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            showResult: false,
+            isLoading: false,
+            url: '',
+            hasError: false,
+            shortUrl: ''
+        };
+    },
+
+    methods: {
+        createUrl: function createUrl() {
+            var _this = this;
+
+            this.showResult = false;
+            this.isLoading = true;
+            this.hasError = false;
+            axios.post('/url/create', { 'url': this.url }).then(function (response) {
+                return _this.renderResults(response);
+            }).catch(function (error) {
+                return _this.displayError(error);
+            });
+        },
+        renderResults: function renderResults(response) {
+            this.shortUrl = response.data.short_url.slice(7);
+            this.showResult = true;
+            this.isLoading = false;
+        },
+        displayError: function displayError(error) {
+            this.showResult = false;
+            this.isLoading = false;
+            this.hasError = true;
+        },
+        copyToClipboard: function copyToClipboard(e) {
+            this.$swal({
+                title: 'Success!',
+                text: 'URL Copied to Clipboard.',
+                type: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        },
+        copyToClipboardError: function copyToClipboardError(e) {
+            console.log(e);
+        }
+    }
+});
+
+/***/ }),
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -50877,6 +50876,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50903,7 +50904,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.urls = response.data.urls;
         },
         edit: function edit() {},
-        delete: function _delete() {}
+        delete: function _delete() {},
+        copyToClipboard: function copyToClipboard(e) {
+            this.$swal({
+                title: 'Success!',
+                text: 'URL Copied to Clipboard.',
+                type: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        },
+        copyToClipboardError: function copyToClipboardError(e) {
+            console.log(e);
+        }
     }
 });
 
@@ -50938,7 +50951,28 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _vm._m(0, true)
+                _c("div", { staticClass: "control" }, [
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "clipboard",
+                          rawName: "v-clipboard",
+                          value: url.short_url,
+                          expression: "url.short_url"
+                        }
+                      ],
+                      staticClass: "button is-success is-outlined tooltip",
+                      attrs: { "data-tooltip": "Copy to Clipboard" },
+                      on: {
+                        success: _vm.copyToClipboard,
+                        error: _vm.copyToClipboardError
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-clipboard" })]
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("p", [
@@ -50951,10 +50985,10 @@ var render = function() {
                 _vm._v(" " + _vm._s(url.click_count))
               ]),
               _vm._v(" "),
-              _vm._m(1, true)
+              _vm._m(0, true)
             ]),
             _vm._v(" "),
-            _vm._m(2, true)
+            _vm._m(1, true)
           ]),
           _vm._v(" "),
           _c("hr")
@@ -50965,21 +50999,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "control" }, [
-      _c(
-        "button",
-        {
-          staticClass: "button is-success is-outlined tooltip",
-          attrs: { "data-tooltip": "Copy to Clipboard" }
-        },
-        [_c("i", { staticClass: "fas fa-clipboard" })]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

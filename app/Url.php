@@ -97,7 +97,7 @@ class Url extends Model
      */
     public function clicksByDate()
     {
-        return Click::select(DB::raw('count(*) as clicks, DATE(created_at) as date, created_at'))
+        return Click::select(DB::raw('count(*) as clicks, DATE(created_at) as date'))
             ->where('url_id', $this->id)
             ->where('created_at', '>', Carbon::now()->subWeeks(2))
             ->groupBy('date')
@@ -128,7 +128,7 @@ class Url extends Model
 
             foreach ($clicks as $click) {
                 // if the day exists in $clicks, add set click count for that day
-                if ($clickDataForDay['date'] === $click->created_at->format('m/d')) {
+                if ($clickDataForDay['date'] === Carbon::createFromFormat('Y-m-d', $click->date)->format('m/d')) {
                     $clickDataForDay['clicks'] = (int) $click->clicks;
                 }
             }

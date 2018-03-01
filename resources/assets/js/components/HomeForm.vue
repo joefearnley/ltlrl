@@ -34,9 +34,6 @@
 </template>
 
 <script>
-    import VueClipboards from 'vue-clipboards';
-    Vue.use(VueClipboards);
-
     export default {
         data () {
             return {
@@ -57,7 +54,6 @@
                     .catch(error => this.displayError(error));
             },
            renderResults (response) {
-
                 this.shortUrl = response.data.short_url.slice(7);
                 this.showResult = true;
                 this.isLoading = false;

@@ -10,8 +10,11 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueSweetAlert from 'vue-sweetalert';
+import VueClipboards from 'vue-clipboards';
 
 Vue.use(VueSweetAlert);
+Vue.use(VueClipboards);
+
 Vue.component('home-form', require('./components/HomeForm.vue'));
 Vue.component('urls-list', require('./components/UrlsList.vue'));
 
