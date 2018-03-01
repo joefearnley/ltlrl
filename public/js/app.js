@@ -50877,7 +50877,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50894,16 +50893,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getUrls: function getUrls() {
             var _this = this;
 
-            axios.get('/account/urls/').then(function (response) {
+            axios.get('/api/account/urls/').then(function (response) {
                 return _this.renderResults(response);
             }).catch(function (error) {
                 return console.log(error);
             });
         },
         renderResults: function renderResults(response) {
-            console.log(response);
             this.urls = response.data.urls;
-        }
+        },
+        edit: function edit() {},
+        delete: function _delete() {}
     }
 });
 
@@ -50922,7 +50922,43 @@ var render = function() {
       _c("h1", { staticClass: "title" }, [_vm._v("Urls")]),
       _vm._v(" "),
       _vm._l(_vm.urls, function(url) {
-        return _c("li", { key: url.id }, [_vm._m(0, true)])
+        return _c("section", { key: url.id }, [
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "column is-4" }, [
+              _c("div", { staticClass: "is-size-7 m-b-sm" }, [
+                _vm._v(_vm._s(url.formatted_date))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field has-addons" }, [
+                _c("div", { staticClass: "control is-expanded" }, [
+                  _c("input", {
+                    staticClass: "input",
+                    attrs: { type: "text", placeholder: "Find a repository" },
+                    domProps: { value: url.short_url.slice(7) }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(0, true)
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _c("strong", [_vm._v("Url:")]),
+                _vm._v(" " + _vm._s(url.url) + " ")
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _c("strong", [_vm._v("Clicks:")]),
+                _vm._v(" " + _vm._s(url.click_count))
+              ]),
+              _vm._v(" "),
+              _vm._m(1, true)
+            ]),
+            _vm._v(" "),
+            _vm._m(2, true)
+          ]),
+          _vm._v(" "),
+          _c("hr")
+        ])
       })
     ],
     2
@@ -50933,65 +50969,39 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", [
-      _c("div", { staticClass: "columns" }, [
-        _c("div", { staticClass: "column is-3" }, [
-          _c("div", { staticClass: "is-size-7 m-b-sm" }, [
-            _vm._v("Mar 2, 2018")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field has-addons" }, [
-            _c("div", { staticClass: "control" }, [
-              _c("input", {
-                staticClass: "input",
-                attrs: {
-                  type: "text",
-                  placeholder: "Find a repository",
-                  value: "lttrl.pw/kdf8eir"
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "control" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "button is-success tooltip",
-                  attrs: { "data-tooltip": "Copy to Clipboard" }
-                },
-                [_c("i", { staticClass: "fas fa-clipboard" })]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("strong", [_vm._v("Url:")]),
-          _vm._v(" google.com "),
-          _c("br"),
-          _vm._v(" "),
-          _c("strong", [_vm._v("Clicks:")]),
-          _vm._v(" 32"),
-          _c("br")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "column is-7" }, [
-          _c("canvas", {
-            staticClass: "click-chart-",
-            attrs: { height: "100" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "column is-3 is-pulled-right" }, [
-          _c("a", { staticClass: "button is-info is-small" }, [
-            _c("i", { staticClass: "far fa-edit fa-btn" }),
-            _vm._v(" Edit")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "button is-danger is-small" }, [
-            _c("i", { staticClass: "far fa-trash-alt fa-btn" }),
-            _vm._v(" Delete")
-          ])
-        ])
+    return _c("div", { staticClass: "control" }, [
+      _c(
+        "button",
+        {
+          staticClass: "button is-success is-outlined tooltip",
+          attrs: { "data-tooltip": "Copy to Clipboard" }
+        },
+        [_c("i", { staticClass: "fas fa-clipboard" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "m-t-md" }, [
+      _c("a", { staticClass: "button is-info is-small is-outlined" }, [
+        _c("i", { staticClass: "far fa-edit fa-btn" }),
+        _vm._v(" Edit")
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "button is-danger is-small is-outlined" }, [
+        _c("i", { staticClass: "far fa-trash-alt fa-btn" }),
+        _vm._v(" Delete")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "column is-7" }, [
+      _c("canvas", { staticClass: "click-chart-", attrs: { height: "100" } })
     ])
   }
 ]

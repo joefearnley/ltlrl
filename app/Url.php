@@ -57,7 +57,7 @@ class Url extends Model
      */
     public function getFormattedDateAttribute()
     {
-        return $this->attributes['formatted_date'] = $this->created_at->format('m/d/Y');
+        return $this->attributes['formatted_date'] = $this->created_at->format('M j, Y');
     }
 
     /**
