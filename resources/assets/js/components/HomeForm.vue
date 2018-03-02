@@ -9,7 +9,7 @@
                             <input class="input" type="text" placeholder="Find a repository"  v-model="shortUrl">
                         </div>
                         <div class="control">
-                            <button v-clipboard="url" @success="copyToClipboard" @error="copyToClipboardError" class="button tooltip" data-tooltip="Copy to Clipboard">
+                            <button v-clipboard="shortUrl" @success="copyToClipboard" @error="copyToClipboardError" class="button tooltip" data-tooltip="Copy to Clipboard">
                                 <i class="fas fa-clipboard"></i>
                             </button>
                         </div>
@@ -26,7 +26,7 @@
                             </a>
                         </p>
                     </div>
-                    <p class="help is-danger" v-if="hasError">Please enter valid URL</p>
+                    <p class="help is-danger" v-if="hasError">{{ errorMessage }}</p>
                 </form>
             </div>
         </div>
@@ -41,7 +41,8 @@
                 isLoading: false,
                 url: '',
                 hasError: false,
-                shortUrl: ''
+                shortUrl: '',
+                errorMessage: ''
             }
         },
         methods: {
@@ -53,7 +54,7 @@
                     .then(response => this.renderResults(response))
                     .catch(error => this.displayError(error));
             },
-           renderResults (response) {
+            renderResults (response) {
                 this.shortUrl = response.data.short_url.slice(7);
                 this.showResult = true;
                 this.isLoading = false;
@@ -62,6 +63,7 @@
                 this.showResult = false;
                 this.isLoading = false;
                 this.hasError = true;
+                this.errorMessage = error.response.data.message;
             },
             copyToClipboard(e) {
                 this.$swal({
