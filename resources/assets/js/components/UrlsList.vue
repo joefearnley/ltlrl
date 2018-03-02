@@ -23,7 +23,7 @@
                     </p>
                 </div>
                 <div class="column is-7">
-                    <canvas class="click-chart" height="100"></canvas>
+                    <canvas v-bind:class="[ 'click-chart-' + url.id ]"  height="100"></canvas>
                 </div>
             </div>
             <hr>
@@ -32,10 +32,9 @@
 </template>
 
 <script>
-    import { Bar } from 'vue-chartjs'
+    import Chart from 'chart.js';
 
     export default {
-        extends: Bar,
         data () {
             return {
                 urls: []
@@ -43,6 +42,10 @@
         },
         mounted() {
             this.getUrls();
+        },
+        updated() {
+            console.log('component is updated');
+            this.urls.forEach(url => this.getStats(url));
         },
         methods: {
             getUrls () {
@@ -52,21 +55,44 @@
             },
            renderResults (response) {
                 this.urls = response.data.urls;
-
-                this.urls.forEach(url => this.getStats(url));
             },
             getStats(url) {
-                axios.get(`urls/stats/${url.id}`)
-                    .then(response => this.renderChart(response))
+                axios.get(`/url/stats/${url.id}`)
+                    .then(response => this.renderChart(response.data))
                     .catch(error => console.log(error));
             },
-            renderChart(url) {
+            renderChart(clicks) {
+                let labels = [];
+                let data = []
+                clicks.forEach(function(click) {
+                    labels.push(click.date);
+                    data.push(click.clicks);
+                });
 
+                new Chart(document.querySelector(`.click-chart-${url.id}`), {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '# of Clicks',
+                            data: data,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function(value) {if (value % 1 === 0) {return value;}}
+                                }
+                            }]
+                        }
+                    }
+                });
             },
-            edit() {
-            },
-            delete() {
-            },
+            edit() {},
+            delete() {},
             copyToClipboard(e) {
                 this.$swal({
                     title: 'Success!',
