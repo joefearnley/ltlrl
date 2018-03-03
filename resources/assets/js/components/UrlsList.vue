@@ -74,7 +74,10 @@
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: '# of Clicks',
+                            label: 'Clicks',
+                            backgroundColor: 'rgb(0,209,178)',
+                            borderColor: 'rgb(0,209,178)',
+                            fill: false,
                             data: data,
                             borderWidth: 1
                         }]
