@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <p><strong>Url:</strong> {{ url.url }} </p>
-                    <p><strong>Clicks:</strong> {{ url.click_count }}</p>
+                    <p><strong>Total Clicks:</strong> {{ url.click_count }}</p>
                     <p class="m-t-md">
                         <a class="button is-info is-small is-outlined"><i class="far fa-edit fa-btn"></i> Edit</a>
                         <a class="button is-danger is-small is-outlined"><i class="far fa-trash-alt fa-btn"></i> Delete</a>
@@ -58,10 +58,10 @@
             },
             getStats(url) {
                 axios.get(`/url/stats/${url.id}`)
-                    .then(response => this.renderChart(response.data))
+                    .then(response => this.renderChart(url, response.data))
                     .catch(error => console.log(error));
             },
-            renderChart(clicks) {
+            renderChart(url, clicks) {
                 let labels = [];
                 let data = []
                 clicks.forEach(function(click) {
