@@ -7,7 +7,7 @@ use App\User;
 use App\Click;
 use App\Url;
 
-class UrlTest extends TestCase
+class UrlApiTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -163,7 +163,7 @@ class UrlTest extends TestCase
                 'id' => $url->id,
                 'url' => 'http://yahoo.com',
                 'user_id' => '1',
-                'link' => 'http://localhost:8000/' . $url->key
+                'short_url' => 'http://localhost:8000/' . $url->key
             ]);
     }
 
@@ -181,6 +181,27 @@ class UrlTest extends TestCase
             ]);
 
         $this->assertDatabaseMissing('urls', ['url' => 'http://yahoo.com']);
+    }
+
+    /** @test */
+    public function delete_url_and_clicks()
+    {
+        $url = factory(Url::class)->create([
+            'url' => 'http://yahoo.com'
+        ]);
+
+        $click = factory(Click::class)->create([
+            'url_id' => $url->id
+        ]);
+
+        $this->post('/url/delete/' . $url->id)
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                'success' => true
+            ]);
+
+        $this->assertDatabaseMissing('urls', ['url' => 'http://google.com']);
+        //$this->assertDatabaseMissing('clicks', ['id' => $click->id]);
     }
 
     /** @test */
