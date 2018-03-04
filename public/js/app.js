@@ -69480,8 +69480,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        edit: function edit() {},
-        delete: function _delete() {},
+        editUrl: function editUrl(url) {},
+        deleteUrl: function deleteUrl(url) {
+            var _this4 = this;
+
+            this.$swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, keep it'
+            }).then(function (result) {
+                if (result.value) {
+                    axios.post('/url/delete/' + url.id).then(function (response) {
+                        _this4.$swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
+                        _this4.getUrls();
+                    }).catch(function (error) {
+                        return console.log(error);
+                    });
+
+                    // For more information about handling dismissals please visit
+                    // https://sweetalert2.github.io/#handling-dismissals
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    _this4.$swal('Cancelled', 'Your imaginary file is safe :)', 'error');
+                }
+            });
+        },
         copyToClipboard: function copyToClipboard(e) {
             this.$swal({
                 title: 'Success!',
@@ -82157,7 +82181,39 @@ var render = function() {
                 _vm._v(" " + _vm._s(url.click_count))
               ]),
               _vm._v(" "),
-              _vm._m(0, true)
+              _c("p", { staticClass: "m-t-md" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "button is-info is-small is-outlined",
+                    on: {
+                      click: function($event) {
+                        _vm.editUrl(url)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "far fa-edit fa-btn" }),
+                    _vm._v(" Edit")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "button is-danger is-small is-outlined",
+                    on: {
+                      click: function($event) {
+                        _vm.deleteUrl(url)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "far fa-trash-alt fa-btn" }),
+                    _vm._v(" Delete")
+                  ]
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "column is-7" }, [
@@ -82175,24 +82231,7 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "m-t-md" }, [
-      _c("a", { staticClass: "button is-info is-small is-outlined" }, [
-        _c("i", { staticClass: "far fa-edit fa-btn" }),
-        _vm._v(" Edit")
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "button is-danger is-small is-outlined" }, [
-        _c("i", { staticClass: "far fa-trash-alt fa-btn" }),
-        _vm._v(" Delete")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

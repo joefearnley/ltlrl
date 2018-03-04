@@ -18,8 +18,8 @@
                     <p><strong>Url:</strong> {{ url.url }} </p>
                     <p><strong>Total Clicks:</strong> {{ url.click_count }}</p>
                     <p class="m-t-md">
-                        <a class="button is-info is-small is-outlined"><i class="far fa-edit fa-btn"></i> Edit</a>
-                        <a class="button is-danger is-small is-outlined"><i class="far fa-trash-alt fa-btn"></i> Delete</a>
+                        <a class="button is-info is-small is-outlined" @click="editUrl(url)"><i class="far fa-edit fa-btn"></i> Edit</a>
+                        <a class="button is-danger is-small is-outlined" @click="deleteUrl(url)"><i class="far fa-trash-alt fa-btn"></i> Delete</a>
                     </p>
                 </div>
                 <div class="column is-7">
@@ -94,8 +94,39 @@
                     }
                 });
             },
-            edit() {},
-            delete() {},
+            editUrl(url) {
+            },
+            deleteUrl(url) {
+                this.$swal({
+                    title: 'Are you sure?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it'
+                }).then((result) => {
+                    if (result.value) {
+                        axios.post(`/url/delete/${url.id}`)
+                            .then(response => {
+                                this.$swal(
+                                    'Deleted!',
+                                    'Your imaginary file has been deleted.',
+                                    'success'
+                                );
+                                this.getUrls();
+                            })
+                            .catch(error => console.log(error));
+
+                         // For more information about handling dismissals please visit
+                        // https://sweetalert2.github.io/#handling-dismissals
+                    } else if (result.dismiss === swal.DismissReason.cancel) {
+                        this.$swal(
+                            'Cancelled',
+                            'Your imaginary file is safe :)',
+                            'error'
+                        )
+                    }
+                });
+            },
             copyToClipboard(e) {
                 this.$swal({
                     title: 'Success!',
