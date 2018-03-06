@@ -105,8 +105,9 @@
                     title: 'Are you sure?',
                     type: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'No, keep it'
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete',
+                    cancelButtonText: 'Cancel'
                 }).then((result) => {
                     if (result) {
                         axios.post(`/url/delete/${url.id}`)
