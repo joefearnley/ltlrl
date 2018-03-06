@@ -69415,7 +69415,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     updated: function updated() {
         var _this = this;
 
-        console.log('component is updated');
         this.urls.forEach(function (url) {
             return _this.getStats(url);
         });
@@ -69476,6 +69475,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 }
                             }
                         }]
+                    },
+                    elements: {
+                        line: {
+                            tension: 0
+                        }
                     }
                 }
             });
@@ -69491,7 +69495,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 confirmButtonText: 'Yes, delete it!',
                 cancelButtonText: 'No, keep it'
             }).then(function (result) {
-                if (result.value) {
+                if (result) {
                     axios.post('/url/delete/' + url.id).then(function (response) {
                         _this4.$swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
                         _this4.getUrls();
@@ -69501,8 +69505,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                     // For more information about handling dismissals please visit
                     // https://sweetalert2.github.io/#handling-dismissals
-                } else if (result.dismiss === swal.DismissReason.cancel) {
-                    _this4.$swal('Cancelled', 'Your imaginary file is safe :)', 'error');
                 }
             });
         },

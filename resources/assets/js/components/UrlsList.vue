@@ -44,7 +44,6 @@
             this.getUrls();
         },
         updated() {
-            console.log('component is updated');
             this.urls.forEach(url => this.getStats(url));
         },
         methods: {
@@ -90,6 +89,11 @@
                                     callback: function(value) {if (value % 1 === 0) {return value;}}
                                 }
                             }]
+                        },
+                        elements: {
+                            line: {
+                                tension: 0
+                            }
                         }
                     }
                 });
@@ -104,7 +108,7 @@
                     confirmButtonText: 'Yes, delete it!',
                     cancelButtonText: 'No, keep it'
                 }).then((result) => {
-                    if (result.value) {
+                    if (result) {
                         axios.post(`/url/delete/${url.id}`)
                             .then(response => {
                                 this.$swal(
@@ -118,12 +122,6 @@
 
                          // For more information about handling dismissals please visit
                         // https://sweetalert2.github.io/#handling-dismissals
-                    } else if (result.dismiss === swal.DismissReason.cancel) {
-                        this.$swal(
-                            'Cancelled',
-                            'Your imaginary file is safe :)',
-                            'error'
-                        )
                     }
                 });
             },
