@@ -200,15 +200,17 @@ class UrlApiTest extends TestCase
                 'success' => true
             ]);
 
-        $this->assertDatabaseMissing('urls', ['url' => 'http://google.com']);
-        //$this->assertDatabaseMissing('clicks', ['id' => $click->id]);
+        $this->assertDatabaseMissing('urls', ['id' => "$url->id"]);
+        $this->assertDatabaseMissing('clicks', ['id' => "$click->id"]);
     }
 
     /** @test */
     public function url_click_stats_display_properly()
     {
         $user = factory(User::class)->create();
-        $url = factory(Url::class)->create([ 'user_id' => $user->id ]);
+        $url = factory(Url::class)->create([
+            'user_id' => $user->id
+        ]);
 
         $oneDaysAgo = Carbon::now()->subDay(1);
         $twoDaysAgo = Carbon::now()->subDay(2);

@@ -94,9 +94,13 @@ class UrlController extends Controller
      */
     public function delete($id)
     {
-        // $this->url->clicks->delete();
+        $url = $this->url->find($id);
 
-        $this->url->destroy($id);
+        $url->clicks->each(function($click) {
+            $click->delete();
+        });
+
+        $url->delete();
 
         return response()->json([
             'success' => true

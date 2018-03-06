@@ -69484,9 +69484,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        editUrl: function editUrl(url) {},
-        deleteUrl: function deleteUrl(url) {
+        editUrl: function editUrl(url) {
             var _this4 = this;
+
+            this.$swal({
+                title: 'Update Url',
+                input: 'url',
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+                showLoaderOnConfirm: true,
+                preConfirm: function preConfirm(email) {
+                    return new Promise(function (resolve) {
+                        setTimeout(function () {
+                            if (email === 'taken@example.com') {
+                                swal.showValidationError('This email is already taken.');
+                            }
+                            resolve();
+                        }, 2000);
+                    });
+                },
+                allowOutsideClick: function allowOutsideClick() {
+                    return !_this4.$swal.isLoading();
+                }
+            }).then(function (result) {
+                if (result.value) {
+                    _this4.$swal({
+                        type: 'success',
+                        title: 'Ajax request finished!',
+                        html: 'Submitted email: ' + result.value
+                    });
+                }
+            });
+        },
+        deleteUrl: function deleteUrl(url) {
+            var _this5 = this;
 
             this.$swal({
                 title: 'Are you sure?',
@@ -69498,8 +69529,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (result) {
                 if (result) {
                     axios.post('/url/delete/' + url.id).then(function (response) {
-                        _this4.$swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
-                        _this4.getUrls();
+                        _this5.$swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
+                        _this5.getUrls();
                     }).catch(function (error) {
                         return console.log(error);
                     });
