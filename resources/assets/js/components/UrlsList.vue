@@ -102,55 +102,61 @@
                 this.$swal({
                     title: 'Update Url',
                     input: 'url',
+                    inputValue: url.url,
                     showCancelButton: true,
-                    confirmButtonText: 'Submit',
+                    confirmButtonText: 'Update',
                     showLoaderOnConfirm: true,
-                    preConfirm: (email) => {
-                        return new Promise((resolve) => {
+                    preConfirm: updatedUrl => {
+                        return new Promise(resolve => {
                             setTimeout(() => {
-                                if (email === 'taken@example.com') {
-                                    swal.showValidationError('This email is already taken.');
-                                }
+                                axios.post('/url/update', {
+                                        id: url.id,
+                                        url: updatedUrl
+                                    })
+                                    .then(response => {
+                                        this.getUrls();
+                                        resolve();
+                                    })
+                                    .catch(error => this.$swal.showValidationError(error.response.data.message) );
                                 resolve();
-                            }, 2000);
+                            }, 1000);
                         });
                     },
                     allowOutsideClick: () => !this.$swal.isLoading()
-                }).then((result) => {
-                    if (result.value) {
-                        this.$swal({
-                            type: 'success',
-                            title: 'Ajax request finished!',
-                            html: 'Submitted email: ' + result.value
-                        });
-                    }
                 })
+                .then(result => {
+                    this.$swal({
+                        type: 'success',
+                        title: 'Url Updated!',
+                        text: 'Url has been updated.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                })
+                .catch(error => {});
             },
             deleteUrl(url) {
                 this.$swal({
                     title: 'Are you sure?',
                     type: 'warning',
                     showCancelButton: true,
-                    cancelButtonColor: '#d33',
                     confirmButtonText: 'Delete',
                     cancelButtonText: 'Cancel'
-                }).then((result) => {
+                }).then(result => {
                     if (result) {
                         axios.post(`/url/delete/${url.id}`)
                             .then(response => {
-                                this.$swal(
-                                    'Deleted!',
-                                    'Your imaginary file has been deleted.',
-                                    'success'
-                                );
+                                this.$swal({
+                                    type: 'success',
+                                    title: 'Deleted!',
+                                    text: 'Url has been deleted.',
+                                    showConfirmButton: false
+                                });
                                 this.getUrls();
                             })
                             .catch(error => console.log(error));
-
-                         // For more information about handling dismissals please visit
-                        // https://sweetalert2.github.io/#handling-dismissals
                     }
-                });
+                }).catch(error => {});
             },
             copyToClipboard(e) {
                 this.$swal({

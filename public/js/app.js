@@ -69490,31 +69490,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$swal({
                 title: 'Update Url',
                 input: 'url',
+                inputValue: url.url,
                 showCancelButton: true,
-                confirmButtonText: 'Submit',
+                confirmButtonText: 'Update',
                 showLoaderOnConfirm: true,
-                preConfirm: function preConfirm(email) {
+                preConfirm: function preConfirm(updatedUrl) {
                     return new Promise(function (resolve) {
                         setTimeout(function () {
-                            if (email === 'taken@example.com') {
-                                swal.showValidationError('This email is already taken.');
-                            }
+                            axios.post('/url/update', {
+                                id: url.id,
+                                url: updatedUrl
+                            }).then(function (response) {
+                                _this4.getUrls();
+                                resolve();
+                            }).catch(function (error) {
+                                return _this4.$swal.showValidationError(error.response.data.message);
+                            });
                             resolve();
-                        }, 2000);
+                        }, 1000);
                     });
                 },
                 allowOutsideClick: function allowOutsideClick() {
                     return !_this4.$swal.isLoading();
                 }
             }).then(function (result) {
-                if (result.value) {
-                    _this4.$swal({
-                        type: 'success',
-                        title: 'Ajax request finished!',
-                        html: 'Submitted email: ' + result.value
-                    });
-                }
-            });
+                _this4.$swal({
+                    type: 'success',
+                    title: 'Url Updated!',
+                    text: 'Url has been updated.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }).catch(function (error) {});
         },
         deleteUrl: function deleteUrl(url) {
             var _this5 = this;
@@ -69523,22 +69530,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: 'Are you sure?',
                 type: 'warning',
                 showCancelButton: true,
-                cancelButtonColor: '#d33',
                 confirmButtonText: 'Delete',
                 cancelButtonText: 'Cancel'
             }).then(function (result) {
                 if (result) {
                     axios.post('/url/delete/' + url.id).then(function (response) {
-                        _this5.$swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
+                        _this5.$swal({
+                            type: 'success',
+                            title: 'Deleted!',
+                            text: 'Url has been deleted.',
+                            showConfirmButton: false
+                        });
                         _this5.getUrls();
                     }).catch(function (error) {
                         return console.log(error);
                     });
-
-                    // For more information about handling dismissals please visit
-                    // https://sweetalert2.github.io/#handling-dismissals
                 }
-            });
+            }).catch(function (error) {});
         },
         copyToClipboard: function copyToClipboard(e) {
             this.$swal({
