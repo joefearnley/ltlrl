@@ -25,6 +25,10 @@ footer {
     border-top: 2px solid #eee;
 }
 
+hr.nav-seperator {
+    margin: 0;
+}
+
 .result {
     margin-bottom: 80px;
 }

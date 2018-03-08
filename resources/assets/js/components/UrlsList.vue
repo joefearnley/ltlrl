@@ -121,7 +121,7 @@
                                         this.getUrls();
                                         resolve();
                                     })
-                                    .catch(error => this.$swal.showValidationError(error.response.data.message) );
+                                    .catch(error => this.$swal.showValidationError(error.response.data.message));
                                 resolve();
                             }, 1000);
                         });
