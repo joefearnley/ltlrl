@@ -69540,7 +69540,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             type: 'success',
                             title: 'Deleted!',
                             text: 'Url has been deleted.',
-                            showConfirmButton: false
+                            showConfirmButton: false,
+                            timer: 1500
                         });
                         _this5.getUrls();
                     }).catch(function (error) {

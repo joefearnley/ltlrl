@@ -154,7 +154,8 @@
                                     type: 'success',
                                     title: 'Deleted!',
                                     text: 'Url has been deleted.',
-                                    showConfirmButton: false
+                                    showConfirmButton: false,
+                                    timer: 1500
                                 });
                                 this.getUrls();
                             })
