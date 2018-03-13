@@ -6,7 +6,7 @@
             @include('account.nav')
             <div class="column m-t-md">
                 <h1 class="title">Account Settings</h1>
-                <personal-information-form></personal-information-form>
+                <update-personal-information-form></update-personal-information-form>
                 <div class="columns m-t-lg">
                     <div class="column is-6">
                         <div class="panel">

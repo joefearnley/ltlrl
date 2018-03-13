@@ -18,6 +18,7 @@ Vue.use(VueClipboards);
 Vue.component('home-form', require('./components/HomeForm.vue'));
 Vue.component('urls-list', require('./components/UrlsList.vue'));
 Vue.component('make-url-little-button', require('./components/MakeUrlLittleButton.vue'));
+Vue.component('update-personal-information-form', require('./components/UpdatePersonalInformationForm.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -7,19 +7,18 @@
                 </p>
                 <div class="panel-block">
                     <form>
-                        <input type="hidden" name="id" value="{{ user.id }}">
                         <div class="field">
                             <label class="label">Name</label>
                             <div class="control">
                                 <input type="text" id="name" class="input" name="name" placeholder="Name" v-model="name" required>
-                                <div class="help-block with-errors" v-show="nameError" v-model="nameErrorMessage"></div>
+                                <div class="help-block with-errors" v-show="nameError">{{ nameErrorMessage }}</div>
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">E-Mail Address</label>
                             <div class="control">
                                 <input type="email" id="email" class="input" name="email"  placeholder="E-Mail Address" v-model="email" required>
-                                <div class="help-block with-errors" v-show="emailError" v-model="emailErrorMessage"></div>
+                                <div class="help-block with-errors" v-show="emailError">{{ emailErrorMessage }}</div>
                             </div>
                         </div>
                         <div class="field">
@@ -40,27 +39,27 @@
     export default {
         data: {
             name: '',
-            email: ''
+            email: '',
             nameError: false,
             nameErrorMessage: '',
             emailError: false,
             emailErrorMessage: ''
-        }
-        mounted() {
+        },
+        mounted () {
             this.getUser();
         },
         methods: {
             getUserInformation () {
-                axios.get('/user')
+                axios.get('/api/account/info')
                     .then(response => {
                         console.log(response);
                     })
                     .catch(error => showErrorMessage(error.response.data.message));
-            }
+            },
             updateUserInformation () {
             },
-            showErrorMessage () {
-
+            showErrorMessage (message) {
+                console.log(message);
             }
         }
     }
