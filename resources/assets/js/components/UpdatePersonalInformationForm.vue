@@ -1,12 +1,12 @@
 <template>
     <div class="columns m-t-lg">
-        <div class="column is-6">
+            <div class="column is-6">
             <div class="panel">
                 <p class="panel-heading">
                     Update Personal Information
                 </p>
                 <div class="panel-block">
-                    <form>
+                    <form v-on:submit.prevent>
                         <div class="field">
                             <label class="label">Name</label>
                             <div class="control">
@@ -37,26 +37,34 @@
 
 <script>
     export default {
-        data: {
-            name: '',
-            email: '',
-            nameError: false,
-            nameErrorMessage: '',
-            emailError: false,
-            emailErrorMessage: ''
+        data () {
+            return  {
+                name: '',
+                email: '',
+                nameError: false,
+                nameErrorMessage: '',
+                emailError: false,
+                emailErrorMessage: ''
+            }
         },
         mounted () {
-            this.getUser();
+            this.getAccountPersonalInformation();
         },
         methods: {
-            getUserInformation () {
+            getAccountPersonalInformation () {
                 axios.get('/api/account/info')
                     .then(response => {
-                        console.log(response);
+                        this.name = response.data.name;
+                        this.email = response.data.email;
+                    })
+                    .catch(error => console.log(error.response.data.message));
+            },
+            updatePersonalInformation () {
+                axios.post('/api/account/update-personal-info')
+                    .then(response => {
+                        // swal personal information updated......
                     })
                     .catch(error => showErrorMessage(error.response.data.message));
-            },
-            updateUserInformation () {
             },
             showErrorMessage (message) {
                 console.log(message);

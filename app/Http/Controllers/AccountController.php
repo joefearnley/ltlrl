@@ -105,13 +105,4 @@ class AccountController extends Controller
         ]);
     }
 
-    /**
-     * Get User information associated with account.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function info()
-    {
-        return response()->json($this->user);
-    }
 }

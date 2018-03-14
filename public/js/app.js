@@ -82523,27 +82523,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: {
-        name: '',
-        email: '',
-        nameError: false,
-        nameErrorMessage: '',
-        emailError: false,
-        emailErrorMessage: ''
+    data: function data() {
+        return {
+            name: '',
+            email: '',
+            nameError: false,
+            nameErrorMessage: '',
+            emailError: false,
+            emailErrorMessage: ''
+        };
     },
     mounted: function mounted() {
-        this.getUser();
+        this.getAccountPersonalInformation();
     },
 
     methods: {
-        getUserInformation: function getUserInformation() {
+        getAccountPersonalInformation: function getAccountPersonalInformation() {
+            var _this = this;
+
             axios.get('/api/account/info').then(function (response) {
-                console.log(response);
+                _this.name = response.data.name;
+                _this.email = response.data.email;
+            }).catch(function (error) {
+                return console.log(error.response.data.message);
+            });
+        },
+        updatePersonalInformation: function updatePersonalInformation() {
+            axios.post('/api/account/update-personal-info').then(function (response) {
+                // swal personal information updated......
             }).catch(function (error) {
                 return showErrorMessage(error.response.data.message);
             });
         },
-        updateUserInformation: function updateUserInformation() {},
         showErrorMessage: function showErrorMessage(message) {
             console.log(message);
         }
@@ -82566,127 +82577,139 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "panel-block" }, [
-          _c("form", [
-            _c("div", { staticClass: "field" }, [
-              _c("label", { staticClass: "label" }, [_vm._v("Name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.name,
-                      expression: "name"
-                    }
-                  ],
-                  staticClass: "input",
-                  attrs: {
-                    type: "text",
-                    id: "name",
-                    name: "name",
-                    placeholder: "Name",
-                    required: ""
-                  },
-                  domProps: { value: _vm.name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.name = $event.target.value
-                    }
-                  }
-                }),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Name")]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  {
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
                     directives: [
                       {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.nameError,
-                        expression: "nameError"
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.name,
+                        expression: "name"
                       }
                     ],
-                    staticClass: "help-block with-errors"
-                  },
-                  [_vm._v(_vm._s(_vm.nameErrorMessage))]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "field" }, [
-              _c("label", { staticClass: "label" }, [_vm._v("E-Mail Address")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.email,
-                      expression: "email"
-                    }
-                  ],
-                  staticClass: "input",
-                  attrs: {
-                    type: "email",
-                    id: "email",
-                    name: "email",
-                    placeholder: "E-Mail Address",
-                    required: ""
-                  },
-                  domProps: { value: _vm.email },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.email = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.emailError,
-                        expression: "emailError"
-                      }
-                    ],
-                    staticClass: "help-block with-errors"
-                  },
-                  [_vm._v(_vm._s(_vm.emailErrorMessage))]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "button is-primary",
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      id: "name",
+                      name: "name",
+                      placeholder: "Name",
+                      required: ""
+                    },
+                    domProps: { value: _vm.name },
                     on: {
-                      click: function($event) {
-                        _vm.updateUserInformation()
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.name = $event.target.value
                       }
                     }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-btn fa-save" }),
-                    _vm._v(" Save\n                            ")
-                  ]
-                )
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.nameError,
+                          expression: "nameError"
+                        }
+                      ],
+                      staticClass: "help-block with-errors"
+                    },
+                    [_vm._v(_vm._s(_vm.nameErrorMessage))]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [
+                  _vm._v("E-Mail Address")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.email,
+                        expression: "email"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "email",
+                      id: "email",
+                      name: "email",
+                      placeholder: "E-Mail Address",
+                      required: ""
+                    },
+                    domProps: { value: _vm.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.email = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.emailError,
+                          expression: "emailError"
+                        }
+                      ],
+                      staticClass: "help-block with-errors"
+                    },
+                    [_vm._v(_vm._s(_vm.emailErrorMessage))]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("div", { staticClass: "control" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button is-primary",
+                      on: {
+                        click: function($event) {
+                          _vm.updateUserInformation()
+                        }
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-btn fa-save" }),
+                      _vm._v(" Save\n                            ")
+                    ]
+                  )
+                ])
               ])
-            ])
-          ])
+            ]
+          )
         ])
       ])
     ])
