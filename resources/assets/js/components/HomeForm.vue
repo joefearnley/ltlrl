@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <form>
-                    <div class="field has-addons">
+                    <div class="field has-addons create-url-input">
                         <p class="control is-expanded">
                             <input class="input" :class="{ 'is-danger': hasError }"  id="url" type="text" placeholder="Enter URL and ..." v-model="url">
                         </p>
@@ -26,7 +26,7 @@
                             </a>
                         </p>
                     </div>
-                    <p class="help is-danger" v-if="hasError">{{ errorMessage }}</p>
+                    <p class="help is-danger create-url-error" v-if="hasError">{{ errorMessage }}</p>
                 </form>
             </div>
         </div>
@@ -63,7 +63,7 @@
                 this.showResult = false;
                 this.isLoading = false;
                 this.hasError = true;
-                this.errorMessage = error.response.data.message;
+                this.errorMessage = error.response.data.errors.url[0];
             },
             copyToClipboard(e) {
                 this.$swal({

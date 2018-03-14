@@ -19,6 +19,7 @@ Vue.component('home-form', require('./components/HomeForm.vue'));
 Vue.component('urls-list', require('./components/UrlsList.vue'));
 Vue.component('make-url-little-button', require('./components/MakeUrlLittleButton.vue'));
 Vue.component('update-personal-information-form', require('./components/UpdatePersonalInformationForm.vue'));
+Vue.component('update-password-form', require('./components/UpdatePasswordForm.vue'));
 
 const app = new Vue({
     el: '#app'

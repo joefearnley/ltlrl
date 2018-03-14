@@ -69150,7 +69150,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.showResult = false;
             this.isLoading = false;
             this.hasError = true;
-            this.errorMessage = error.response.data.message;
+            this.errorMessage = error.response.data.errors.url[0];
         },
         copyToClipboard: function copyToClipboard(e) {
             this.$swal({
@@ -69239,7 +69239,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("form", [
-          _c("div", { staticClass: "field has-addons" }, [
+          _c("div", { staticClass: "field has-addons create-url-input" }, [
             _c("p", { staticClass: "control is-expanded" }, [
               _c("input", {
                 directives: [
@@ -69288,7 +69288,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _vm.hasError
-            ? _c("p", { staticClass: "help is-danger" }, [
+            ? _c("p", { staticClass: "help is-danger create-url-error" }, [
                 _vm._v(_vm._s(_vm.errorMessage))
               ])
             : _vm._e()

@@ -90,6 +90,10 @@ hr.nav-seperator {
     width: 100%;
 }
 
+.create-url-error {
+    margin-top: 0;
+}
+
 /* spacing utilities */
 .m-none { margin: 0; }
 .p-none { padding: 0; }
