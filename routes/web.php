@@ -10,7 +10,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
     Route::get('account/urls', 'AccountController@urls');
     Route::get('account/info', 'AccountController@info');
     Route::post('account/update-personal-info', 'AccountController@updatePersonalInfo');
-    //Route::post('account/update-password', 'AccountController@updatePassword');
+    Route::post('account/update-password', 'AccountController@updatePassword');
 });
 
 Auth::routes();
