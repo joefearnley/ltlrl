@@ -80,17 +80,16 @@ class AccountApiTest extends TestCase
 
         $postData = [
             'id' => $user->id,
-            'name' => '',
             'email' => 'joe.fearnley@gmail.com'
         ];
 
         $this->actingAs($user)
-            ->post('api/account/update-personal-info', $postData)
+            ->json('POST', 'api/account/update-personal-info', $postData)
             ->assertStatus(422)
             ->assertJsonFragment(['The name field is required.']);
     }
 
-
+    /** @test */
     public function update_personal_information_requires_email_field()
     {
         $user = factory(User::class)->create();
@@ -107,7 +106,7 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The email field is required.']);
     }
 
-
+    /** @test */
     public function update_personal_information_requires_valid_email()
     {
         $user = factory(User::class)->create();
@@ -124,7 +123,7 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The email must be a valid email address.']);
     }
 
-
+    /** @test */
     public function update_personal_information()
     {
         $user = factory(User::class)->create();
@@ -152,7 +151,7 @@ class AccountApiTest extends TestCase
             ]);
     }
 
-
+    /** @test */
     public function update_password()
     {
         $user = factory(User::class)->create();
@@ -192,7 +191,7 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The password must be at least 6 characters.']);
     }
 
-
+    /** @test */
     public function update_password_field_is_required()
     {
         $user = factory(User::class)->create();
@@ -207,7 +206,7 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The password field is required.']);
     }
 
-
+    /** @test */
     public function update_password_confirmation_matches_password()
     {
         $user = factory(User::class)->create();
@@ -223,7 +222,7 @@ class AccountApiTest extends TestCase
             ->assertJsonFragment(['The password confirmation does not match.']);
     }
 
-
+    /** @test */
     public function get_account_info()
     {
         $user = factory(User::class)->create();
@@ -238,7 +237,7 @@ class AccountApiTest extends TestCase
             ]);
     }
 
-
+    /** @test */
     public function error_is_thrown_when_getting_account_info_if_user_is_not_logged_in()
     {
         $response = $this->call('GET', 'api/account/info');

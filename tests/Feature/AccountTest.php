@@ -63,8 +63,6 @@ class AccountTest extends TestCase
         $this->actingAs($user)
             ->get('/account/settings')
             ->assertStatus(200)
-            ->assertSee('Account Settings')
-            ->assertSee('Personal Information')
-            ->assertSee('Update Password');
+            ->assertSee('Account Settings');
     }
 }

@@ -23,7 +23,7 @@
                         </div>
                         <div class="field">
                             <div class="control">
-                                <button class="button is-primary" @click="updateUserInformation()">
+                                <button class="button is-primary" @click="updateInformation()">
                                     <i class="fa fa-btn fa-save"></i> Save
                                 </button>
                             </div>
@@ -48,10 +48,10 @@
             }
         },
         mounted () {
-            this.getAccountPersonalInformation();
+            this.getInformation();
         },
         methods: {
-            getAccountPersonalInformation () {
+            getInformation () {
                 axios.get('/api/account/info')
                     .then(response => {
                         this.name = response.data.name;
@@ -59,12 +59,12 @@
                     })
                     .catch(error => console.log(error.response.data.message));
             },
-            updatePersonalInformation () {
+            updateInformation () {
                 axios.post('/api/account/update-personal-info')
                     .then(response => {
                         // swal personal information updated......
                     })
-                    .catch(error => showErrorMessage(error.response.data.message));
+                    .catch(error => this.showErrorMessage(error.response.data.message));
             },
             showErrorMessage (message) {
                 console.log(message);
