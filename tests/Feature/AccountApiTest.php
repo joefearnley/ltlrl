@@ -73,7 +73,7 @@ class AccountApiTest extends TestCase
             ]);
     }
 
-
+    /** @test */
     public function update_personal_information_requires_name_field()
     {
         $user = factory(User::class)->create();
@@ -85,7 +85,7 @@ class AccountApiTest extends TestCase
         ];
 
         $this->actingAs($user)
-            ->json('POST', 'api/account/update-personal-info', $postData)
+            ->post('api/account/update-personal-info', $postData)
             ->assertStatus(422)
             ->assertJsonFragment(['The name field is required.']);
     }
