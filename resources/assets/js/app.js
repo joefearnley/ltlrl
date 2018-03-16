@@ -9,10 +9,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import VueSweetAlert from 'vue-sweetalert';
+import VueSweetalert2 from 'vue-sweetalert2';
 import VueClipboards from 'vue-clipboards';
 
-Vue.use(VueSweetAlert);
+Vue.use(VueSweetalert2);
 Vue.use(VueClipboards);
 
 Vue.component('home-form', require('./components/HomeForm.vue'));

@@ -10,20 +10,20 @@
                         <div class="field">
                             <label class="label">Name</label>
                             <div class="control">
-                                <input type="text" id="name" class="input" name="name" placeholder="Name" v-model="name" required>
-                                <div class="help-block with-errors" v-show="nameError">{{ nameErrorMessage }}</div>
+                                <input type="text" id="name" class="input" name="name" placeholder="Name" v-model="name">
+                                <p class="help is-danger" v-show="nameError">{{ nameErrorMessage }}</p>
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">E-Mail Address</label>
                             <div class="control">
-                                <input type="email" id="email" class="input" name="email"  placeholder="E-Mail Address" v-model="email" required>
-                                <div class="help-block with-errors" v-show="emailError">{{ emailErrorMessage }}</div>
+                                <input type="email" id="email" class="input" name="email"  placeholder="E-Mail Address" v-model="email">
+                                <p class="help is-danger" v-show="emailError">{{ emailErrorMessage }}</p>
                             </div>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <button class="button is-primary" @click="updateInformation()">
+                                <button class="button is-primary" @click="updateInformation()" :class="{ 'is-loading': isLoading }">
                                     <i class="fa fa-btn fa-save"></i> Save
                                 </button>
                             </div>
@@ -44,7 +44,8 @@
                 nameError: false,
                 nameErrorMessage: '',
                 emailError: false,
-                emailErrorMessage: ''
+                emailErrorMessage: '',
+                isLoading: false
             }
         },
         mounted () {
@@ -60,14 +61,43 @@
                     .catch(error => console.log(error.response.data.message));
             },
             updateInformation () {
-                axios.post('/api/account/update-personal-info')
-                    .then(response => {
-                        // swal personal information updated......
+                this.isLoading = true;
+                this.resetForm();
+                axios.post('/api/account/update-personal-info', {
+                        name: this.name,
+                        email: this.email
                     })
-                    .catch(error => this.showErrorMessage(error.response.data.message));
+                    .then(response => {
+                        this.$swal({
+                            type: 'success',
+                            title: 'Information Updated!',
+                            text: 'Personal Information has been updated.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                        this.isLoading = false;
+                    })
+                    .catch(error => this.showErrorMessage(error.response.data.errors));
             },
-            showErrorMessage (message) {
-                console.log(message);
+            showErrorMessage (errors) {
+                if (errors.name) {
+                    this.nameError = true;
+                    this.nameErrorMessage = errors.name.pop();
+                }
+
+                if (errors.email) {
+                    this.emailError = true;
+                    this.emailErrorMessage = errors.email.pop();
+                }
+
+                this.isLoading = false;
+            },
+            resetForm () {
+                this.nameError = false;
+                this.nameErrorMessage = '';
+                this.emailError = false;
+                this.emailErrorMessage = '';
             }
         }
     }
