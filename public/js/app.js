@@ -85128,6 +85128,7 @@ var render = function() {
           _c(
             "form",
             {
+              attrs: { role: "form" },
               on: {
                 submit: function($event) {
                   $event.preventDefault()
@@ -85368,21 +85369,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             password: '',
             passwordConfirmation: '',
-            error: false,
-            errorMessage: ''
+            passwordError: false,
+            passwordErrorMessage: '',
+            passwordConfirmationError: false,
+            passwordConfirmationErrorMessage: '',
+            isLoading: false
         };
     },
 
     methods: {
         updatePassword: function updatePassword() {
-            axios.post('/api/account/update-password').then(function (response) {
-                // password updated......
+            var _this = this;
+
+            this.isLoading = true;
+            this.resetForm();
+            axios.post('/api/account/update-password', {
+                password: this.password,
+                password_confirmation: this.passwordConfirmation
+            }).then(function (response) {
+                _this.$swal({
+                    type: 'success',
+                    title: 'Information Updated!',
+                    text: 'Personal Information has been updated.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                _this.password = '';
+                _this.passwordConfirmation = '';
+                _this.isLoading = false;
             }).catch(function (error) {
-                return showErrorMessage(error.response.data.message);
+                return _this.showErrorMessage(error.response.data.errors);
             });
         },
-        showErrorMessage: function showErrorMessage(message) {
-            console.log(message);
+        showErrorMessage: function showErrorMessage(errors) {
+            if (errors.password) {
+                this.passwordError = true;
+                this.passwordErrorMessage = errors.password.pop();
+            }
+
+            this.isLoading = false;
+            console.log(errors);
+        },
+        resetForm: function resetForm() {
+            this.passwordError = false;
+            this.passwordErrorMessage = '';
+            this.passwordConfirmationError = false;
+            this.passwordConfirmationErrorMessage = '';
         }
     }
 });
@@ -85395,79 +85428,153 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "columns m-t-lg" }, [
-      _c("div", { staticClass: "column is-6" }, [
-        _c("div", { staticClass: "panel" }, [
-          _c("p", { staticClass: "panel-heading" }, [
-            _vm._v("\n                Update Password\n            ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-block" }, [
-            _c("form", { attrs: { role: "form" } }, [
+  return _c("div", { staticClass: "columns m-t-lg" }, [
+    _c("div", { staticClass: "column is-6" }, [
+      _c("div", { staticClass: "panel" }, [
+        _c("p", { staticClass: "panel-heading" }, [
+          _vm._v("\n                Update Password\n            ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel-block" }, [
+          _c(
+            "form",
+            {
+              attrs: { role: "form" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
               _c("div", { staticClass: "field" }, [
                 _c("label", { staticClass: "label" }, [_vm._v("New Password")]),
                 _vm._v(" "),
                 _c("div", { staticClass: "control" }, [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.password,
+                        expression: "password"
+                      }
+                    ],
                     staticClass: "input",
                     attrs: {
                       type: "password",
                       name: "password",
                       id: "inputPassword",
-                      placeholder: "Password",
-                      required: ""
+                      placeholder: "Enter Password"
+                    },
+                    domProps: { value: _vm.password },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.password = $event.target.value
+                      }
                     }
                   }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "help-block" }, [
-                    _vm._v("Minimum of 6 characters")
-                  ])
+                  _c(
+                    "p",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.passwordError,
+                          expression: "passwordError"
+                        }
+                      ],
+                      staticClass: "help is-danger"
+                    },
+                    [_vm._v(_vm._s(_vm.passwordErrorMessage))]
+                  )
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "field" }, [
                 _c("label", { staticClass: "label" }, [
-                  _vm._v("New Confirm Password")
+                  _vm._v("Confirm New Password")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "control" }, [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.passwordConfirmation,
+                        expression: "passwordConfirmation"
+                      }
+                    ],
                     staticClass: "input",
                     attrs: {
                       type: "password",
                       id: "inputPasswordConfirm",
                       name: "password_confirmation",
-                      placeholder: "Confirm",
-                      required: ""
+                      placeholder: "Confirm Password"
+                    },
+                    domProps: { value: _vm.passwordConfirmation },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.passwordConfirmation = $event.target.value
+                      }
                     }
                   }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "help-block with-errors" })
+                  _c(
+                    "p",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.passwordConfirmationError,
+                          expression: "passwordConfirmationError"
+                        }
+                      ],
+                      staticClass: "help is-danger"
+                    },
+                    [_vm._v(_vm._s(_vm.passwordConfirmationErrorMessage))]
+                  )
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "field" }, [
                 _c("div", { staticClass: "control" }, [
-                  _c("button", { staticClass: "button is-primary" }, [
-                    _c("i", { staticClass: "fa fa-btn fa-save" }),
-                    _vm._v(" Update\n                            ")
-                  ])
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button is-primary",
+                      class: { "is-loading": _vm.isLoading },
+                      on: {
+                        click: function($event) {
+                          _vm.updatePassword()
+                        }
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-btn fa-save" }),
+                      _vm._v(" Update\n                            ")
+                    ]
+                  )
                 ])
               ])
-            ])
-          ])
+            ]
+          )
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

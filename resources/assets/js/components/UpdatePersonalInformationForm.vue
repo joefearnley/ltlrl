@@ -6,7 +6,7 @@
                     Update Personal Information
                 </p>
                 <div class="panel-block">
-                    <form v-on:submit.prevent>
+                    <form role="form" v-on:submit.prevent>
                         <div class="field">
                             <label class="label">Name</label>
                             <div class="control">
