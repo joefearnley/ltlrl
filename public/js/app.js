@@ -84922,14 +84922,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 allowOutsideClick: function allowOutsideClick() {
                     return !swal.isLoading();
                 }
-            }).then(function () {
-                _this.$swal({
-                    title: 'Success!',
-                    text: 'URL Created.',
-                    type: 'success',
-                    timer: 1500,
-                    showConfirmButton: false
-                });
+            }).then(function (result) {
+                if (result.value) {
+                    _this.$swal({
+                        title: 'Success!',
+                        text: 'URL Created.',
+                        type: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
             });
         }
     }

@@ -31,14 +31,16 @@
                         });
                     },
                     allowOutsideClick: () => !swal.isLoading()
-                }).then(() => {
-                    this.$swal({
-                        title: 'Success!',
-                        text: 'URL Created.',
-                        type: 'success',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
+                }).then((result) => {
+                    if (result.value) {
+                        this.$swal({
+                            title: 'Success!',
+                            text: 'URL Created.',
+                            type: 'success',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    }
                 });
             }
         }
