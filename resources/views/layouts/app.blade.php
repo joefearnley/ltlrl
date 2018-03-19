@@ -18,13 +18,13 @@
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="{{ url('/') }}">Little Url</a>
-                    <button class="button navbar-burger">
+                    <button class="button navbar-burger" data-target="navMenu">
                         <span></span>
                         <span></span>
                         <span></span>
                     </button>
                 </div>
-                <div class="navbar-menu">
+                <div id="navMenu" class="navbar-menu">
                     <div class="navbar-end">
                         @if (Auth::guest())
                             <a href="{{ url('/login') }}" class="navbar-item">Login</a>
