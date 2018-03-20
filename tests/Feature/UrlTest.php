@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Carbon\Carbon;
@@ -7,7 +9,7 @@ use App\User;
 use App\Click;
 use App\Url;
 
-class UrlApiTest extends TestCase
+class UrlTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -163,7 +165,7 @@ class UrlApiTest extends TestCase
                 'id' => $url->id,
                 'url' => 'http://yahoo.com',
                 'user_id' => '1',
-                'short_url' => 'http://localhost:8000/' . $url->key
+                'short_url' => config('app.url') . '/' . $url->key
             ]);
     }
 
@@ -184,33 +186,10 @@ class UrlApiTest extends TestCase
     }
 
     /** @test */
-    public function delete_url_and_clicks()
-    {
-        $url = factory(Url::class)->create([
-            'url' => 'http://yahoo.com'
-        ]);
-
-        $click = factory(Click::class)->create([
-            'url_id' => $url->id
-        ]);
-
-        $this->post('/url/delete/' . $url->id)
-            ->assertStatus(200)
-            ->assertJsonFragment([
-                'success' => true
-            ]);
-
-        $this->assertDatabaseMissing('urls', ['id' => "$url->id"]);
-        $this->assertDatabaseMissing('clicks', ['id' => "$click->id"]);
-    }
-
-    /** @test */
     public function url_click_stats_display_properly()
     {
         $user = factory(User::class)->create();
-        $url = factory(Url::class)->create([
-            'user_id' => $user->id
-        ]);
+        $url = factory(Url::class)->create([ 'user_id' => $user->id ]);
 
         $oneDaysAgo = Carbon::now()->subDay(1);
         $twoDaysAgo = Carbon::now()->subDay(2);
