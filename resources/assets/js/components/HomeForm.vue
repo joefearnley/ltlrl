@@ -1,3 +1,5 @@
+<profile dusk="home-form-component"></profile>
+
 <template>
     <div class="container home-page">
         <div class="columns">
