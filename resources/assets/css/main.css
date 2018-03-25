@@ -59,6 +59,10 @@ hr.nav-seperator {
     vertical-align: bottom;
 }
 
+.little-url-copy-control {
+    width: 50%;
+}
+
 .swal2-modal {
     top: 0;
     left: 0;

@@ -7,8 +7,8 @@
                 <div class="result align-center" :class="{ 'is-hidden': !showResult }">
                     <p><strong>Your URL has been made little!</strong></p>
                     <div class="field has-addons has-addons-centered">
-                        <div class="control">
-                            <input class="input" type="text" placeholder="Find a repository"  v-model="shortUrl">
+                        <div class="control little-url-copy-control">
+                            <input class="input" type="text" v-model="shortUrl">
                         </div>
                         <div class="control">
                             <button v-clipboard="shortUrl" @success="copyToClipboard" @error="copyToClipboardError" class="button tooltip" data-tooltip="Copy to Clipboard">

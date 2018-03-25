@@ -71598,6 +71598,7 @@ var Component = normalizeComponent(
 )
 Component.options.__file = "resources/assets/js/components/HomeForm.vue"
 
+
 /* hot reload */
 if (false) {(function () {
   var hotAPI = require("vue-hot-reload-api")
@@ -71623,6 +71624,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -71731,7 +71734,7 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "field has-addons has-addons-centered" }, [
-              _c("div", { staticClass: "control" }, [
+              _c("div", { staticClass: "control little-url-copy-control" }, [
                 _c("input", {
                   directives: [
                     {
@@ -71742,7 +71745,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "input",
-                  attrs: { type: "text", placeholder: "Find a repository" },
+                  attrs: { type: "text" },
                   domProps: { value: _vm.shortUrl },
                   on: {
                     input: function($event) {
