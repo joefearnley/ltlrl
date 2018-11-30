@@ -71948,6 +71948,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -72062,6 +72065,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return !_this4.$swal.isLoading();
                 }
             }).then(function (result) {
+                if (result.dismiss) {
+                    return;
+                }
+
                 _this4.$swal({
                     type: 'success',
                     title: 'Url Updated!',
@@ -84721,6 +84728,21 @@ var render = function() {
     [
       _c("h1", { staticClass: "title" }, [_vm._v("Urls")]),
       _vm._v(" "),
+      _c(
+        "section",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.urls.length === 0,
+              expression: "urls.length === 0"
+            }
+          ]
+        },
+        [_c("p", [_vm._v("No URLs created yet!")])]
+      ),
+      _vm._v(" "),
       _vm._l(_vm.urls, function(url) {
         return _c("section", { key: url.id }, [
           _c("div", { staticClass: "columns" }, [
@@ -84932,7 +84954,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         text: 'URL Created.',
                         type: 'success',
                         timer: 1500,
-                        showConfirmButton: false
+                        showConfirmButton: false,
+                        onClose: function onClose() {
+                            location.reload();
+                        }
                     });
                 }
             });

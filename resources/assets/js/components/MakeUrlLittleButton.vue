@@ -38,7 +38,10 @@
                             text: 'URL Created.',
                             type: 'success',
                             timer: 1500,
-                            showConfirmButton: false
+                            showConfirmButton: false,
+                            onClose: () => {
+                                location.reload();
+                            }
                         });
                     }
                 });

@@ -1,6 +1,9 @@
 <template>
     <div class="column m-t-md">
         <h1 class="title">Urls</h1>
+        <section v-show="urls.length === 0">
+            <p>No URLs created yet!</p>
+        </section>
         <section v-for="url in urls" :key="url.id">
             <div class="columns">
                 <div class="column is-4">
@@ -129,6 +132,10 @@
                     allowOutsideClick: () => !this.$swal.isLoading()
                 })
                 .then(result => {
+                    if(result.dismiss) {
+                       return;
+                    }
+
                     this.$swal({
                         type: 'success',
                         title: 'Url Updated!',
