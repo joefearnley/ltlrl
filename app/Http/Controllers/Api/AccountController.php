@@ -15,8 +15,6 @@ class AccountController extends Controller
      */
     private $user;
 
-
-
     /**
      * Create a new account controller instance.
      *
