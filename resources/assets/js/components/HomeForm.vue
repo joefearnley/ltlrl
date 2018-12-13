@@ -82,3 +82,9 @@
         }
     }
 </script>
+
+<style scoped>
+    p.control.is-expanded {
+        margin-bottom: 0;
+    }
+</style>
