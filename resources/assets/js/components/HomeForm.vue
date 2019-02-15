@@ -3,9 +3,10 @@
 <template>
     <div class="container home-page">
         <div class="columns">
-            <div class="column is-8 is-offset-2">
+            <div class="column is-6 is-offset-3">
                 <div class="result align-center" :class="{ 'is-hidden': !showResult }">
                     <p><strong>Your URL has been made little!</strong></p>
+                    <label class="label align-left">Copy to Clipboard</label>
                     <div class="field has-addons has-addons-centered">
                         <div class="control little-url-copy-control">
                             <input class="input" type="text" v-model="shortUrl">
@@ -13,6 +14,17 @@
                         <div class="control">
                             <button v-clipboard="shortUrl" @success="copyToClipboard" @error="copyToClipboardError" class="button tooltip" data-tooltip="Copy to Clipboard">
                                 <i class="fas fa-clipboard"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <label class="label align-left">Text to Phone</label>
+                    <div class="field has-addons has-addons-centered">
+                        <div class="control little-url-copy-control">
+                            <input class="input" type="text" v-model="textMessageNumber" placeholder="XXX-XXX-XXXX">
+                        </div>
+                        <div class="control">
+                            <button @success="" @error="" class="button tooltip" data-tooltip="Text Message">
+                                <i class="fas fa-mobile-alt"></i>
                             </button>
                         </div>
                     </div>
