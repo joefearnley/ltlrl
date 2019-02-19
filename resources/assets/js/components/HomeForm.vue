@@ -5,7 +5,7 @@
         <div class="columns">
             <div class="column is-6 is-offset-3">
                 <div class="result align-center" :class="{ 'is-hidden': !showResult }">
-                    <p><strong>Your URL has been made little!</strong></p>
+                    <h3>Your URL has been made little!</h3>
                     <label class="label align-left">Copy to Clipboard</label>
                     <div class="field has-addons has-addons-centered">
                         <div class="control little-url-copy-control">
