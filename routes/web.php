@@ -27,3 +27,6 @@ Route::post('url/delete/{id}', 'UrlController@delete');
 Route::get('url/stats/{id}', 'UrlController@clickStats');
 
 Route::get('user/urls', 'UserController@urls');
+
+Route::post('/sms/send', 'SmsController@send');
+
