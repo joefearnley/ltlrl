@@ -12,7 +12,10 @@
                             <input class="input" type="text" v-model="shortUrl">
                         </div>
                         <div class="control">
-                            <button v-clipboard="shortUrl" @success="copyToClipboard" @error="copyToClipboardError" class="button tooltip" data-tooltip="Copy to Clipboard">
+                            <button v-clipboard="shortUrl" 
+                                @success="copyToClipboard" 
+                                @error="copyToClipboardError" class="button tooltip" 
+                                data-tooltip="Copy to Clipboard">
                                 <i class="fas fa-clipboard"></i>
                             </button>
                         </div>
@@ -23,11 +26,12 @@
                             <input class="input" type="text" v-model="textMessageNumber" placeholder="XXX-XXX-XXXX">
                         </div>
                         <div class="control">
-                            <button @success="" @error="" class="button tooltip" data-tooltip="Text Message">
+                            <button @success="" @error="" @click="sendSMSMessage" class="button tooltip" data-tooltip="Text Message">
                                 <i class="fas fa-mobile-alt"></i>
                             </button>
                         </div>
                     </div>
+                    <p class="help is-danger" v-if="">{{ smsErrorMessage }}</p>
                 </div>
                 <form>
                     <div class="field has-addons create-url-input">
@@ -56,7 +60,10 @@
                 url: '',
                 hasError: false,
                 shortUrl: '',
-                errorMessage: ''
+                errorMessage: '',
+                textMessageNumber: '',
+                smsErrorMessage: false,
+                smsErrorMessage: ''
             }
         },
         methods: {
@@ -90,6 +97,11 @@
             },
             copyToClipboardError(e) {
                 console.log(e);
+            },
+            sendSMSMessage() {
+                axios.post('/sms/send', { 'phone' : this.textMessageNumber })
+                    .then(response => console.log(response))
+                    .catch(error => this.smsErrorMessage = error.response.data.errors.phone[0]);
             }
         }
     }

@@ -19,6 +19,7 @@ class SmsTest extends TestCase
             ->assertSee(['The phone field contains an invalid number.']);
     }
 
+    /** @test */
     public function create_sms_message_with_invalid_phone_returns_an_error()
     {
         $response = $this->post('/sms/send', [ 'phone' => '2324' ])

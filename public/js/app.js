@@ -71929,6 +71929,12 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -71981,14 +71987,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
+        return _defineProperty({
             showResult: false,
             isLoading: false,
             url: '',
             hasError: false,
             shortUrl: '',
-            errorMessage: ''
-        };
+            errorMessage: '',
+            textMessageNumber: '',
+            smsErrorMessage: false
+        }, 'smsErrorMessage', '');
     },
 
     methods: {
@@ -72026,6 +72034,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         copyToClipboardError: function copyToClipboardError(e) {
             console.log(e);
+        },
+        sendSMSMessage: function sendSMSMessage() {
+            var _this2 = this;
+
+            axios.post('/sms/send', { 'phone': this.textMessageNumber }).then(function (response) {
+                return console.log(response);
+            }).catch(function (error) {
+                return _this2.smsErrorMessage = error.response.data.errors.phone[0];
+            });
         }
     }
 });
@@ -72048,7 +72065,7 @@ var render = function() {
             class: { "is-hidden": !_vm.showResult }
           },
           [
-            _vm._m(0),
+            _c("h3", [_vm._v("Your URL has been made little!")]),
             _vm._v(" "),
             _c("label", { staticClass: "label align-left" }, [
               _vm._v("Copy to Clipboard")
@@ -72140,12 +72157,17 @@ var render = function() {
                     attrs: { "data-tooltip": "Text Message" },
                     on: {
                       success: function($event) {},
-                      error: function($event) {}
+                      error: function($event) {},
+                      click: _vm.sendSMSMessage
                     }
                   },
                   [_c("i", { staticClass: "fas fa-mobile-alt" })]
                 )
               ])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "help is-danger" }, [
+              _vm._v(_vm._s(_vm.smsErrorMessage))
             ])
           ]
         ),
@@ -72209,14 +72231,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [_c("strong", [_vm._v("Your URL has been made little!")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
