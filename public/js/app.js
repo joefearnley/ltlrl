@@ -71929,8 +71929,6 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -71987,16 +71985,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return _defineProperty({
+        return {
             showResult: false,
             isLoading: false,
             url: '',
             hasError: false,
             shortUrl: '',
             errorMessage: '',
-            textMessageNumber: '',
-            smsErrorMessage: false
-        }, 'smsErrorMessage', '');
+            smsNumber: '',
+            hasSmsErrorMessage: false,
+            smsErrorMessage: ''
+        };
     },
 
     methods: {
@@ -72035,13 +72034,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         copyToClipboardError: function copyToClipboardError(e) {
             console.log(e);
         },
-        sendSMSMessage: function sendSMSMessage() {
+        sendSmsMessage: function sendSmsMessage() {
             var _this2 = this;
 
-            axios.post('/sms/send', { 'phone': this.textMessageNumber }).then(function (response) {
+            axios.post('/sms/send', { 'phone': this.smsNumber }).then(function (response) {
                 return console.log(response);
             }).catch(function (error) {
-                return _this2.smsErrorMessage = error.response.data.errors.phone[0];
+                _this2.smsErrorMessage = error.response.data.errors.phone[0];
+                _this2.hasSmsErrorMessage = true;
             });
         }
     }
@@ -72131,19 +72131,20 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.textMessageNumber,
-                      expression: "textMessageNumber"
+                      value: _vm.smsNumber,
+                      expression: "smsNumber"
                     }
                   ],
                   staticClass: "input",
+                  class: { "is-danger": _vm.hasSmsErrorMessage },
                   attrs: { type: "text", placeholder: "XXX-XXX-XXXX" },
-                  domProps: { value: _vm.textMessageNumber },
+                  domProps: { value: _vm.smsNumber },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.textMessageNumber = $event.target.value
+                      _vm.smsNumber = $event.target.value
                     }
                   }
                 })
@@ -72158,7 +72159,7 @@ var render = function() {
                     on: {
                       success: function($event) {},
                       error: function($event) {},
-                      click: _vm.sendSMSMessage
+                      click: _vm.sendSmsMessage
                     }
                   },
                   [_c("i", { staticClass: "fas fa-mobile-alt" })]

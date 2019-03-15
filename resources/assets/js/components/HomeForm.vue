@@ -23,10 +23,10 @@
                     <label class="label align-left">Text to Phone</label>
                     <div class="field has-addons has-addons-centered">
                         <div class="control little-url-copy-control">
-                            <input class="input" type="text" v-model="textMessageNumber" placeholder="XXX-XXX-XXXX">
+                            <input class="input" :class="{ 'is-danger': hasSmsErrorMessage }" type="text" v-model="smsNumber" placeholder="XXX-XXX-XXXX">
                         </div>
                         <div class="control">
-                            <button @success="" @error="" @click="sendSMSMessage" class="button tooltip" data-tooltip="Text Message">
+                            <button @success="" @error="" @click="sendSmsMessage" class="button tooltip" data-tooltip="Text Message">
                                 <i class="fas fa-mobile-alt"></i>
                             </button>
                         </div>
@@ -61,8 +61,8 @@
                 hasError: false,
                 shortUrl: '',
                 errorMessage: '',
-                textMessageNumber: '',
-                smsErrorMessage: false,
+                smsNumber: '',
+                hasSmsErrorMessage: false,
                 smsErrorMessage: ''
             }
         },
@@ -98,10 +98,13 @@
             copyToClipboardError(e) {
                 console.log(e);
             },
-            sendSMSMessage() {
-                axios.post('/sms/send', { 'phone' : this.textMessageNumber })
+            sendSmsMessage() {
+                axios.post('/sms/send', { 'phone' : this.smsNumber })
                     .then(response => console.log(response))
-                    .catch(error => this.smsErrorMessage = error.response.data.errors.phone[0]);
+                    .catch(error => {
+                        this.smsErrorMessage = error.response.data.errors.phone[0];
+                        this.hasSmsErrorMessage = true;
+                    });
             }
         }
     }
