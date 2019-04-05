@@ -8,8 +8,13 @@ class SmsController extends Controller
 {
     public function send(Request $request)
     {
+        // echo '<pre>';
+        // var_dump($request->all());
+        // die();
+
         $this->validate($request, [
-            'phone' => 'required|phone'
+            'phone' => 'required'
         ]);
+
     }
 }

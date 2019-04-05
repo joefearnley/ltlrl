@@ -26,7 +26,7 @@
                             <input class="input" :class="{ 'is-danger': hasSmsErrorMessage }" type="text" v-model="smsNumber" placeholder="XXX-XXX-XXXX">
                         </div>
                         <div class="control">
-                            <button @success="" @error="" @click="sendSmsMessage" class="button tooltip" data-tooltip="Text Message">
+                            <button @success="" @error="" @click="sendSmsMessage" class="button tooltip" :class="{ 'is-danger': hasSmsErrorMessage }" data-tooltip="Text Message">
                                 <i class="fas fa-mobile-alt"></i>
                             </button>
                         </div>
@@ -61,7 +61,7 @@
                 hasError: false,
                 shortUrl: '',
                 errorMessage: '',
-                smsNumber: '',
+                smsNumber: '555-555-5555',
                 hasSmsErrorMessage: false,
                 smsErrorMessage: ''
             }

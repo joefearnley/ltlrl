@@ -71992,7 +71992,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             hasError: false,
             shortUrl: '',
             errorMessage: '',
-            smsNumber: '',
+            smsNumber: '555-555-5555',
             hasSmsErrorMessage: false,
             smsErrorMessage: ''
         };
@@ -72155,6 +72155,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "button tooltip",
+                    class: { "is-danger": _vm.hasSmsErrorMessage },
                     attrs: { "data-tooltip": "Text Message" },
                     on: {
                       success: function($event) {},
