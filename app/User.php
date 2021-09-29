@@ -51,6 +51,32 @@ class User extends Authenticatable
     }
 
     /**
+     * Determine the number of years the user's had an account.
+     *
+     * @return mixed
+     */
+    public function yearsMakingUrlsLittle()
+    {
+        return Carbon::now()->diffInYears($this->created_at);
+    }
+    
+    /**
+     * Determine the amount of time users has been making URLs.
+     *
+     * @return mixed
+     */
+    public function timeMakingUrlsLittle()
+    {
+        $daysMakingUrls = $this->daysMakingUrlsLittle();
+
+        if ($daysMakingUrls > 365) {
+            return $daysMakingUrls;
+        }
+
+        return $this->yearsMakingUrlsLittle();
+    }
+
+    /**
      * Calculate the number of urls the user has made.
      *
      * @return int
