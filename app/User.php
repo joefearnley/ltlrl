@@ -28,8 +28,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
-
     /**
      * A user has many urls.
      *
@@ -59,7 +57,7 @@ class User extends Authenticatable
     {
         return Carbon::now()->diffInYears($this->created_at);
     }
-    
+
     /**
      * Determine the amount of time users has been making URLs.
      *
