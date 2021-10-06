@@ -12,7 +12,7 @@
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~4.0",
         "hashids/hashids": "^2.0",
-        "laravel/framework": "^5.8.0",
+        "laravel/framework": "^5.9.0",
         "laravel/tinker": "~1.0",
         "propaganistas/laravel-phone": "^4.1"
     },
