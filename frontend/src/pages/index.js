@@ -20,7 +20,7 @@ export default function Home() {
         setStatus(null)
 
         axios
-            .post('/login', props)
+            .post('/url/', props)
             .then(() => mutate())
             .catch(error => {
                 setErrors(error.response.data.errors)
