@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('urls', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('url');
+            $table->string('key');
+            $table->integer('user_id')->nullable();
             $table->timestamps();
         });
     }

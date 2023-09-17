@@ -2,12 +2,16 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use \Lomkit\Rest\Facades\Rest;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UrlController;
+
+// Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::resources([
+    'users' => UserController::class,
+    'urls' => UrlController::class,
+]);
 
-Rest::resource('users', \App\Http\Controllers\UsersController::class);
-Rest::resource('urls', \App\Rest\Resources\UrlController::class);
