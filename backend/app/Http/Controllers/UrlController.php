@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreUrlRequest;
 use App\Http\Requests\UpdateUrlRequest;
-use App\Models\Url;
+use App\Models\Flight;
 
 class UrlController extends Controller
 {
@@ -19,7 +20,7 @@ class UrlController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUrlRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -27,15 +28,7 @@ class UrlController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Url $url)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Url $url)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +36,7 @@ class UrlController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUrlRequest $request, Url $url)
+    public function update(UpdateUrlRequest $request, string $id)
     {
         //
     }
@@ -51,7 +44,7 @@ class UrlController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Url $url)
+    public function destroy(string $id)
     {
         //
     }

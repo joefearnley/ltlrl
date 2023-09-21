@@ -25,4 +25,9 @@ class StoreUrlRequest extends FormRequest
             'url' => 'required|url'
         ];
     }
+
+    public function response(array $errors)
+    {
+        return response()->json($errors, 422);
+    }
 }

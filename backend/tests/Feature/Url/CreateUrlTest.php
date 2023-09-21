@@ -14,12 +14,13 @@ class CreateUrlTest extends TestCase
     {
         $postData = [];
 
-        $response = $this->post(route('urls.store'), $postData);
-        $response->dump();
+        // $response = $this->post(route('urls.store'), $postData)->dumpSession();
+        // $response->dump();
 
 
-            // ->assertStatus(422)
-            // ->assertJsonFragment(['The url field is required.']);
+        $response = $this->post(route('urls.store'), $postData)
+            ->assertStatus(422)
+            ->assertJsonFragment(['The url field is required.']);
 
 
     }

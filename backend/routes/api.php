@@ -10,7 +10,7 @@ use App\Http\Controllers\UrlController;
 // });
 
 
-Route::resources([
+Route::apiResources([
     'users' => UserController::class,
     'urls' => UrlController::class,
 ]);
