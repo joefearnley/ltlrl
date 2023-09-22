@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreUrlRequest;
 use App\Http\Requests\UpdateUrlRequest;
-use App\Models\Flight;
+use App\Models\Url;
+use App\Http\Resources\UrlResource;
+use Hashids\Hashids;
 
 class UrlController extends Controller
 {
@@ -19,10 +20,23 @@ class UrlController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param App\Http\Requests\StoreUrlRequest
+     * @return App\Http\Resources\UrlResource
      */
-    public function store(Request $request)
+    public function store(StoreUrlRequest $request)
     {
-        //
+        $hashids = new Hashids('', 6);
+
+        $url = Url::create([
+            'url' => $request->url,
+        ]);
+
+        $url->user_id = Auth::check() ? Auth::id() : null;
+        $url->key =$hashids->encode($url->id);
+        $url->save();
+
+        return new UrlResource($url);
     }
 
     /**

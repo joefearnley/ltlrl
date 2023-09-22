@@ -22,12 +22,7 @@ class StoreUrlRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'url' => 'required|url'
+            'url' => 'required|url',
         ];
-    }
-
-    public function response(array $errors)
-    {
-        return response()->json($errors, 422);
     }
 }
