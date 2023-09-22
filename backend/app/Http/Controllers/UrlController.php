@@ -32,9 +32,9 @@ class UrlController extends Controller
 
         $url = Url::create([
             'url' => $request->url,
+            'user_id' => $request->user_id,
         ]);
 
-        $url->user_id = Auth::check() ? Auth::id() : null;
         $url->key = $hashids->encode($url->id);
         $url->save();
 
