@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUrlRequest;
 use App\Http\Requests\UpdateUrlRequest;
 use App\Models\Url;
@@ -27,13 +28,14 @@ class UrlController extends Controller
     public function store(StoreUrlRequest $request)
     {
         $hashids = new Hashids('', 6);
+        $user = $request->user();
 
         $url = Url::create([
             'url' => $request->url,
         ]);
 
         $url->user_id = Auth::check() ? Auth::id() : null;
-        $url->key =$hashids->encode($url->id);
+        $url->key = $hashids->encode($url->id);
         $url->save();
 
         return new UrlResource($url);

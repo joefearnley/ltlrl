@@ -38,8 +38,9 @@ class CreateUrlTest extends TestCase
         ];
 
         $this->postJson(route('urls.store'), $postData)
-            ->assertStatus(200)
-            ->assertJsonFragment(['url' => $url])
-            ->assertDatabaseHas('urls', ['url' => $url]);
+            ->assertStatus(201)
+            ->assertJsonFragment(['url' => $url]);
+
+        $this->assertDatabaseHas('urls', ['url' => $url]);
     }
 }
