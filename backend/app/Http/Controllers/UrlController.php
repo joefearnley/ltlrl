@@ -28,7 +28,6 @@ class UrlController extends Controller
     public function store(StoreUrlRequest $request)
     {
         $hashids = new Hashids('', 6);
-        $user = $request->user();
 
         $url = Url::create([
             'url' => $request->url,
