@@ -14,8 +14,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
                 if (error.response.status !== 409) throw error
 
                 router.push('/verify-email')
-            }),
-    )
+            }), {
+                revalidateIfStale: false,
+                revalidateOnFocus: false,
+                revalidateOnReconnect: false
+          })
 
     const csrf = () => axios.get('/sanctum/csrf-cookie')
 
