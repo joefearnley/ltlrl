@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
+import InputSuccess from '@/components/InputSuccess'
+import axios from '@/lib/axios'
 import { useAuth } from '@/hooks/auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -10,18 +12,28 @@ import { useRouter } from 'next/router'
 export default function Home() {
     const { user } = useAuth({ middleware: 'guest' })
     const [url, setUrl] = useState('')
+    const [errors, setErrors] = useState([])
+    const [successMessage, setSuccessMessage] = useState('')
+    const csrf = () => axios.get('/sanctum/csrf-cookie')
 
     const createUrl = async event => {
-        console.log('creating URL....')
+        event.preventDefault()
 
         await csrf()
 
         setErrors([])
-        setStatus(null)
+        setSuccessMessage('')
+
+        let url = event.target.value
+
+        console.log('creating URL....')
+        console.log(event.target.value)
 
         axios
-            .post('/url/', props)
-            .then(() => mutate())
+            .post('/api/urls', url)
+            .then(response => {
+                setSuccessMessage(response.message)
+            })
             .catch(error => {
                 setErrors(error.response.data.errors)
             })
@@ -60,19 +72,33 @@ export default function Home() {
 
                 <div className="mx-auto max-w-100 sm:px-6 lg:px-8">
                     <div className="flex justify-center pt-8 sm:pt-0">
-                        <article className="prose prose-zinc lg:prose-xl text-center">
-                            <h1>ltlrl</h1>
-                            <p>make a url little</p>
+                        <article className="prose prose-zinc lg:prose-xl">
+                            <h1 className="text-center">ltlrl</h1>
+                            <p className="text-center">make a url little</p>
                             <form onSubmit={createUrl} className="flex">
-                                <Input
-                                    id="url"
-                                    type="text"
-                                    value={url}
-                                    placeholder="enter url"
-                                    className="block mt-1 w-80"
-                                    onChange={event => setUrl(event.target.value)}
-                                />
-                                <Button className="ml-3 w-25 justify-center">Make Little</Button>
+                                <div className="flex flex-col">
+                                    <Input
+                                        id="url"
+                                        type="text"
+                                        value={url}
+                                        placeholder="enter url"
+                                        className="block w-80"
+                                        onChange={event => setUrl(event.target.value)}
+                                    />
+
+                                    <InputError
+                                        messages={errors.url}
+                                        className="mt-2"
+                                    />
+
+                                    <InputSuccess
+                                        messages={errors.url}
+                                        className="mt-2 text-left"
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <Button className="ml-3 w-25 justify-center">Make Little</Button>
+                                </div>
                             </form>
                         </article>
                     </div>
