@@ -50,12 +50,21 @@ class CreateUserUrlTest extends TestCase
         $url = 'https://www.google.com';
 
         $postData = [
-            'url' => 'https://www.google.com',
+            'url' => $url,
             'user_id' => $this->user->id,
         ];
 
         $this->postJson(route('urls.store'), $postData)
             ->assertStatus(201)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'url',
+                    'updated_at',
+                    'created_at',
+                    'little_url',
+                ]
+            ])
             ->assertJsonFragment(['url' => $url]);
 
         $this->assertDatabaseHas('urls', [

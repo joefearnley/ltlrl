@@ -15,14 +15,14 @@ class UserRevalidationTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->json('get', '/api/user')
+            ->getJson('/api/user')
             ->assertStatus(200)
             ->assertJson($user->toArray());
     }
 
     public function test_revalidation_endpoint_when_user_is_not_authenticated(): void
     {
-        $this->json('get', '/api/user')
+        $this->getJson('/api/user')
             ->assertStatus(401)
             ->assertJson(['message' => 'Unauthenticated.']);
     }

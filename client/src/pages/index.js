@@ -24,15 +24,11 @@ export default function Home() {
         setErrors([])
         setSuccessMessage('')
 
-        let url = event.target.value
-
-        console.log('creating URL....')
-        console.log(event.target.value)
-
         axios
-            .post('/api/urls', url)
+            .post('/api/urls', { url })
             .then(response => {
-                setSuccessMessage(response.message)
+                if (response.data)
+                setSuccessMessage('URL Created Successfully')
             })
             .catch(error => {
                 setErrors(error.response.data.errors)

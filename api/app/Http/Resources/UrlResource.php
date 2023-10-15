@@ -14,6 +14,12 @@ class UrlResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'url' => $this->url,
+            'updated_at' => (string) $this->updated_at,
+            'created_at' => (string) $this->created_at,
+            'little_url' => $this->little_url,
+        ];
     }
 }
