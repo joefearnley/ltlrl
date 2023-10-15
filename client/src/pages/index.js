@@ -58,7 +58,7 @@ export default function Home() {
                     )}
                 </div>
 
-                <div className="mx-auto max-w-full sm:px-6 lg:px-8">
+                <div className="mx-auto max-w-100 sm:px-6 lg:px-8">
                     <div className="flex justify-center pt-8 sm:pt-0">
                         <article className="prose prose-zinc lg:prose-xl text-center">
                             <h1>ltlrl</h1>
@@ -69,10 +69,10 @@ export default function Home() {
                                     type="text"
                                     value={url}
                                     placeholder="enter url"
-                                    className="block mt-1 w-full"
+                                    className="block mt-1 w-80"
                                     onChange={event => setUrl(event.target.value)}
                                 />
-                                <Button className="ml-3 w-full justify-center">Make Little</Button>
+                                <Button className="ml-3 w-25 justify-center">Make Little</Button>
                             </form>
                         </article>
                     </div>
