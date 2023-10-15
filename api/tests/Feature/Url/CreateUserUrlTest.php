@@ -5,7 +5,6 @@ namespace Tests\Feature\Url;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Url;
 
 class CreateUserUrlTest extends TestCase
 {
