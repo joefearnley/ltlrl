@@ -4,7 +4,7 @@ const InputSuccess = ({ message = '', className = '' }) => (
             <>
                 <p
                     className={`${className} text-sm text-green-600`}
-                    key={index}>
+                    key={1}>
                     {message}
                 </p>
             </>
