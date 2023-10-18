@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Url extends Model
 {
@@ -29,8 +30,8 @@ class Url extends Model
      */
     protected $appends = [
         'little_url',
-        'formatted_date',
-        'click_count'
+        // 'formatted_date',
+        // 'click_count'
     ];
 
     protected function littleUrl(): Attribute
@@ -45,8 +46,8 @@ class Url extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 }
