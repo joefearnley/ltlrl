@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('urls', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title');
             $table->string('url');
             $table->string('key')->nullable();
             $table->integer('user_id')->nullable();

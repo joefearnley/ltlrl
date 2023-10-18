@@ -11,9 +11,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
-Route::middleware(['auth:sanctum'])->apiResources([
+Route::apiResources([
     'users' => UserController::class,
     'urls' => UrlController::class,
 ]);
 
-// Unauthenticated way to create an url
