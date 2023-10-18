@@ -9,6 +9,14 @@ use App\Models\User;
 class UserController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()

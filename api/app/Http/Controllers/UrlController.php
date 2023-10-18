@@ -12,6 +12,14 @@ use Hashids\Hashids;
 class UrlController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('store');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()

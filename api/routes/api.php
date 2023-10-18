@@ -14,4 +14,3 @@ Route::apiResources([
     'users' => UserController::class,
     'urls' => UrlController::class,
 ]);
-
