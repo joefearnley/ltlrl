@@ -13,9 +13,7 @@ class UrlPolicy
      */
     public function viewAny(User $user): bool
     {
-        dd($user);
-
-        return !is_null($user);
+        //
     }
 
     /**
