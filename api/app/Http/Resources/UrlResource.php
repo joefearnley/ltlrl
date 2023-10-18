@@ -16,6 +16,7 @@ class UrlResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'title' => $this->title,
             'url' => $this->url,
             'updated_at' => (string) $this->updated_at,
             'created_at' => (string) $this->created_at,

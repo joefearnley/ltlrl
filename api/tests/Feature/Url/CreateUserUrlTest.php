@@ -59,6 +59,7 @@ class CreateUserUrlTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     'id',
+                    'title',
                     'url',
                     'updated_at',
                     'created_at',

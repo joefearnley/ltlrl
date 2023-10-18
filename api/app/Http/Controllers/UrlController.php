@@ -38,6 +38,7 @@ class UrlController extends Controller
         $hashids = new Hashids('', 6);
 
         $url = Url::create([
+            'title' => $request->title,
             'url' => $request->url,
             'user_id' => $request->user_id,
         ]);
