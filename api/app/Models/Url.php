@@ -30,10 +30,12 @@ class Url extends Model
      */
     protected $appends = [
         'little_url',
-        // 'formatted_date',
         // 'click_count'
     ];
 
+    /**
+     * Create the url's little url version
+     */
     protected function littleUrl(): Attribute
     {
         return Attribute::make(

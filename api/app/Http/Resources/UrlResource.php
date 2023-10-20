@@ -18,9 +18,8 @@ class UrlResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'url' => $this->url,
-            'updated_at' => (string) $this->updated_at,
-            'created_at' => (string) $this->created_at,
             'little_url' => $this->little_url,
+            'created_at' => $this->created_at->format('M j, Y'),
         ];
     }
 }

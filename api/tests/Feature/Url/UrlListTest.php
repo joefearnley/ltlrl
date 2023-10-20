@@ -46,6 +46,7 @@ class UrlListTest extends TestCase
                 'title' => $url->title,
                 'url' => $url->url,
                 'little_url' => $url->little_url,
+                'created_at' => $url->created_at->format('M j, Y'),
             ]);
 
             $this->assertDatabaseHas('urls', [
@@ -82,6 +83,7 @@ class UrlListTest extends TestCase
                 'title' => $url->title,
                 'url' => $url->url,
                 'little_url' => $url->little_url,
+                'created_at' => $url->created_at->format('M j, Y'),
             ]);
 
             $this->assertDatabaseHas('urls', [

@@ -61,7 +61,6 @@ class CreateUserUrlTest extends TestCase
                     'id',
                     'title',
                     'url',
-                    'updated_at',
                     'created_at',
                     'little_url',
                 ]

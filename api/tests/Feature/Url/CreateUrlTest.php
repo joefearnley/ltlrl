@@ -44,9 +44,8 @@ class CreateUrlTest extends TestCase
                     'id',
                     'title',
                     'url',
-                    'updated_at',
-                    'created_at',
                     'little_url',
+                    'created_at',
                 ]
             ])
             ->assertJsonFragment(['url' => $url]);
@@ -74,9 +73,8 @@ class CreateUrlTest extends TestCase
                     'id',
                     'title',
                     'url',
-                    'updated_at',
-                    'created_at',
                     'little_url',
+                    'created_at',
                 ]
             ])
             ->assertJsonFragment(['title' => $title])
