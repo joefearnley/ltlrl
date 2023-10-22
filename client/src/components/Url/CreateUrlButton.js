@@ -1,45 +1,46 @@
+import Input from '@/components/Input'
+import InputError from '@/components/InputError'
+import Label from '@/components/Label'
+import Button from '@/components/Button'
 import { useState } from 'react'
 
-const CreateUrlButton = ({ copyText }) => {
-    const [isCopied, setIsCopied] = useState(false)
+const CreateUrlButton = ({ className }) => {
+    const [title, setTitle] = useState('')
+    const [url, setUrl] = useState('')
     const [showModal, setShowModal] = useState(false)
-
-    // This is the function we wrote earlier
-    async function copyTextToClipboard(text) {
-        if ('clipboard' in navigator) {
-            return await navigator.clipboard.writeText(text)
-        } else {
-            return document.execCommand('copy', true, text)
-        }
-    }
+    const [errors, setErrors] = useState([])
 
     const openCreateUrlModal = () => {
 
     }
 
+    const submitForm = () => {
+
+    }
+
     return (
         <>
-            <button
-                className={`$inline-flex items-center px-3 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150`}
+            <Button
+                className={`${className} m-auto`}
                 onClick={openCreateUrlModal}
             >
                 Create Url
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 ml-2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-            </button>
+            </Button>
             <div className={showModal ? 'block' : 'hidden'}>
-            <form onSubmit={submitForm}>
-                    {/* Email Address */}
+                <form onSubmit={submitForm}>
+                    {/* URL Title */}
                     <div>
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="title">Title</Label>
 
                         <Input
-                            id="email"
-                            type="email"
-                            value={email}
+                            id="title"
+                            type="title"
+                            value={title}
                             className="block mt-1 w-full"
-                            onChange={event => setEmail(event.target.value)}
+                            onChange={event => setTitle(event.target.value)}
                             required
                             autoFocus
                         />
@@ -47,41 +48,23 @@ const CreateUrlButton = ({ copyText }) => {
                         <InputError messages={errors.email} className="mt-2" />
                     </div>
 
-                    {/* Password */}
+                    {/* URL */}
                     <div className="mt-4">
-                        <Label htmlFor="password">Title</Label>
+                        <Label htmlFor="password">URL</Label>
 
                         <Input
-                            id="password"
-                            type="password"
-                            value={password}
+                            id="url"
+                            type="url"
+                            value={url}
                             className="block mt-1 w-full"
-                            onChange={event => setPassword(event.target.value)}
+                            onChange={event => setUrl(event.target.value)}
                             required
-                            autoComplete="current-password"
-                        />
-
-                        <Label htmlFor="password">Title</Label>
-
-                        <Input
-                            id="password"
-                            type="password"
-                            value={password}
-                            className="block mt-1 w-full"
-                            onChange={event => setPassword(event.target.value)}
-                            required
-                            autoComplete="current-password"
-                        />
-
-                        <InputError
-                            messages={errors.password}
-                            className="mt-2"
+                            autoComplete="current-url"
                         />
                     </div>
 
-
                     <div className="flex items-center justify-end mt-4">
-                        <Button className="ml-3">Create</Button>
+                        <Button className="ml-3">Save</Button>
                         <Button className="ml-3">Cancel</Button>
                     </div>
                 </form>

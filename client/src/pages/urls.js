@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import AppLayout from '@/components/Layouts/AppLayout'
 import Head from 'next/head'
 import Button from '@/components/Button'
+import CreateUrlButton from '@/components/Url/CreateUrlButton'
 
 const Urls = () => {
     const [urls, setUrls] = useState([])

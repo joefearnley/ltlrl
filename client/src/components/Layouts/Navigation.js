@@ -2,6 +2,7 @@ import ApplicationLogo from '@/components/ApplicationLogo'
 import Dropdown from '@/components/Dropdown'
 import Link from 'next/link'
 import NavLink from '@/components/NavLink'
+import CreateUrlButton from '@/components/Url/CreateUrlButton'
 import ResponsiveNavLink, {
     ResponsiveNavButton,
 } from '@/components/ResponsiveNavLink'
@@ -47,6 +48,8 @@ const Navigation = ({ user }) => {
 
                     {/* Settings Dropdown */}
                     <div className="hidden sm:flex sm:items-center sm:ml-6">
+                        <CreateUrlButton className={`mr-6`} />
+
                         <Dropdown
                             align="right"
                             width="48"
