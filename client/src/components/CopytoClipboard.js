@@ -18,7 +18,7 @@ const CopyToClipboard = ({ copyText }) => {
                 setIsCopied(true)
                 setTimeout(() => {
                     setIsCopied(false)
-                }, 1500);
+                }, 2500);
             })
             .catch((err) => {
                 console.log(err)
