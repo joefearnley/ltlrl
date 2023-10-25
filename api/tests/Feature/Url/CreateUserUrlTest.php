@@ -23,7 +23,6 @@ class CreateUserUrlTest extends TestCase
     {
         $postData = [
             'url' => '',
-            'user_id' => $this->user->id,
         ];
 
         $this->actingAs($this->user)
@@ -36,7 +35,6 @@ class CreateUserUrlTest extends TestCase
     {
         $postData = [
             'url' => 'this_is_a_test',
-            'user_id' => $this->user->id,
         ];
 
         $this->actingAs($this->user)
@@ -51,10 +49,10 @@ class CreateUserUrlTest extends TestCase
 
         $postData = [
             'url' => $url,
-            'user_id' => $this->user->id,
         ];
 
-        $this->postJson(route('urls.store'), $postData)
+        $this->actingAs($this->user)
+            ->postJson(route('urls.store'), $postData)
             ->assertStatus(201)
             ->assertJsonStructure([
                 'data' => [
@@ -68,6 +66,38 @@ class CreateUserUrlTest extends TestCase
             ->assertJsonFragment(['url' => $url]);
 
         $this->assertDatabaseHas('urls', [
+            'url' => $url,
+            'user_id' => $this->user->id,
+        ]);
+    }
+
+    public function test_can_create_url_with_title(): void
+    {
+        $url = 'https://www.google.com';
+        $title = 'This is a title';
+
+        $postData = [
+            'title' => $title,
+            'url' => $url,
+        ];
+
+        $this->actingAs($this->user)
+            ->postJson(route('urls.store'), $postData)
+            ->assertStatus(201)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'title',
+                    'url',
+                    'created_at',
+                    'little_url',
+                ]
+            ])
+            ->assertJsonFragment(['title' => $title])
+            ->assertJsonFragment(['url' => $url]);
+
+        $this->assertDatabaseHas('urls', [
+            'title' => $title,
             'url' => $url,
             'user_id' => $this->user->id,
         ]);

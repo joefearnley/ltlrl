@@ -44,7 +44,7 @@ class UrlController extends Controller
         $url = Url::create([
             'title' => $request->title,
             'url' => $request->url,
-            'user_id' => $request->user_id,
+            'user_id' => !is_null($request->user()) ? $request->user()->id : null,
         ]);
 
         $url->key = $hashids->encode($url->id);
