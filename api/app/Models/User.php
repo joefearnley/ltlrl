@@ -49,6 +49,6 @@ class User extends Authenticatable
      */
     public function urls(): HasMany
     {
-        return $this->hasMany(Url::class);
+        return $this->hasMany(Url::class)->orderBy('created_at', 'desc');
     }
 }

@@ -2,6 +2,7 @@ import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
 import Button from '@/components/Button'
+import CopyToClipboard from '@/components/CopytoClipboard'
 import axios from '@/lib/axios'
 import { useState } from 'react'
 
@@ -19,19 +20,21 @@ const CreateUrlButton = ({ className }) => {
 
     const hideCreateUrlModal = () => {
         setShowModal(false)
+        window.location.reload()
     }
 
     const submitForm = async event => {
         event.preventDefault()
-
-        console.log('submitting form....')
 
         await csrf()
 
         setErrors([])
 
         axios
-            .post('/api/urls', { url })
+            .post('/api/urls', {
+                title,
+                url
+            })
             .then(response => {
                 if (response.data) {
                     setLittleUrl(response.data.data.little_url)
@@ -60,6 +63,20 @@ const CreateUrlButton = ({ className }) => {
                 <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        {littleUrl ? (
+                            <>
+                                <div className="px-4 py-3 text-center sm:mt-0 sm:text-left">
+                                    <h3 className="text-base font-semibold leading-6 text-gray-900">Url Sucessfully Created</h3>
+                                </div>
+                                <div className="flex items-center justify-between w-full p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow bottom-5 left-5 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800">
+                                    <span>{littleUrl}</span>
+                                    <CopyToClipboard copyText={littleUrl} />
+                                </div>
+                                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                    <Button className="ml-3 w-25 justify-center bg-dark_slate_gray hover:bg-dark_slate_gray-400 active:bg-dark_slate_gray focus:border-dark_slate_gray" onClick={hideCreateUrlModal}>Close</Button>
+                                </div>
+                            </>
+                        ) : (
                             <form onSubmit={submitForm}>
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                                     <div className="sm:flex sm:items-start">
@@ -109,6 +126,7 @@ const CreateUrlButton = ({ className }) => {
                                     <Button className="ml-3 w-25 justify-center bg-dark_slate_gray hover:bg-dark_slate_gray-400 active:bg-dark_slate_gray focus:border-dark_slate_gray" onClick={hideCreateUrlModal}>Cancel</Button>
                                 </div>
                             </form>
+                        )}
                         </div>
                     </div>
                 </div>

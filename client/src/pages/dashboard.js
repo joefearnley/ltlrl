@@ -10,7 +10,7 @@ const Dashboard = () => {
                 </h2>
             }>
             <Head>
-                <title>Laravel - Dashboard</title>
+                <title>ltlrl - Dashboard</title>
             </Head>
 
             <div className="py-12">

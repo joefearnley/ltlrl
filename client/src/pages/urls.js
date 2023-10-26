@@ -12,7 +12,7 @@ const Urls = () => {
 
     const csrf = () => axios.get('/sanctum/csrf-cookie')
 
-    useEffect(() => {
+    const loadUrlList = () => {
         csrf()
 
         axios
@@ -22,6 +22,10 @@ const Urls = () => {
                 setLoading(false)
           })
           .catch(error => console.log(error))
+    }
+
+    useEffect(() => {
+        loadUrlList()
     }, [])
 
     return (
@@ -42,7 +46,7 @@ const Urls = () => {
                         <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between items-center">
                             <div className="bg-white">
                                 <h2 className="font-bold text-lg">{url.title}</h2>
-                                <p className="py-3"><a href="{url.little_url}">{url.little_url}</a></p>
+                                <p className="py-3"><a href={url.little_url}>{url.little_url}</a></p>
                                 <p className="py-1">{url.url}</p>
                                 <p className="py-1 text-sm font-bold">{url.created_at}</p>
                             </div>
