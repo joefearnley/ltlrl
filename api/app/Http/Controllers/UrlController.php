@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreUrlRequest;
 use App\Http\Requests\UpdateUrlRequest;
 use App\Models\Url;
+use App\Models\Click;
 use App\Http\Resources\UrlResource;
 use Hashids\Hashids;
 
@@ -16,7 +17,8 @@ class UrlController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except('store');
+        $this->middleware('auth:sanctum')
+            ->except(['store', 'redirect']);
     }
 
     /**
@@ -75,5 +77,24 @@ class UrlController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Redirect to intended url.
+     *
+     * @param Illuminate\Http\Request
+     * @param $key
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function redirect(Request $request, $key)
+    {
+        $url = Url::where('key', $key)->firstOrFail();
+
+        Click::create([
+            'url_id' => $url->id,
+            'ip' => $request->ip(),
+        ]);
+
+        return redirect()->away($url->url);
     }
 }
