@@ -37,7 +37,7 @@ class ClickTest extends TestCase
             ->assertRedirect($url->url);
 
         $user = User::factory()->create();
-        $urls = Url::factory()->count(3)->create([
+        $url = Url::factory()->count(3)->create([
             'user_id' => $user->id,
         ]);
 
