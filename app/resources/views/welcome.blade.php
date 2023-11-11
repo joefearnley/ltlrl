@@ -11,7 +11,7 @@
 
     <h1 class="my-3 text-6xl font-bold text-center">ltlrl</h1>
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('url.create') }}" class="mb-6">
         @csrf
 
         <div class="flex items-center justify-center mt-4">
