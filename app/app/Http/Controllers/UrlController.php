@@ -2,63 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreUrlRequest;
 use App\Http\Requests\UpdateUrlRequest;
 use App\Models\Url;
-use App\Models\Click;
-use App\Http\Resources\UrlResource;
-use Hashids\Hashids;
 
 class UrlController extends Controller
 {
     /**
-     * Instantiate a new controller instance.
+     * Display a listing of the resource.
      */
-    public function __construct()
+    public function index()
     {
-        $this->middleware('auth:sanctum')
-            ->except(['store', 'redirect']);
+        //
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @param Illuminate\Http\Request
+     * Show the form for creating a new resource.
      */
-    public function index(Request $request)
+    public function create()
     {
-        $urls = $request->user()->urls;
-
-        return UrlResource::collection($urls);
+        //
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param App\Http\Requests\StoreUrlRequest
-     * @return App\Http\Resources\UrlResource
      */
     public function store(StoreUrlRequest $request)
     {
-        $hashids = new Hashids('', 6);
-
-        $url = Url::create([
-            'title' => $request->title,
-            'url' => $request->url,
-            'user_id' => !is_null($request->user()) ? $request->user()->id : null,
-        ]);
-
-        $url->key = $hashids->encode($url->id);
-        $url->save();
-
-        return new UrlResource($url);
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Url $url)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Url $url)
     {
         //
     }
@@ -66,7 +51,7 @@ class UrlController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUrlRequest $request, string $id)
+    public function update(UpdateUrlRequest $request, Url $url)
     {
         //
     }
@@ -74,27 +59,8 @@ class UrlController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Url $url)
     {
         //
-    }
-
-    /**
-     * Redirect to intended url.
-     *
-     * @param Illuminate\Http\Request
-     * @param $key
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function redirect(Request $request, $key)
-    {
-        $url = Url::where('key', $key)->firstOrFail();
-
-        Click::create([
-            'url_id' => $url->id,
-            'ip' => $request->ip(),
-        ]);
-
-        return redirect()->away($url->url);
     }
 }
