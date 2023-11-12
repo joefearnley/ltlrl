@@ -9,6 +9,15 @@ use App\Models\Url;
 class UrlController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')
+            ->except(['store', 'redirect']);
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
