@@ -15,7 +15,7 @@
         @csrf
 
         <div class="flex items-center justify-center mt-4">
-            <x-text-input id="url" class="mt-1 w-70" type="url" name="url" :value="old('url')" placeholder="{{ _('enter an URL and....') }}" required autofocus autocomplete="url" />
+            <x-text-input id="url" class="mt-1 w-70" type="url" name="url" :value="old('url')" placeholder="{{ _('enter a URL and....') }}" required autofocus autocomplete="url" />
             <x-input-error :messages="$errors->get('url')" class="mt-2" />
 
             <x-primary-button class="ml-3">
