@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUrlRequest;
 use App\Http\Requests\UpdateUrlRequest;
 use App\Models\Url;
+use Hashids\Hashids;
 
 class UrlController extends Controller
 {
@@ -38,7 +39,18 @@ class UrlController extends Controller
      */
     public function store(StoreUrlRequest $request)
     {
-        //
+        $hashids = new Hashids('', 6);
+
+        $url = Url::create([
+            'title' => $request->title,
+            'url' => $request->url,
+            'user_id' => !is_null($request->user()) ? $request->user()->id : null,
+        ]);
+
+        $url->key = $hashids->encode($url->id);
+        $url->save();
+
+        return null;
     }
 
     /**

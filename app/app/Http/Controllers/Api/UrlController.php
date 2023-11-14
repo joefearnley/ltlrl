@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreUrlRequest;
 use App\Http\Requests\Api\UpdateUrlRequest;
 use App\Models\Url;
-use App\Models\Click;
 use App\Http\Resources\UrlResource;
 use Hashids\Hashids;
 
