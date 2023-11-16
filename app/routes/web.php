@@ -6,7 +6,6 @@ use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
-Route::get('/home/create-url', [WelcomeController::class, 'createUrl'])->name('welcome.createurl');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

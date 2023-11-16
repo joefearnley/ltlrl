@@ -50,7 +50,7 @@ class UrlController extends Controller
         $url->key = $hashids->encode($url->id);
         $url->save();
 
-        return redirect('home')->with('url', $url);
+        return redirect()->back()->with('url', $url);
     }
 
     /**
