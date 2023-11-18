@@ -1,21 +1,34 @@
 <?php
 
-namespace Tests\Feature\Url;
+namespace Tests\Feature\Api\Url;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\Url;
+use App\Models\User;
 
-class CreateUrlTest extends TestCase
+class CreateUserUrlTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
+
     public function test_cannot_create_url_without_url(): void
     {
-        $postData = [];
-        $this->postJson(route('urls.store'), $postData)
+        $postData = [
+            'url' => '',
+        ];
+
+        $this->actingAs($this->user)
+            ->postJson(route('urls.store'), $postData)
             ->assertStatus(422)
-            ->assertJsonFragment(['The url field is required.']);
+            ->assertJsonFragment(['The url field is required.']);;
     }
 
     public function test_cannot_create_url_without_valid_url(): void
@@ -24,7 +37,8 @@ class CreateUrlTest extends TestCase
             'url' => 'this_is_a_test',
         ];
 
-        $this->postJson(route('urls.store'), $postData)
+        $this->actingAs($this->user)
+            ->postJson(route('urls.store'), $postData)
             ->assertStatus(422)
             ->assertJsonFragment(['The url field must be a valid URL.']);
     }
@@ -37,14 +51,14 @@ class CreateUrlTest extends TestCase
             'url' => $url,
         ];
 
-        $this->postJson(route('urls.store'), $postData)
+        $this->actingAs($this->user)
+            ->postJson(route('urls.store'), $postData)
             ->assertStatus(201)
             ->assertJsonStructure([
                 'data' => [
                     'id',
                     'title',
                     'url',
-                    'updated_at',
                     'created_at',
                     'little_url',
                 ]
@@ -53,7 +67,7 @@ class CreateUrlTest extends TestCase
 
         $this->assertDatabaseHas('urls', [
             'url' => $url,
-            'user_id' => null,
+            'user_id' => $this->user->id,
         ]);
     }
 
@@ -67,14 +81,15 @@ class CreateUrlTest extends TestCase
             'url' => $url,
         ];
 
-        $this->postJson(route('urls.store'), $postData)
+        $this->actingAs($this->user)
+            ->postJson(route('urls.store'), $postData)
             ->assertStatus(201)
             ->assertJsonStructure([
                 'data' => [
                     'id',
                     'title',
                     'url',
-
+                    'created_at',
                     'little_url',
                 ]
             ])
@@ -84,7 +99,7 @@ class CreateUrlTest extends TestCase
         $this->assertDatabaseHas('urls', [
             'title' => $title,
             'url' => $url,
-            'user_id' => null,
+            'user_id' => $this->user->id,
         ]);
     }
 }
