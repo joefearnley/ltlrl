@@ -9,8 +9,6 @@
         </div>
     </div>
 
-    <h1 class="my-3 text-6xl font-bold text-center">ltlrl</h1>
-
     <form method="POST" action="{{ route('urls.store') }}" class="mb-6">
         @csrf
 
@@ -19,11 +17,11 @@
             <x-input-error :messages="$errors->get('url')" class="mt-2" />
 
             <x-primary-button class="ml-3" id="create-url-submit-button">
-                {{ __('Make Url Little') }}
+                {{ __('Make it Little') }}
             </x-primary-button>
         </div>
     </form>
-    @@if()
+
     @isset($url)
     <hr class="mt-10 mb-7">
     <div class="pb-3 flex items-center justify-center">
@@ -35,4 +33,5 @@
         </button>
     </div>
     @endisset
+
 </x-guest-layout>
