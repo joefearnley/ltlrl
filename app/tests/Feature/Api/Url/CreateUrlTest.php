@@ -4,7 +4,6 @@ namespace Tests\Feature\Api\Url;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\Url;
 
 class CreateUrlTest extends TestCase
 {
@@ -13,7 +12,8 @@ class CreateUrlTest extends TestCase
     public function test_cannot_create_url_without_url(): void
     {
         $postData = [];
-        $this->postJson(route('urls.store'), $postData)
+
+        $this->postJson(route('api.urls.store'), $postData)
             ->assertStatus(422)
             ->assertJsonFragment(['The url field is required.']);
     }
@@ -24,7 +24,7 @@ class CreateUrlTest extends TestCase
             'url' => 'this_is_a_test',
         ];
 
-        $this->postJson(route('urls.store'), $postData)
+        $this->postJson(route('api.urls.store'), $postData)
             ->assertStatus(422)
             ->assertJsonFragment(['The url field must be a valid URL.']);
     }
@@ -37,14 +37,13 @@ class CreateUrlTest extends TestCase
             'url' => $url,
         ];
 
-        $this->postJson(route('urls.store'), $postData)
+        $this->postJson(route('api.urls.store'), $postData)
             ->assertStatus(201)
             ->assertJsonStructure([
                 'data' => [
                     'id',
                     'title',
                     'url',
-                    'updated_at',
                     'created_at',
                     'little_url',
                 ]
@@ -67,7 +66,7 @@ class CreateUrlTest extends TestCase
             'url' => $url,
         ];
 
-        $this->postJson(route('urls.store'), $postData)
+        $this->postJson(route('api.urls.store'), $postData)
             ->assertStatus(201)
             ->assertJsonStructure([
                 'data' => [

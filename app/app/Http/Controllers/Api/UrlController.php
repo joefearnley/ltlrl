@@ -76,6 +76,16 @@ class UrlController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $url = Url::find($id);
+
+        $url->clicks->each(function($click) {
+            $click->delete();
+        });
+
+        $url->delete();
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 }

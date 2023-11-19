@@ -18,7 +18,7 @@ class WelcomeTest extends TestCase
             ->assertSee('Log in')
             ->assertSee('Register')
             ->assertSee('enter a URL and...')
-            ->assertSee('Make Url Little')
+            ->assertSee('Make it Little')
             ->assertSee('ltlrl');
     }
 }

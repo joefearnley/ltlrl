@@ -26,7 +26,7 @@ class CreateUserUrlTest extends TestCase
         ];
 
         $this->actingAs($this->user)
-            ->postJson(route('urls.store'), $postData)
+            ->postJson(route('api.urls.store'), $postData)
             ->assertStatus(422)
             ->assertJsonFragment(['The url field is required.']);;
     }
@@ -38,7 +38,7 @@ class CreateUserUrlTest extends TestCase
         ];
 
         $this->actingAs($this->user)
-            ->postJson(route('urls.store'), $postData)
+            ->postJson(route('api.urls.store'), $postData)
             ->assertStatus(422)
             ->assertJsonFragment(['The url field must be a valid URL.']);
     }
@@ -52,7 +52,7 @@ class CreateUserUrlTest extends TestCase
         ];
 
         $this->actingAs($this->user)
-            ->postJson(route('urls.store'), $postData)
+            ->postJson(route('api.urls.store'), $postData)
             ->assertStatus(201)
             ->assertJsonStructure([
                 'data' => [
@@ -82,7 +82,7 @@ class CreateUserUrlTest extends TestCase
         ];
 
         $this->actingAs($this->user)
-            ->postJson(route('urls.store'), $postData)
+            ->postJson(route('api.urls.store'), $postData)
             ->assertStatus(201)
             ->assertJsonStructure([
                 'data' => [

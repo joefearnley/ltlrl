@@ -61,6 +61,16 @@ class Url extends Model
      */
     public function urls(): HasMany
     {
+        return $this->hasMany(Url::class);
+    }
+
+    /**
+     * Get the url's Clicks
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function clicks(): HasMany
+    {
         return $this->hasMany(Click::class);
     }
 }

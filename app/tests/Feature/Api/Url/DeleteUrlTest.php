@@ -15,7 +15,7 @@ class DeleteUrlTest extends TestCase
     {
         $url = Url::factory()->create();
 
-        $this->deleteJson(route('urls.destroy', ['url' => $url->id]))
+        $this->deleteJson(route('api.urls.destroy', ['url' => $url->id]))
             ->assertStatus(401);
     }
 
@@ -27,7 +27,7 @@ class DeleteUrlTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->deleteJson(route('urls.destroy', ['url' => $url->id]))
+            ->deleteJson(route('api.urls.destroy', ['url' => $url->id]))
             ->assertStatus(200);
 
         $this->assertDatabaseMissing('urls', [
