@@ -21,10 +21,10 @@
             </x-primary-button>
         </div>
 
-        <div id="error-message" class="text-sm text-center mt-4 red">The url field must be a valid URL.</div>
+        <div id="error-message" class="text-sm text-center mt-4 text-red-500"></div>
     </form>
 
-    <div id="result">
+    <div id="result" class="hidden">
         <hr class="mt-6 mb-7">
         <div class="pb-3 flex items-center justify-center">
             <a class="font-medium mr-3" id="new-url-link" href=""></a>
@@ -41,27 +41,24 @@
     const createUrlButton = document.querySelector('#create-url-submit-button');
     const result = document.querySelector('#result');
     const newUrlLink = document.querySelector('#new-url-link');
+    const errorMessage = document.querySelector('#new-url-link');
 
     createUrlButton.addEventListener('click', event => {
         event.preventDefault();
         result.classList.add('hidden');
+        errorMessage.innerHTML = '';
 
         axios.post('{{ route("api.urls.store") }}', {
             url: newUrlInput.value
         })
         .then(function (response) {
-            console.log(response);
             const url = response.data.data;
             newUrlLink.href = url.little_url;
             newUrlLink.innerHTML = url.little_url;
-
             result.classList.remove('hidden');
         })
         .catch(function (error) {
-            console.log(error);
-
-            const errorMessage = error.response.data.message;
-
+            errorMessage.innerHTML = error.response.data.message;
         });
     });
     </script>
