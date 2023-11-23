@@ -8,11 +8,9 @@ Alpine.start();
 
 
 async function copyTextToClipboard(text) {
-    console.log("copying to clipboard")
     if ('clipboard' in navigator) {
         return await navigator.clipboard.writeText(text)
     } else {
-        console.log('no clipboard in navigator');
         return document.execCommand('copy', true, text)
     }
 }
@@ -22,8 +20,9 @@ const newUrlLink = document.querySelector('#new-url-link');
 
 copyToClipboardButton.addEventListener('click', event => {
     copyTextToClipboard(newUrlLink.innerHTML.trim())
-        .then(() => {
-            console.log('soifjowiejfwoefij');
+        .then(result => {
+            console.log(result);
+
 
             const currentCopyButtonHTML = copyToClipboardButton.innerHTML;
             copyToClipboardButton.innerHTML = 'Copied!';
