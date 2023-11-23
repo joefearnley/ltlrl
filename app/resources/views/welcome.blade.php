@@ -23,8 +23,6 @@
                 </x-primary-button>
             </div>
         </div>
-
-        <div id="error-message" class="text-sm text-center mt-4 text-red-500"></div>
     </form>
 
     @if (session('littleUrl'))
