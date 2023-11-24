@@ -31,7 +31,7 @@ class UrlController extends Controller
      */
     public function create()
     {
-        //
+        return view('urls.create-url');
     }
 
     /**
@@ -50,7 +50,9 @@ class UrlController extends Controller
         $url->key = $hashids->encode($url->id);
         $url->save();
 
-        return redirect()->back()->with('littleUrl', $url->little_url);
+        return redirect()->back()
+            ->with('message', 'Url has been created.')
+            ->with('littleUrl', $url->little_url);
     }
 
     /**

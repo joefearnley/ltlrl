@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 text-2xl" />
+                        <x-application-logo class="my-3 text-3xl font-bold text-center text-gray-500" />
                     </a>
                 </div>
 
@@ -14,6 +14,15 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('urls.index')" :active="request()->routeIs('urls.index')">
+                        {{ __('Urls') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('urls.create')" :active="request()->routeIs('urls.create')">
+                        {{ __('Create Url') }}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
                     </x-nav-link>
                 </div>
             </div>
