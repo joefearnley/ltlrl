@@ -27,7 +27,7 @@
 
                             <div>
                                 <x-input-label for="title" :value="__('Title')" />
-                                <x-text-input id="title" title="title" type="text" class="mt-1 block w-full" :value="old('title')" required autofocus autocomplete="title" />
+                                <x-text-input id="title" title="title" type="text" class="mt-1 block w-full" :value="old('title')" autofocus autocomplete="title" />
                                 <x-input-error class="mt-2" :messages="$errors->get('title')" />
                             </div>
 
