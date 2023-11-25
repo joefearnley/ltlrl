@@ -39,18 +39,23 @@ class UrlController extends Controller
      */
     public function store(StoreUrlRequest $request)
     {
-        $hashids = new Hashids('', 6);
-
         $url = Url::create([
             'title' => $request->title,
             'url' => $request->url,
             'user_id' => !is_null($request->user()) ? $request->user()->id : null,
         ]);
 
+        $hashids = new Hashids('', 6);
         $url->key = $hashids->encode($url->id);
         $url->save();
 
-        return redirect()->back()
+        if (is_null($request->user())) {
+            return redirect()->back()
+                ->with('message', 'Url has been created.')
+                ->with('littleUrl', $url->little_url);
+        }
+
+        return redirect()->route('urls.index')
             ->with('message', 'Url has been created.')
             ->with('littleUrl', $url->little_url);
     }

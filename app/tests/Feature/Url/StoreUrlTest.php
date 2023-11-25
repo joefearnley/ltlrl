@@ -21,13 +21,26 @@ class StoreUrlTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    public function test_cannot_create_url_with_no_url()
+    public function test_cannot_create_url_with_no_form_data()
     {
         $formData = [];
 
         $this->actingAs($this->user)
-            ->get(route('urls.store'))
-            ->assertStatus(200);
+            ->post(route('urls.store'), $formData)
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['url' => 'The url field is required.']);
+    }
+
+    public function test_cannot_create_url_with_no_url()
+    {
+        $formData = [
+            'url' => ''
+        ];
+
+        $this->actingAs($this->user)
+            ->post(route('urls.store'), $formData)
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['url' => 'The url field is required.']);
     }
 
     public function test_can_create_url(): void
@@ -42,7 +55,8 @@ class StoreUrlTest extends TestCase
             ->post(route('urls.store'), $formData)
             ->assertStatus(302)
             ->assertSessionHas('message')
-            ->assertSessionHas('littleUrl');
+            ->assertSessionHas('littleUrl')
+            ->assertRedirect();
 
         $this->assertDatabaseHas('urls', [
             'url' => $url,
@@ -64,7 +78,8 @@ class StoreUrlTest extends TestCase
             ->post(route('urls.store'), $formData)
             ->assertStatus(302)
             ->assertSessionHas('message')
-            ->assertSessionHas('littleUrl');
+            ->assertSessionHas('littleUrl')
+            ->assertRedirect(route('urls.index'));
 
         $this->assertDatabaseHas('urls', [
             'url' => $url,
