@@ -5,8 +5,9 @@ namespace Tests\Feature\Url;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Url;
 
-class StoreUrlTest extends TestCase
+class ListUrlsPageTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -18,42 +19,6 @@ class StoreUrlTest extends TestCase
 
         $this->user = User::factory()->create();
     }
-
-    public function test_cannot_create_url_with_no_form_data()
-    {
-        $formData = [];
-
-        $this->actingAs($this->user)
-            ->post(route('urls.store'), $formData)
-            ->assertStatus(302)
-            ->assertSessionHasErrors(['url' => 'The url field is required.']);
-    }
-
-    public function test_cannot_create_url_with_no_url()
-    {
-        $formData = [
-            'url' => ''
-        ];
-
-        $this->actingAs($this->user)
-            ->post(route('urls.store'), $formData)
-            ->assertStatus(302)
-            ->assertSessionHasErrors(['url' => 'The url field is required.']);
-    }
-
-    public function test_cannot_create_url_when_not_authenticated(): void
-    {
-        $url = 'https://www.google.com';
-
-        $formData = [
-            'url' => $url,
-        ];
-
-        $this->post(route('urls.store'), $formData)
-            ->assertStatus(302)
-            ->assertRedirect(route('welcome'));
-    }
-
 
     public function test_can_create_url(): void
     {
