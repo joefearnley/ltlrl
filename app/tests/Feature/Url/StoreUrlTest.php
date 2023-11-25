@@ -29,4 +29,47 @@ class StoreUrlTest extends TestCase
             ->get(route('urls.store'))
             ->assertStatus(200);
     }
+
+    public function test_can_create_url(): void
+    {
+        $url = 'https://www.google.com';
+
+        $formData = [
+            'url' => $url,
+        ];
+
+        $this->actingAs($this->user)
+            ->post(route('urls.store'), $formData)
+            ->assertStatus(302)
+            ->assertSessionHas('message')
+            ->assertSessionHas('littleUrl');
+
+        $this->assertDatabaseHas('urls', [
+            'url' => $url,
+            'user_id' => $this->user->id,
+        ]);
+    }
+
+    public function test_can_create_title_and_url(): void
+    {
+        $title = 'Google';
+        $url = 'https://www.google.com';
+
+        $formData = [
+            'title' => $title,
+            'url' => $url,
+        ];
+
+        $this->actingAs($this->user)
+            ->post(route('urls.store'), $formData)
+            ->assertStatus(302)
+            ->assertSessionHas('message')
+            ->assertSessionHas('littleUrl');
+
+        $this->assertDatabaseHas('urls', [
+            'url' => $url,
+            'title' => $title,
+            'user_id' => $this->user->id,
+        ]);
+    }
 }
