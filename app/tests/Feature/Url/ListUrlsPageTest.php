@@ -44,4 +44,14 @@ class ListUrlsPageTest extends TestCase
                 ->assertSee($url->created_at->format('M j, Y'));
         });
     }
+
+    public function test_view_empty_url_list_page() : void
+    {
+        $response = $this->actingAs($this->user)
+            ->get(route('urls.index'))
+            ->assertStatus(200)
+            ->assertSee('Little Urls')
+            ->assertSee('No Urls Made Little Yet.')
+            ->assertSee('Create One');
+    }
 }
