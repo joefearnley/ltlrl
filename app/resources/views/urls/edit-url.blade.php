@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Url') }}
+            {{ __('Edit Url') }}
         </h2>
     </x-slot>
 
@@ -12,11 +12,11 @@
                     <section>
                         <header>
                             <h2 class="text-lg font-medium text-gray-900">
-                                {{ __('Create an Url') }}
+                                {{ __('Update Url') }}
                             </h2>
 
                             <p class="mt-1 text-sm text-gray-600">
-                                {{ __('Enter a url and make it little.') }}
+                                {{ __('Make any changes and click Save.') }}
                             </p>
                         </header>
 
@@ -27,18 +27,18 @@
 
                             <div>
                                 <x-input-label for="title" :value="__('Title')" />
-                                <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title')" autofocus autocomplete="title" />
+                                <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="$url->title" autofocus autocomplete="title" />
                                 <x-input-error class="mt-2" :messages="$errors->get('title')" />
                             </div>
 
                             <div>
                                 <x-input-label for="url" :value="__('URL')" />
-                                <x-text-input id="url" name="url" type="url" class="mt-1 block w-full" :value="old('url')" required autocomplete="url" />
+                                <x-text-input id="url" name="url" type="url" class="mt-1 block w-full" :value="$url->title" required autocomplete="url" />
                                 <x-input-error class="mt-2" :messages="$errors->get('url')" />
                             </div>
 
                             <div class="flex items-center gap-4">
-                                <x-primary-button>{{ __('Create') }}</x-primary-button>
+                                <x-primary-button class="bg-dark_slate_gray-700 hover:bg-dark_slate_gray-800 focus:bg-dark_slate_gray-800 active:bg-dark_slate_gray-800">{{ __('Save') }}</x-primary-button>
                                 <x-link-button :href="route('urls.index')" class="">{{ __('Cancel') }}</x-link-button>
                             </div>
                         </form>

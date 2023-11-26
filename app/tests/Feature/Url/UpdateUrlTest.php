@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 
-class StoreUrlTest extends TestCase
+class UpdateUrlTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,7 +19,7 @@ class StoreUrlTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    public function test_cannot_create_url_when_not_authenticated(): void
+    public function test_cannot_update_url_when_not_authenticated(): void
     {
         $url = 'https://www.google.com';
 
@@ -32,7 +32,7 @@ class StoreUrlTest extends TestCase
             ->assertRedirect(route('welcome'));
     }
 
-    public function test_cannot_create_url_with_no_form_data(): void
+    public function test_cannot_update_url_with_no_form_data()
     {
         $formData = [];
 
@@ -42,7 +42,7 @@ class StoreUrlTest extends TestCase
             ->assertSessionHasErrors(['url' => 'The url field is required.']);
     }
 
-    public function test_cannot_create_url_with_no_url(): void
+    public function test_cannot_update_url_with_no_url()
     {
         $formData = [
             'url' => ''

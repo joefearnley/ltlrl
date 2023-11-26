@@ -5,6 +5,17 @@
         </h2>
     </x-slot>
 
+    @if (session()->has('message'))
+    <div class="row justify-content-center mt-4 align-self-center">
+        <div class="col-md-8 mt-4">
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ session()->get('message') }}</strong>
+            </div>
+        </div>
+    </div>
+    @endif
+
     @if ($urls->count() > 0)
         @foreach ($urls as $url)
         <div class="py-6">
@@ -16,7 +27,7 @@
                                 {{ $url->title }}
                             </h3>
                             <p class="py-1">
-                                <a class="text-md text-blue-900" href="{{ $url->little_url }}">
+                                <a class="text-md text-gray-900" href="{{ $url->little_url }}">
                                     {{ $url->little_url }}
                                 </a>
                             </p>

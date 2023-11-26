@@ -68,7 +68,7 @@ class UrlController extends Controller
      */
     public function show(Url $url)
     {
-        //
+        return view('urls.edit-url')->with('url', $url);
     }
 
     /**
