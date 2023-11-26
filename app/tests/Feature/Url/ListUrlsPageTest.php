@@ -20,48 +20,28 @@ class ListUrlsPageTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    public function test_can_create_url(): void
+    public function test_cannot_view_url_list_page_when_not_authenticated(): void
     {
-        $url = 'https://www.google.com';
-
-        $formData = [
-            'url' => $url,
-        ];
-
-        $this->actingAs($this->user)
-            ->post(route('urls.store'), $formData)
+        $this->get(route('urls.index'))
             ->assertStatus(302)
-            ->assertSessionHas('message')
-            ->assertSessionHas('littleUrl')
-            ->assertRedirect();
-
-        $this->assertDatabaseHas('urls', [
-            'url' => $url,
-            'user_id' => $this->user->id,
-        ]);
+            ->assertRedirect(route('login'));
     }
 
-    public function test_can_create_title_and_url(): void
+    public function test_view_url_list_page() : void
     {
-        $title = 'Google';
-        $url = 'https://www.google.com';
-
-        $formData = [
-            'title' => $title,
-            'url' => $url,
-        ];
-
-        $this->actingAs($this->user)
-            ->post(route('urls.store'), $formData)
-            ->assertStatus(302)
-            ->assertSessionHas('message')
-            ->assertSessionHas('littleUrl')
-            ->assertRedirect(route('urls.index'));
-
-        $this->assertDatabaseHas('urls', [
-            'url' => $url,
-            'title' => $title,
+        $urls = Url::factory()->count(3)->create([
             'user_id' => $this->user->id,
         ]);
+
+        $response = $this->actingAs($this->user)
+            ->get(route('urls.index'))
+            ->assertStatus(200)
+            ->assertSee('Little Urls');
+
+        $urls->each(function (Url $url) use($response) {
+            $response->assertSee($url->title)
+                ->assertSee($url->little_url)
+                ->assertSee($url->created_at->format('M j, Y'));
+        });
     }
 }

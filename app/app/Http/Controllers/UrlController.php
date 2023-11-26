@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreUrlRequest;
 use App\Http\Requests\UpdateUrlRequest;
 use App\Models\Url;
@@ -21,9 +22,11 @@ class UrlController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $urls = $request->user()->urls;
+
+        return view('urls.url-list')->with('urls', $urls);
     }
 
     /**
