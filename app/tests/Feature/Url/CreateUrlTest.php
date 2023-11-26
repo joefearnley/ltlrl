@@ -60,11 +60,32 @@ class CreateUrlTest extends TestCase
         $this->actingAs($user)
             ->post(route('urls.store'), $postData)
             ->assertStatus(302)
-            ->assertSessionHas('littleUrl');
+            ->assertSessionHas('littleUrl')
+            ->assertRedirect(route('urls.index'));
 
         $this->assertDatabaseHas('urls', [
             'url' => $url,
             'user_id' => $user->id,
+        ]);
+    }
+
+    public function test_creating_url_on_welcome_page_redirects_you_back_to_welcome_page(): void
+    {
+        $url = 'https://www.google.com';
+
+        $postData = [
+            'url' => $url,
+        ];
+
+        $this->from(route('welcome'))
+            ->post(route('urls.store'), $postData)
+            ->assertStatus(302)
+            ->assertSessionHas('littleUrl')
+            ->assertRedirect(route('welcome'));
+
+        $this->assertDatabaseHas('urls', [
+            'url' => $url,
+            'user_id' => null,
         ]);
     }
 }

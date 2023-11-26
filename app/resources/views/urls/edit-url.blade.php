@@ -33,7 +33,7 @@
 
                             <div>
                                 <x-input-label for="url" :value="__('URL')" />
-                                <x-text-input id="url" name="url" type="url" class="mt-1 block w-full" :value="$url->title" required autocomplete="url" />
+                                <x-text-input id="url" name="url" type="url" class="mt-1 block w-full" :value="$url->url" required autocomplete="url" />
                                 <x-input-error class="mt-2" :messages="$errors->get('url')" />
                             </div>
 
