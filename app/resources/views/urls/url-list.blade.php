@@ -38,7 +38,7 @@
                             </p>
                         </div>
                         <div>
-                            <a href="{{ route('urls.update', $url) }}" class="block mt-4 mb-4 text-white bg-dark_slate_gray-700 hover:bg-dark_slate_gray-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                            <a href="{{ route('urls.edit', $url) }}" class="block mt-4 mb-4 text-white bg-dark_slate_gray-700 hover:bg-dark_slate_gray-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
                                 Edit
                             </a>
                             <a href="{{ route('urls.destroy', $url) }}" class="block mt-4 mb-4 text-white bg-persian_red-700 hover:bg-persian_red-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">

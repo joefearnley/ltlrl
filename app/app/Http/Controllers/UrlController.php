@@ -68,7 +68,7 @@ class UrlController extends Controller
      */
     public function show(Url $url)
     {
-        return view('urls.edit-url')->with('url', $url);
+        return view('urls.show-url')->with('url', $url);
     }
 
     /**
@@ -76,7 +76,7 @@ class UrlController extends Controller
      */
     public function edit(Url $url)
     {
-        //
+        return view('urls.edit-url')->with('url', $url);
     }
 
     /**
@@ -84,7 +84,13 @@ class UrlController extends Controller
      */
     public function update(UpdateUrlRequest $request, Url $url)
     {
-        //
+        $url->title = $request->title;
+        $url->url = $request->url;
+        $url->save();
+
+        return redirect()->route('urls.index')
+            ->with('message', 'Url has been updated.')
+            ->with('littleUrl', $url->little_url);
     }
 
     /**

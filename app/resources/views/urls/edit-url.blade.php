@@ -22,8 +22,9 @@
 
                         <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                        <form method="post" action="{{ route('urls.store') }}" class="mt-6 space-y-6">
+                        <form method="post" action="{{ route('urls.update', $url) }}" class="mt-6 space-y-6">
                             @csrf
+                            @method('patch')
 
                             <div>
                                 <x-input-label for="title" :value="__('Title')" />
@@ -38,8 +39,8 @@
                             </div>
 
                             <div class="flex items-center gap-4">
-                                <x-primary-button class="bg-dark_slate_gray-700 hover:bg-dark_slate_gray-800 focus:bg-dark_slate_gray-800 active:bg-dark_slate_gray-800">{{ __('Save') }}</x-primary-button>
-                                <x-link-button :href="route('urls.index')" class="">{{ __('Cancel') }}</x-link-button>
+                                <x-primary-button>{{ __('Save') }}</x-primary-button>
+                                <x-link-button :href="route('urls.index')">{{ __('Cancel') }}</x-link-button>
                             </div>
                         </form>
                     </section>
