@@ -17,6 +17,8 @@ class UrlController extends Controller
     {
         $this->middleware('auth')
             ->except(['store', 'redirect']);
+
+        $this->authorizeResource(Url::class, 'url');
     }
 
     /**
