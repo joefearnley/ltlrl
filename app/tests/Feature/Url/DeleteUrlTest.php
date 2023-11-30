@@ -20,7 +20,7 @@ class DeleteUrlTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    public function test_cannot_update_url_when_not_authenticated(): void
+    public function test_cannot_delete_url_when_not_authenticated(): void
     {
         $url = Url::factory()->create();
 
@@ -32,25 +32,31 @@ class DeleteUrlTest extends TestCase
             'url' => $newUrl,
         ];
 
-        $this->patch(route('urls.update', $url), $formData)
+        $this->delete(route('urls.destroy', $url), $formData)
             ->assertStatus(302)
             ->assertRedirect(route('login'));
     }
 
-    public function test_cannot_update_url_with_no_form_data(): void
+    public function test_can_delete_url(): void
     {
         $url = Url::factory()->create([
             'user_id' => $this->user->id,
         ]);
 
-        $formData = [];
-
-        $response = $this->actingAs($this->user)
-            ->from(route('urls.edit', $url->id))
-            ->patch(route('urls.update', $url), $formData)
+        $this->actingAs($this->user)
+            ->from(route('urls.index'))
+            ->delete(route('urls.destroy', $url))
             ->assertStatus(302)
-            ->assertSessionHasErrors(['url' => 'The url field is required.'])
-            ->assertRedirect(route('urls.edit', $url->id));
+            ->assertSessionHasNoErrors()
+            ->assertSessionHas('message')
+            ->assertSessionHas('urlTitle')
+            ->assertSessionHas('littleUrl')
+            ->assertRedirect(route('urls.index'));
+
+        $this->assertDatabaseMissing('urls', [
+            'id' => $url->id,
+            'url' => $url->url,
+        ]);
     }
 
     public function test_cannot_update_url_with_no_url(): void
@@ -71,60 +77,16 @@ class DeleteUrlTest extends TestCase
             ->assertRedirect(route('urls.edit', $url->id));
     }
 
-    public function test_can_update_url(): void
+    public function test_cannot_delete_url_user_does_not_own(): void
     {
-        $url = Url::factory()->create([
-            'user_id' => $this->user->id,
+        $differentUser = User::factory()->create();
+        $differentUsersUrl = Url::factory()->create([
+            'user_id' => $differentUser->id,
         ]);
-
-        $newUrl = 'https://yahoo.com';
-
-        $formData = [
-            'url' => $newUrl,
-        ];
 
         $this->actingAs($this->user)
-            ->from(route('urls.edit', $url->id))
-            ->patch(route('urls.update', $url), $formData)
-            ->assertStatus(302)
-            ->assertSessionHasNoErrors()
-            ->assertSessionHas('message')
-            ->assertSessionHas('littleUrl')
-            ->assertRedirect(route('urls.index'));
-
-        $this->assertDatabaseHas('urls', [
-            'url' => $newUrl,
-            'user_id' => $this->user->id,
-        ]);
-    }
-
-    public function test_can_update_title_and_url(): void
-    {
-        $url = Url::factory()->create([
-            'user_id' => $this->user->id,
-        ]);
-
-        $newTitle = 'Google';
-        $newUrl = 'https://www.google.com';
-
-        $formData = [
-            'title' => $newTitle,
-            'url' => $newUrl,
-        ];
-
-        $this->actingAs($this->user)
-            ->from(route('urls.edit', $url->id))
-            ->patch(route('urls.update', $url), $formData)
-            ->assertStatus(302)
-            ->assertSessionHasNoErrors()
-            ->assertSessionHas('message')
-            ->assertSessionHas('littleUrl')
-            ->assertRedirect(route('urls.index'));
-
-        $this->assertDatabaseHas('urls', [
-            'title' => $newTitle,
-            'url' => $newUrl,
-            'user_id' => $this->user->id,
-        ]);
+            ->from(route('urls.index'))
+            ->delete(route('urls.update', $differentUsersUrl))
+            ->assertStatus(403);
     }
 }

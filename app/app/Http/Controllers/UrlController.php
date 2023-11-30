@@ -100,6 +100,11 @@ class UrlController extends Controller
      */
     public function destroy(Url $url)
     {
-        //
+        $url->delete();
+
+        return redirect()->route('urls.index')
+            ->with('message', 'Url has been delete.')
+            ->with('urlTitle', $url->title)
+            ->with('littleUrl', $url->little_url);
     }
 }

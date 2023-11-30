@@ -30,4 +30,12 @@ class UrlPolicy
     {
         return $user->id === $url->user_id;
     }
+
+     /**
+     * Determine if the given url can be deleted by the user.
+     */
+    public function delete(User $user, Url $url): bool
+    {
+        return $user->id === $url->user_id;
+    }
 }
