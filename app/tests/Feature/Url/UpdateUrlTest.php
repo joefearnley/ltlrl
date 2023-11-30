@@ -46,83 +46,85 @@ class UpdateUrlTest extends TestCase
         $formData = [];
 
         $response = $this->actingAs($this->user)
-            ->from(route('urls.edit', $url))
+            ->from(route('urls.edit', $url->id))
             ->patch(route('urls.update', $url), $formData)
             ->assertStatus(302)
             ->assertSessionHasErrors(['url' => 'The url field is required.'])
-            ->assertRedirect(route('urls.edit'));
+            ->assertRedirect(route('urls.edit', $url->id));
     }
 
-    // public function test_cannot_update_url_with_no_url(): void
-    // {
-    //     $url = Url::factory()->create([
-    //         'user_id' => $this->user->id,
-    //     ]);
+    public function test_cannot_update_url_with_no_url(): void
+    {
+        $url = Url::factory()->create([
+            'user_id' => $this->user->id,
+        ]);
 
-    //     $formData = [
-    //         'url' => ''
-    //     ];
+        $formData = [
+            'url' => ''
+        ];
 
-    //     $this->actingAs($this->user)
-    //         ->from(route('urls.edit'))
-    //         ->post(route('urls.update', $url), $formData)
-    //         ->assertStatus(302)
-    //         ->assertSessionHasErrors(['url' => 'The url field is required.'])
-    //         ->assertRedirect(route('urls.edit'));
-    // }
+        $this->actingAs($this->user)
+            ->from(route('urls.edit', $url->id))
+            ->patch(route('urls.update', $url), $formData)
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['url' => 'The url field is required.'])
+            ->assertRedirect(route('urls.edit', $url->id));
+    }
 
-    // public function test_can_update_url(): void
-    // {
-    //     $url = Url::factory()->create([
-    //         'user_id' => $this->user->id,
-    //     ]);
+    public function test_can_update_url(): void
+    {
+        $url = Url::factory()->create([
+            'user_id' => $this->user->id,
+        ]);
 
-    //     $newUrl = 'https://yahoo.com';
+        $newUrl = 'https://yahoo.com';
 
-    //     $formData = [
-    //         'url' => $newUrl,
-    //     ];
+        $formData = [
+            'url' => $newUrl,
+        ];
 
-    //     $this->actingAs($this->user)
-    //         ->post(route('urls.update', $url), $formData)
-    //         ->assertStatus(302)
-    //         ->assertSessionHasNoErrors()
-    //         ->assertSessionHas('message')
-    //         ->assertSessionHas('littleUrl')
-    //         ->assertRedirect(route('urls.index'));
+        $this->actingAs($this->user)
+            ->from(route('urls.edit', $url->id))
+            ->patch(route('urls.update', $url), $formData)
+            ->assertStatus(302)
+            ->assertSessionHasNoErrors()
+            ->assertSessionHas('message')
+            ->assertSessionHas('littleUrl')
+            ->assertRedirect(route('urls.index'));
 
-    //     $this->assertDatabaseHas('urls', [
-    //         'url' => $newUrl,
-    //         'user_id' => $this->user->id,
-    //     ]);
-    // }
+        $this->assertDatabaseHas('urls', [
+            'url' => $newUrl,
+            'user_id' => $this->user->id,
+        ]);
+    }
 
-    // public function test_can_update_title_and_url(): void
-    // {
-    //     $url = Url::factory()->create([
-    //         'user_id' => $this->user->id,
-    //     ]);
+    public function test_can_update_title_and_url(): void
+    {
+        $url = Url::factory()->create([
+            'user_id' => $this->user->id,
+        ]);
 
-    //     $newTitle = 'Google';
-    //     $newUrl = 'https://www.google.com';
+        $newTitle = 'Google';
+        $newUrl = 'https://www.google.com';
 
-    //     $formData = [
-    //         'title' => $newTitle,
-    //         'url' => $newUrl,
-    //     ];
+        $formData = [
+            'title' => $newTitle,
+            'url' => $newUrl,
+        ];
 
-    //     $this->actingAs($this->user)
-    //         ->post(route('urls.update', $url), $formData)
-    //         ->assertStatus(302)
-    //         ->assertSessionHasNoErrors()
-    //         ->assertSessionHas('message')
-    //         ->assertSessionHas('littleUrl')
-    //         ->assertRedirect(route('urls.index'));
+        $this->actingAs($this->user)
+            ->from(route('urls.edit', $url->id))
+            ->patch(route('urls.update', $url), $formData)
+            ->assertStatus(302)
+            ->assertSessionHasNoErrors()
+            ->assertSessionHas('message')
+            ->assertSessionHas('littleUrl')
+            ->assertRedirect(route('urls.index'));
 
-    //     $this->assertDatabaseHas('urls', [
-    //         'title' => $newTitle,
-    //         'url' => $newUrl,
-    //         'user_id' => $this->user->id,
-    //     ]);
-    // }
+        $this->assertDatabaseHas('urls', [
+            'title' => $newTitle,
+            'url' => $newUrl,
+            'user_id' => $this->user->id,
+        ]);
+    }
 }
