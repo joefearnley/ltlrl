@@ -39,11 +39,34 @@
                         </div>
                         <div>
                             <a href="{{ route('urls.edit', $url) }}" class="block mt-4 mb-4 text-white bg-dark_slate_gray-700 hover:bg-dark_slate_gray-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
-                                Edit
+                                {{ __('Edit') }}
                             </a>
-                            <a href="{{ route('urls.destroy', $url) }}" class="block mt-4 mb-4 text-white bg-persian_red-700 hover:bg-persian_red-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
-                                Delete
-                            </a>
+                            <x-danger-button
+                                class="bg-persian_red-700 hover:bg-persian_red-800"
+                                x-data=""
+                                x-on:click.prevent="$dispatch('open-modal', 'confirm={{ $url->id }}-url-deletion')">
+                                {{ __('Delete') }}
+                        </x-danger-button>
+                            <x-modal name="confirm={{ $url->id }}-url-deletion" :show="false" focusable>
+                                <form method="post" action="{{ route('urls.destroy', $url) }}" class="p-6">
+                                    @csrf
+                                    @method('delete')
+
+                                    <h2 class="text-lg font-medium text-gray-900">
+                                        {{ __('Are you sure you want to delete this Url?') }}
+                                    </h2>
+
+                                    <div class="mt-6 flex justify-end">
+                                        <x-secondary-button x-on:click="$dispatch('close')">
+                                            {{ __('Cancel') }}
+                                        </x-secondary-button>
+
+                                        <x-danger-button class="ml-3">
+                                            {{ __('Delete Url') }}
+                                        </x-danger-button>
+                                    </div>
+                                </form>
+                            </x-modal>
                         </div>
                     </div>
                     <hr class="block mt-4 mb-4">
