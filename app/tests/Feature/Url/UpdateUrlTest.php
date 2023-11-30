@@ -127,4 +127,29 @@ class UpdateUrlTest extends TestCase
             'user_id' => $this->user->id,
         ]);
     }
+
+    public function test_cannot_update_url_user_does_not_own(): void
+    {
+        $url = Url::factory()->create([
+            'user_id' => $this->user->id,
+        ]);
+
+        $differentUser = User::factory()->create();
+        $differentUsersUrl = Url::factory()->create([
+            'user_id' => $differentUser->id,
+        ]);
+
+        $newTitle = 'Google';
+        $newUrl = 'https://www.google.com';
+
+        $formData = [
+            'title' => $newTitle,
+            'url' => $newUrl,
+        ];
+
+        $this->actingAs($this->user)
+            ->from(route('urls.edit', $url->id))
+            ->patch(route('urls.update', $differentUsersUrl), $formData)
+            ->assertStatus(403);
+    }
 }
