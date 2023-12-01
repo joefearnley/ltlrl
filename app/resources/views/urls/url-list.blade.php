@@ -6,11 +6,15 @@
     </x-slot>
 
     @if (session()->has('message'))
-    <div class="row justify-content-center mt-4 align-self-center">
-        <div class="col-md-8 mt-4">
-            <div class="alert alert-success alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>{{ session()->get('message') }}</strong>
+    <div x-data="{ open: true }">
+        <div class="pt-6 pb-3" x-show="open">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="rounded-lg bg-dark_slate_gray-700 px-6 py-5 text-base text-white flex justify-between" role="alert">
+                    <div>{{ session()->get('message') }} - {{ session()->get('urlTitle') }} ({{ session()->get('littleUrl') }})</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer" x-on:click="open = false">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </div>
             </div>
         </div>
     </div>

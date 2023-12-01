@@ -59,24 +59,6 @@ class DeleteUrlTest extends TestCase
         ]);
     }
 
-    public function test_cannot_update_url_with_no_url(): void
-    {
-        $url = Url::factory()->create([
-            'user_id' => $this->user->id,
-        ]);
-
-        $formData = [
-            'url' => ''
-        ];
-
-        $this->actingAs($this->user)
-            ->from(route('urls.edit', $url->id))
-            ->patch(route('urls.update', $url), $formData)
-            ->assertStatus(302)
-            ->assertSessionHasErrors(['url' => 'The url field is required.'])
-            ->assertRedirect(route('urls.edit', $url->id));
-    }
-
     public function test_cannot_delete_url_user_does_not_own(): void
     {
         $differentUser = User::factory()->create();

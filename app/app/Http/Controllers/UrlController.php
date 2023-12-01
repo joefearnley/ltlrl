@@ -92,6 +92,7 @@ class UrlController extends Controller
 
         return redirect()->route('urls.index')
             ->with('message', 'Url has been updated.')
+            ->with('urlTitle', $url->title)
             ->with('littleUrl', $url->little_url);
     }
 
@@ -103,7 +104,7 @@ class UrlController extends Controller
         $url->delete();
 
         return redirect()->route('urls.index')
-            ->with('message', 'Url has been delete.')
+            ->with('message', 'Url has been deleted.')
             ->with('urlTitle', $url->title)
             ->with('littleUrl', $url->little_url);
     }
