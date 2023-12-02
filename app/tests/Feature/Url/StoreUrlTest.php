@@ -29,7 +29,7 @@ class StoreUrlTest extends TestCase
 
         $this->post(route('urls.store'), $formData)
             ->assertStatus(302)
-            ->assertRedirect(route('welcome'));
+            ->assertRedirect(route('login'));
     }
 
     public function test_cannot_create_url_with_no_form_data(): void
