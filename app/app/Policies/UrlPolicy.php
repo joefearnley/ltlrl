@@ -24,6 +24,14 @@ class UrlPolicy
     }
 
     /**
+     * Determine whether the user can create models.
+     */
+    public function create(User $user): bool
+    {
+        return true;
+    }
+
+    /**
      * Determine if the given url can be edited by the user.
      */
     public function update(User $user, Url $url): bool

@@ -9,18 +9,20 @@
         </div>
     </div>
 
-    <form method="POST" action="{{ route('urls.store') }}" class="mb-3">
+    <form method="POST" action="{{ route('welcome.create-url') }}" class="mb-3">
         @csrf
 
         <div class="flex items-center justify-center mt-4">
-            <div>
-                <x-text-input id="new_url" class="mt-1 w-70" type="url" name="url" :value="old('url')" placeholder="{{ _('enter a URL and....') }}" autofocus autocomplete="url" />
-                <x-input-error :messages="$errors->get('url')" class="mt-2" />
-            </div>
-            <div>
-                <x-primary-button class="ml-3" id="create-url-submit-button">
-                    {{ __('Make it Little') }}
-                </x-primary-button>
+            <div class="flex">
+                <div>
+                    <x-text-input id="new_url" class="w-70" type="url" name="url" :value="old('url')" placeholder="{{ _('enter a URL and....') }}" autofocus autocomplete="url" />
+                    <x-input-error :messages="$errors->get('url')" class="mt-2" />
+                </div>
+                <div>
+                    <x-primary-button class="ml-3" id="create-url-submit-button">
+                        {{ __('Make it Little') }}
+                    </x-primary-button>
+                </div>
             </div>
         </div>
     </form>

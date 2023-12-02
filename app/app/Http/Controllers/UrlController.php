@@ -16,7 +16,7 @@ class UrlController extends Controller
     public function __construct()
     {
         $this->middleware('auth')
-            ->except(['store', 'redirect']);
+            ->except(['redirect']);
 
         $this->authorizeResource(Url::class, 'url');
     }
@@ -47,18 +47,12 @@ class UrlController extends Controller
         $url = Url::create([
             'title' => $request->title,
             'url' => $request->url,
-            'user_id' => !is_null($request->user()) ? $request->user()->id : null,
+            'user_id' => $request->user()->id,
         ]);
 
         $hashids = new Hashids('', 6);
         $url->key = $hashids->encode($url->id);
         $url->save();
-
-        if (is_null($request->user())) {
-            return redirect()->back()
-                ->with('message', 'Url has been created.')
-                ->with('littleUrl', $url->little_url);
-        }
 
         return redirect()->route('urls.index')
             ->with('message', 'Url has been created.')

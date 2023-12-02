@@ -10,13 +10,23 @@ class CreateUrlTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
+
     public function test_cannot_create_url_without_url(): void
     {
         $postData = [];
 
-        $this->post(route('urls.store'), $postData)
+        $this->actingAs($this->user)
+            ->from(route('urls.create'))
+            ->post(route('urls.store'), $postData)
             ->assertStatus(302)
-            ->assertSessionHasErrors('url');
+            ->assertSessionHasErrors('url')
+            ->assertRedirect(route('urls.create'));
     }
 
     public function test_cannot_create_url_without_valid_url(): void
@@ -25,7 +35,9 @@ class CreateUrlTest extends TestCase
             'url' => 'this_is_a_test',
         ];
 
-        $this->post(route('urls.store'), $postData)
+        $this->actingAs($this->user)
+            ->from(route('urls.create'))
+            ->post(route('urls.store'), $postData)
             ->assertStatus(302)
             ->assertSessionHasErrors('url');
     }
@@ -38,54 +50,40 @@ class CreateUrlTest extends TestCase
             'url' => $url,
         ];
 
-        $this->post(route('urls.store'), $postData)
+        $this->actingAs($this->user)
+            ->from(route('urls.create'))
+            ->post(route('urls.store'), $postData)
             ->assertStatus(302)
             ->assertSessionHas('littleUrl');
 
         $this->assertDatabaseHas('urls', [
             'url' => $url,
-            'user_id' => null,
+            'user_id' => $this->user->id,
         ]);
     }
 
-    public function test_can_create_user_url(): void
+    public function test_can_create_url_and_title(): void
     {
         $user = User::factory()->create();
+        $title = 'This is a Title';
         $url = 'https://www.google.com';
 
         $postData = [
+            'title' => $title,
             'url' => $url,
         ];
 
         $this->actingAs($user)
+            ->from(route('urls.create'))
             ->post(route('urls.store'), $postData)
             ->assertStatus(302)
             ->assertSessionHas('littleUrl')
             ->assertRedirect(route('urls.index'));
 
         $this->assertDatabaseHas('urls', [
+            'title' => $title,
             'url' => $url,
             'user_id' => $user->id,
-        ]);
-    }
-
-    public function test_creating_url_on_welcome_page_redirects_you_back_to_welcome_page(): void
-    {
-        $url = 'https://www.google.com';
-
-        $postData = [
-            'url' => $url,
-        ];
-
-        $this->from(route('welcome'))
-            ->post(route('urls.store'), $postData)
-            ->assertStatus(302)
-            ->assertSessionHas('littleUrl')
-            ->assertRedirect(route('welcome'));
-
-        $this->assertDatabaseHas('urls', [
-            'url' => $url,
-            'user_id' => null,
         ]);
     }
 }
