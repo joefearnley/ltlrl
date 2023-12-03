@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UrlController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\RedirectUrlController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
@@ -21,3 +22,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('urls', UrlController::class);
 
 require __DIR__.'/auth.php';
+
+Route::get('/{key}', [RedirectUrlController::class, 'redirect'])->name('redirect-url');
+
+
