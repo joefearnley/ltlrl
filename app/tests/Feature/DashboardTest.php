@@ -40,7 +40,7 @@ class DashboardTest extends TestCase
 
     public function test_dashboard_contains_no_urls()
     {
-        $response = $this->actingAs($this->user)
+        $this->actingAs($this->user)
             ->get(route('dashboard'))
             ->assertStatus(200)
             ->assertSee('Latest Urls')
