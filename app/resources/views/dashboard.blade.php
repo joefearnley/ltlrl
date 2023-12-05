@@ -5,7 +5,6 @@
         </h2>
     </x-slot>
 
-
     <div class="py-6">
         <div class="max-w-7xl mx-auto flex">
             <div class="sm:px-6 lg:px-8 basis-1/2">
