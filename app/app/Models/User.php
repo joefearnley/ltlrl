@@ -49,6 +49,24 @@ class User extends Authenticatable
      */
     public function urls(): HasMany
     {
-        return $this->hasMany(Url::class)->orderBy('created_at', 'desc');
+        return $this->hasMany(Url::class)
+            ->with('clicks')
+            ->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Get the user's most active Urls
+     */
+    public function mostActiveUrls()
+    {
+        return $this->urls;
+    }
+
+    /**
+     * Get the user's latest active Urls
+     */
+    public function latestActiveUrls()
+    {
+
     }
 }

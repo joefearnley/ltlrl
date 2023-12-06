@@ -17,13 +17,12 @@ class Click extends Model
      */
     protected $fillable = [
         'url_id',
-        'ip'
+        'ip',
     ];
 
     /**
      * A click belongs to an url.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {
