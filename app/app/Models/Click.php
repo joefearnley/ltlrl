@@ -24,7 +24,7 @@ class Click extends Model
      * A click belongs to an url.
      *
      */
-    public function user(): BelongsTo
+    public function url(): BelongsTo
     {
         return $this->belongsTo(Url::class);
     }

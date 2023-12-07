@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -11,22 +10,17 @@ class DashboardController extends Controller
     {
         $urls = $request->user()->urls->take(5);
 
-        // $mostActiveUrls = $request->user()->mostActiveUrls();
+        $mostActiveUrls = $urls->filter(function($url) {
+                return $url->clicks->count() > 0;
+            })->sortBy(function($url) {
+                return $url->clicks->count();
+            })->take(10);
 
-        // $mostActiveUrls = Url::
-
-        $mostActiveUrls = DB::table('urls')
-                ->select('urls.*', DB::raw('count(clicks.id) as click_count'))
-                ->leftJoin('clicks', 'urls.id', '=', 'clicks.url_id')
-                ->groupBy('urls.id')
-                ->havingRaw('click_count > 0')
-                ->orderBy('click_count', 'desc')
-                ->get();
-
-        dd($mostActiveUrls->toArray());
+        $latestClicks = $request->user()->latestClicks();
 
         return view('dashboard')
             ->with('urls', $urls)
-            ->with('mostActiveUrls', $mostActiveUrls);
+            ->with('mostActiveUrls', $mostActiveUrls)
+            ->with('latestClicks', $latestClicks);
     }
 }
