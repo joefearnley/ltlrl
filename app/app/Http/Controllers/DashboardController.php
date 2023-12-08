@@ -8,18 +8,20 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $urls = $request->user()->urls->take(5);
+        $userUrls = $request->user()->urls;
 
-        $mostActiveUrls = $urls->filter(function($url) {
+        $recentUrls = $userUrls->take(5);
+
+        $mostActiveUrls = $userUrls->filter(function($url) {
                 return $url->clicks->count() > 0;
-            })->sortBy(function($url) {
+            })->sortByDesc(function($url) {
                 return $url->clicks->count();
             })->take(10);
 
         $latestClicks = $request->user()->latestClicks();
 
         return view('dashboard')
-            ->with('urls', $urls)
+            ->with('recentUrls', $recentUrls)
             ->with('mostActiveUrls', $mostActiveUrls)
             ->with('latestClicks', $latestClicks);
     }
