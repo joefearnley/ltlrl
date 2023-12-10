@@ -61,7 +61,7 @@ class User extends Authenticatable
     {
         return $this->urls->filter(function($url) {
             return $url->clicks->count() > 0;
-        })->sortBy(function($url) {
+        })->sortByDesc(function($url) {
             return $url->clicks->count();
         })->take(10);
     }
@@ -72,15 +72,6 @@ class User extends Authenticatable
     public function latestClicks()
     {
         $urlIds = $this->urls->pluck('id')->toArray();
-
-        // dd(
-        //     Click::whereIn('url_id', $urlIds)
-        //     ->distinct('url_id')
-        //     ->orderBy('created_at')
-        //     ->limit(5)
-        //     ->toSql(),
-        //     $urlIds
-        // );
 
         return Click::whereIn('url_id', $urlIds)
             ->distinct('url_id')
