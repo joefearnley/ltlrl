@@ -15,26 +15,29 @@ async function copyTextToClipboard(text) {
     }
 }
 
-const copyToClipboardButton = document.querySelector('.copy-to-clipboard-button');
-const newUrlLink = document.querySelector('#new-url-link');
-
-copyToClipboardButton.addEventListener('click', event => {
-    copyTextToClipboard(newUrlLink.innerHTML.trim())
-        .then(result => {
-            console.log(result);
+const copyToClipboardButtons = document.querySelectorAll('button.copy-to-clipboard');
+// const newUrlLink = document.querySelector('#new-url-link');
 
 
-            const currentCopyButtonHTML = copyToClipboardButton.innerHTML;
-            copyToClipboardButton.innerHTML = 'Copied!';
+copyToClipboardButtons.forEach(button => {
+    button.addEventListener('click', event => {
+        console.log('clicked...');
+        console.log(button.previousElementSibling.innerHTML.trim());
 
-            setTimeout(() => {
-                copyToClipboardButton.innerHTML = currentCopyButtonHTML;
-            }, '3000');
-        })
-        .catch((err) => {
-            console.log('err:');
-            console.log(err);
-        });
+        copyTextToClipboard(button.previousElementSibling.innerHTML.trim())
+            .then(result => {
+                console.log(result);
 
+                const currentCopyButtonHTML = button.innerHTML;
+                button.innerHTML = 'Copied!';
 
+                setTimeout(() => {
+                    button.innerHTML = currentCopyButtonHTML;
+                }, '3000');
+            })
+            .catch((err) => {
+                console.log('error copying to clipboard:');
+                console.log(err);
+            });
+    });
 });
