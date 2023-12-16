@@ -1,8 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Little Urls') }}
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Little Urls') }}
+            </h2>
+            <div>
+                <form action="/" method="POST" class="flex">
+                    <label for="search-term">
+                        <input class="rounded-l-lg" id="search-term" name="search-term" type="text" placeholder="Search Urls">
+                    </label>
+                    <input class="rounded-r-lg  text-white bg-dark_slate_gray-700 hover:bg-dark_slate_gray-800 font-medium text-sm px-5 py-2.5 cursor-pointer" type="submit" value="Go">
+                </form>
+            </div>
+        </div>
     </x-slot>
 
     @if (session()->has('message'))
