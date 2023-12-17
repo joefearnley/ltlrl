@@ -62,6 +62,6 @@ class DashboardTest extends TestCase
 
         $data = $response->getOriginalContent()->getData();
 
-        $this->assertGreaterThan(0, $data['urls']->count());
+        $this->assertGreaterThan(0, $data['recentUrls']->count());
     }
 }

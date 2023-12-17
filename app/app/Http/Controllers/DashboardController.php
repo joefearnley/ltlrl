@@ -12,8 +12,6 @@ class DashboardController extends Controller
         $mostActiveUrls = $request->user()->mostActiveUrls();
         $latestClicks = $request->user()->latestClicks();
 
-        // dd( $latestClicks->first()->click_created_at);
-
         return view('dashboard')
             ->with('recentUrls', $recentUrls)
             ->with('mostActiveUrls', $mostActiveUrls)
