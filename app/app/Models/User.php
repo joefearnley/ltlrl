@@ -75,6 +75,7 @@ class User extends Authenticatable
         $urlIds = $this->urls->pluck('id')->toArray();
 
         return Click::select(DB::raw('`clicks`.`url_id`, max(`clicks`.`created_at`) as `click_created_at`'))
+            ->with('url')
             ->whereIn('url_id', $urlIds)
             ->orderBy('click_created_at', 'desc')
             ->groupBy('url_id')

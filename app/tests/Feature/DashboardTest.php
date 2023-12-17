@@ -36,8 +36,6 @@ class DashboardTest extends TestCase
             ->assertSee('Dashboard');
     }
 
-
-
     public function test_dashboard_contains_no_urls()
     {
         $this->actingAs($this->user)
@@ -63,5 +61,26 @@ class DashboardTest extends TestCase
         $data = $response->getOriginalContent()->getData();
 
         $this->assertGreaterThan(0, $data['recentUrls']->count());
+    }
+
+    public function test_dashboard_contains_no_latest_actvity()
+    {
+        $this->actingAs($this->user)
+            ->get(route('dashboard'))
+            ->assertStatus(200)
+            ->assertSee('Latest Activity')
+            ->assertSee('No Activity Yet!')
+            ->assertSee('Click on the Create Url link to get started.');
+    }
+
+
+    public function test_dashboard_contains_no_most_active_urls()
+    {
+        $this->actingAs($this->user)
+            ->get(route('dashboard'))
+            ->assertStatus(200)
+            ->assertSee('Latest Activity')
+            ->assertSee('No Active Urls Yet!')
+            ->assertSee('Click on the Create Url link to get started.');
     }
 }

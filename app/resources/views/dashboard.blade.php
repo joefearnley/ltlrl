@@ -105,7 +105,7 @@
                     @php
                         $count = 1;
                     @endphp
-                    @foreach ($latestClicks as $index => $click)
+                    @foreach ($latestClicks as $click)
                         <div class="flex justify-between items-center">
                             <div>
                                 <h3 class="text-lg font-extrabold pb-1">
@@ -202,7 +202,7 @@
                         @endforeach
                     @else
                         <div class="p-6 text-gray-900">
-                            <h3 class="text-lg text-bold py-3">{{ __('No Activity Yet!')}}</h3>
+                            <h3 class="text-lg text-bold py-3">{{ __('No Active Urls Yet!')}}</h3>
                             <p class="mt-4">{{ __('Click on the Create Url link to get started.') }}</p>
                         </div>
                     @endif
