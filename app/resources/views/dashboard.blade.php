@@ -123,11 +123,11 @@
                                 </div>
                             </div>
                             <div>
-                                <div class="mb-1">{{ $click->created_at->format('M d, Y') }}</div>
+                                <div class="mb-1">{{ date('M d, Y', strtotime($click->click_created_at)) }}</div>
                             </div>
                         </div>
                         <a class="text-sm text-gray-500" href="{{ $click->url->url }}">
-                            {{ $click->url->url }} | {{ $click->url->id }}
+                            {{ $click->url->url }}
                         </a>
                         @if ($latestClicks->count() > $count)
                         <hr class="block my-3">

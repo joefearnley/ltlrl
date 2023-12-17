@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use DB;
 
 class User extends Authenticatable
 {
@@ -73,19 +74,10 @@ class User extends Authenticatable
     {
         $urlIds = $this->urls->pluck('id')->toArray();
 
-        dd($urlIds);
-
-        dd(
-            Click::whereIn('url_id', $urlIds)
-                ->distinct('url_id')
-                ->orderBy('created_at')
-                ->limit(5)
-                ->toSql()
-        );
-
-        return Click::whereIn('url_id', $urlIds)
-            ->distinct('url_id')
-            ->orderBy('created_at')
+        return Click::select(DB::raw('`clicks`.`url_id`, max(`clicks`.`created_at`) as `click_created_at`'))
+            ->whereIn('url_id', $urlIds)
+            ->orderBy('click_created_at', 'desc')
+            ->groupBy('url_id')
             ->limit(5)
             ->get();
     }
