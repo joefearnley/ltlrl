@@ -73,6 +73,16 @@ class User extends Authenticatable
     {
         $urlIds = $this->urls->pluck('id')->toArray();
 
+        dd($urlIds);
+
+        dd(
+            Click::whereIn('url_id', $urlIds)
+                ->distinct('url_id')
+                ->orderBy('created_at')
+                ->limit(5)
+                ->toSql()
+        );
+
         return Click::whereIn('url_id', $urlIds)
             ->distinct('url_id')
             ->orderBy('created_at')
