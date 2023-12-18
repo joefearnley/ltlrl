@@ -94,20 +94,20 @@ class UrlListTest extends TestCase
             ]);
         }
 
-        // foreach($otherUserUrls as $otherUserUrl) {
-        //     $response->assertJsonMissing([
-        //         'id' => $otherUserUrl->id,
-        //         'title' => $otherUserUrl->title,
-        //         'url' => $otherUserUrl->url,
-        //         'little_url' => $otherUserUrl->little_url,
-        //     ]);
+        foreach($otherUserUrls as $otherUserUrl) {
+            $response->assertJsonMissing([
+                'id' => $otherUserUrl->id,
+                'title' => $otherUserUrl->title,
+                'url' => $otherUserUrl->url,
+                'little_url' => $otherUserUrl->little_url,
+            ]);
 
-        //     $this->assertDatabaseMissing('urls', [
-        //         'title' => $otherUserUrl->title,
-        //         'url' => $otherUserUrl->url,
-        //         'user_id' => $user->id,
-        //         'key' => $otherUserUrl->key,
-        //     ]);
-        // }
+            $this->assertDatabaseMissing('urls', [
+                'title' => $otherUserUrl->title,
+                'url' => $otherUserUrl->url,
+                'user_id' => $user->id,
+                'key' => $otherUserUrl->key,
+            ]);
+        }
     }
 }
