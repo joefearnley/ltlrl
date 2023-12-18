@@ -9,12 +9,12 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $recentUrls = $request->user()->urls->take(5);
-        $mostActiveUrls = $request->user()->mostActiveUrls();
         $latestClicks = $request->user()->latestClicks();
+        $mostActiveUrls = $request->user()->mostActiveUrls();
 
         return view('dashboard')
             ->with('recentUrls', $recentUrls)
-            ->with('mostActiveUrls', $mostActiveUrls)
-            ->with('latestClicks', $latestClicks);
+            ->with('latestClicks', $latestClicks)
+            ->with('mostActiveUrls', $mostActiveUrls);
     }
 }
