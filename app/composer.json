@@ -10,6 +10,7 @@
         "laravel/breeze": "^1.26",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
+        "laravel/scout": "^10.6",
         "laravel/tinker": "^2.8",
         "simplesoftwareio/simple-qrcode": "~4",
         "vinkla/hashids": "^11.0"
