@@ -26,7 +26,7 @@ class SearchUrlTest extends TestCase
             's' => 'test',
         ];
 
-        $this->get(route('urls.search'), $formData)
+        $this->get(route('urls.search', $formData))
             ->assertStatus(302)
             ->assertRedirect(route('login'));
     }
@@ -40,7 +40,8 @@ class SearchUrlTest extends TestCase
         $this->actingAs($this->user)
             ->get(route('urls.search', $formData))
             ->assertStatus(200)
-            ->assertSee('No Urls Found.');
+            ->assertViewIs('urls.url-list')
+            ->assertSeeText('No Urls Found.');
     }
 
     public function test_can_search_urls_by_title(): void
@@ -56,9 +57,51 @@ class SearchUrlTest extends TestCase
         ];
 
         $this->actingAs($this->user)
-            ->get(route('urls.search'), $formData)
+            ->get(route('urls.search', $formData))
             ->assertStatus(200)
-            ->assertSee($url->title)
-            ->assertSee($url->url);
+            ->assertViewIs('urls.url-list')
+            ->assertSeeText($url->title)
+            ->assertSeeText($url->url);
+    }
+
+    public function test_can_search_urls_by_url(): void
+    {
+        $url = Url::factory()->create([
+            'title' => 'The Best Url',
+            'url' => 'https://test.com',
+            'user_id' => $this->user->id,
+        ]);
+
+        $formData = [
+            's' => 'test',
+        ];
+
+        $this->actingAs($this->user)
+            ->get(route('urls.search', $formData))
+            ->assertStatus(200)
+            ->assertViewIs('urls.url-list')
+            ->assertSeeText($url->title)
+            ->assertSeeText($url->url);
+    }
+
+    public function test_can_search_urls_does_not_find_results(): void
+    {
+        $url = Url::factory()->create([
+            'title' => 'The Best Url',
+            'url' => 'https://test.com',
+            'user_id' => $this->user->id,
+        ]);
+
+        $formData = [
+            's' => 'bluenest',
+        ];
+
+        $this->actingAs($this->user)
+            ->get(route('urls.search', $formData))
+            ->assertStatus(200)
+            ->assertViewIs('urls.url-list')
+            ->assertSeeText('No Urls Found.')
+            ->assertDontSeeText($url->title)
+            ->assertDontSeeText($url->url);
     }
 }
