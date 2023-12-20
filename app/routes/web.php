@@ -5,6 +5,7 @@ use App\Http\Controllers\UrlController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\RedirectUrlController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SearchUrlController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
@@ -21,6 +22,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('urls', UrlController::class);
+
+Route::get('/urls-search', [SearchUrlController::class, 'search'])
+    ->middleware(['auth'])
+    ->name('urls.search');
 
 require __DIR__.'/auth.php';
 

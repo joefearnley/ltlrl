@@ -5,9 +5,9 @@
                 {{ __('Little Urls') }}
             </h2>
             <div>
-                <form action="/" method="POST" class="flex">
+                <form action="{{ route('urls.search') }}" method="GET" class="flex">
                     <label for="search-term">
-                        <input class="rounded-l-lg" id="search-term" name="search-term" type="text" placeholder="Search Urls">
+                        <input class="rounded-l-lg" id="search-term" name="s" type="text" placeholder="Search Urls" value="{{ $searchTerm ?? '' }}">
                     </label>
                     <input class="rounded-r-lg  text-white bg-dark_slate_gray-700 hover:bg-dark_slate_gray-800 font-medium text-sm px-5 py-2.5 cursor-pointer" type="submit" value="Go">
                 </form>
@@ -110,12 +110,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    searchTerm: {{ isset($searchTerm) }}
+                @isset($searchTerm)
+                    <h3 class="text-xl text-bold py-3">{{ __('No Urls Found.')}}</h3>
+                @else
                     <h3 class="text-xl text-bold py-3">{{ __('No Urls Made Little Yet.')}}</h3>
                     <p class="mt-4">
                         <a href="{{ route('urls.create') }}" class="text-white bg-dark_slate_gray-700 hover:bg-dark_slate_gray-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
                             Create One
                         </a>
                     </p>
+                @endif
                 </div>
             </div>
         </div>
