@@ -35,8 +35,8 @@
         <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="py-6 px-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="flex justify-between items-center">
-                        <div class=" text-gray-900">
+                    <div class="flex justify-around md:items-center flex-col md:flex-row">
+                        <div class=" text-gray-900 basis-1/2">
                             <h3 class="text-2xl font-extrabold pb-6">
                                 {{ $url->title }}
                             </h3>
@@ -56,11 +56,11 @@
                                 </a>
                             </p>
                         </div>
-                        <div class="flex gap-8 align-middle justify-center items-center">
+                        <div class="w-full py-6 flex gap-8 md:align-middle justify-around items-center basis-1/2">
                             <div>
                                 {!! QrCode::size(80)->generate($url->little_url); !!}
                             </div>
-                            <div class="flex flex-col gap-2">
+                            <div class="flex flex-col gap-3">
                                 <a href="{{ route('urls.edit', $url) }}" class=" text-white bg-dark_slate_gray-700 hover:bg-dark_slate_gray-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
                                     {{ __('Edit') }}
                                 </a>

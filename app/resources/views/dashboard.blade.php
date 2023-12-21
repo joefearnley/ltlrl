@@ -6,8 +6,8 @@
     </x-slot>
 
     <div class="py-6">
-        <div class="max-w-7xl mx-auto flex">
-            <div class="sm:px-6 lg:px-8 basis-1/2">
+        <div class="max-w-7xl mx-auto flex flex-wrap">
+            <div class="sm:px-6 lg:px-8 basis-full md:basis-1/2">
                 <div class="py-6 px-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <h2 class="mb-3 text-2xl font-medium text-gray-900">
                         {{ __('Latest Urls') }}
@@ -95,7 +95,7 @@
                 @endif
                 </div>
             </div>
-            <div class="sm:px-6 lg:px-8 basis-1/2">
+            <div class="sm:px-6 lg:px-8 basis-full md:basis-1/2">
                 <div class="py-6 px-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <h2 class="mb-3 text-2xl font-medium">
                         {{ __('Latest Activity') }}
