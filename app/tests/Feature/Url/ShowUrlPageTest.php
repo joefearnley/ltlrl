@@ -7,7 +7,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Url;
 
-class EditUrlPageTest extends TestCase
+class ShowUrlPageTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -25,14 +25,14 @@ class EditUrlPageTest extends TestCase
         ]);
     }
 
-    public function test_cannot_view_edit_url_page_when_not_authenticated(): void
+    public function test_cannot_view_url_page_when_not_authenticated(): void
     {
-        $this->get(route('urls.edit', $this->url))
+        $this->get(route('urls.show', $this->url))
             ->assertStatus(302)
             ->assertRedirectToRoute('login');
     }
 
-    public function test_cannot_view_edit_url_page_of_url_user_does_not_own(): void
+    public function test_cannot_view_url_page_of_url_user_does_not_own(): void
     {
         $differentUser = User::factory()->create();
         $differentUsersUrl = Url::factory()->create([
@@ -40,27 +40,15 @@ class EditUrlPageTest extends TestCase
         ]);
 
         $this->actingAs($this->user)
-            ->get(route('urls.edit', $differentUsersUrl))
+            ->get(route('urls.show', $differentUsersUrl))
             ->assertStatus(403);
     }
 
-    public function test_can_view_edit_url_page_when_authenticated(): void
-    {
-        $this->actingAs($this->user)
-            ->get(route('urls.edit', $this->url))
-            ->assertStatus(200);
-    }
-
-    public function test_view_url_page_shows_url_details(): void
+    public function test_create_url_page_shows_form(): void
     {
         $this->actingAs($this->user)
             ->get(route('urls.edit', $this->url))
             ->assertStatus(200)
-            ->assertSee('Edit Url')
-            ->assertSee('Update Url')
-            ->assertSee('Make any changes and click Save.')
-            ->assertSee('Title')
-            ->assertSee('Url')
             ->assertSee($this->url->title)
             ->assertSee($this->url->url);
     }
