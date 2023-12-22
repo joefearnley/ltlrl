@@ -32,6 +32,14 @@ class UrlPolicy
     }
 
     /**
+     * Determine if the given url can be viewed by the user.
+     */
+    public function view(User $user, Url $url): bool
+    {
+        return $user->id === $url->user_id;
+    }
+
+    /**
      * Determine if the given url can be edited by the user.
      */
     public function update(User $user, Url $url): bool

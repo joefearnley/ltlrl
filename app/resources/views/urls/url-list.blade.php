@@ -38,7 +38,9 @@
                     <div class="flex justify-around md:items-center flex-col md:flex-row">
                         <div class=" text-gray-900 basis-1/2">
                             <h3 class="text-2xl font-extrabold pb-6">
-                                {{ $url->title }}
+                                <a href="{{ route('urls.show', $url) }}">
+                                    {{ $url->title }}
+                                </a>
                             </h3>
                             <p class="py-1 flex gap-2">
                                 <a class="text-md text-gray-900" href="{{ $url->little_url }}">
