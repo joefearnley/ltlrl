@@ -77,19 +77,19 @@
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-3 justify-between">
             <div class="h-20 p-2 sm:p-4 bg-white shadow sm:rounded-lg flex justify-between items-center gap-6">
-                <h3 class="font-semibold text-3xl">10</h3>
-                <div class="text-lg">this week</div>
+                <h3 class="font-semibold text-3xl">{{ $url->clicksThisWeek()->count() }}</h3>
+                <div class="text-lg">clicks this week</div>
             </div>
             <div class="h-20 p-2 sm:p-4 bg-white shadow sm:rounded-lg flex justify-between items-center gap-6">
-                <h3 class="font-semibold text-3xl">10</h3>
+                <h3 class="font-semibold text-3xl">{{ $url->clicksThisMonth()->count() }}</h3>
                 <div class="text-lg">clicks this month</div>
             </div>
             <div class="h-20 p-2 sm:p-4 bg-white shadow sm:rounded-lg flex justify-between items-center gap-6">
-                <h3 class="font-semibold text-3xl">10</h3>
+                <h3 class="font-semibold text-3xl">{{ $url->clicksThisYear()->count() }}</h3>
                 <div class="text-lg">clicks this year</div>
             </div>
             <div class="h-20 p-2 sm:p-4 bg-white shadow sm:rounded-lg flex justify-between items-center gap-6">
-                <h3 class="font-semibold text-3xl">101</h3>
+                <h3 class="font-semibold text-3xl">{{ $url->clicks->count() }}</h3>
                 <div class="text-lg">total clicks</div>
             </div>
         </div>
