@@ -21,7 +21,9 @@
                         <div class="flex justify-between items-center">
                             <div>
                                 <h3 class="text-lg font-extrabold pb-1">
-                                    {{ $recentUrl->title }}
+                                    <a href="{{ route('urls.show', $recentUrl) }}">
+                                        {{ $recentUrl->title }}
+                                    </a>
                                 </h3>
                                 <div class="flex">
                                     <a class="text-sm flex" href="{{ $recentUrl->little_url }}">
@@ -109,7 +111,9 @@
                         <div class="flex justify-between items-center">
                             <div>
                                 <h3 class="text-lg font-extrabold pb-1">
-                                    {{ $click->url->title }}
+                                    <a href="{{ route('urls.show', $click->url) }}">
+                                        {{ $click->url->title }}
+                                    </a>
                                 </h3>
                                 <div class="flex">
                                     <a class="text-sm flex" href="{{ $click->url->little_url }}">
@@ -165,7 +169,9 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h3 class="text-lg font-extrabold pb-1">
-                                        {{ $mostActiveUrl->title }}
+                                        <a href="{{ route('urls.show', $mostActiveUrl) }}">
+                                            {{ $mostActiveUrl->title }}
+                                        </a>
                                     </h3>
                                     <div class="flex">
                                         <a class="text-sm flex" href="{{ $mostActiveUrl->little_url }}">

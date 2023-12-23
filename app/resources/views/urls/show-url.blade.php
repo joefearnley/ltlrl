@@ -10,7 +10,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-6 pb-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="flex justify-around md:items-center flex-col md:flex-row">
@@ -70,6 +70,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-3">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-3 justify-between">
+            <div class="h-20 p-2 sm:p-4 bg-white shadow sm:rounded-lg flex justify-between items-center gap-6">
+                <h3 class="font-semibold text-3xl">10</h3>
+                <div class="text-lg">this week</div>
+            </div>
+            <div class="h-20 p-2 sm:p-4 bg-white shadow sm:rounded-lg flex justify-between items-center gap-6">
+                <h3 class="font-semibold text-3xl">10</h3>
+                <div class="text-lg">clicks this month</div>
+            </div>
+            <div class="h-20 p-2 sm:p-4 bg-white shadow sm:rounded-lg flex justify-between items-center gap-6">
+                <h3 class="font-semibold text-3xl">10</h3>
+                <div class="text-lg">clicks this year</div>
+            </div>
+            <div class="h-20 p-2 sm:p-4 bg-white shadow sm:rounded-lg flex justify-between items-center gap-6">
+                <h3 class="font-semibold text-3xl">101</h3>
+                <div class="text-lg">total clicks</div>
             </div>
         </div>
     </div>
